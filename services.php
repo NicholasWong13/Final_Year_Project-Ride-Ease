@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h3>Aiport <span>Transfer</span></h3>
+        <h3>Airport <span>Transfer</span></h3>
         <p>Want to get from the airport to your office or meeting place? Why not relax after a flight and let our professional chauffeur takes you to your destination. No more worries about traffic congestion or parking, you are free to read your briefing papers on the way or focus on the important matters and arrive at your destination relax and on-time.</p>
         <br>
         <h4>Benefits</h4>

@@ -47,7 +47,7 @@ $error="Your current password is wrong";
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
-<link rel="stylesheet" href="assets/css/style.css" type="text/css">
+<link rel="stylesheet" href="assets/css/style1.css" type="text/css">
 <!--OWL Carousel slider-->
 <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
 <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
@@ -170,7 +170,7 @@ foreach($results as $result)
         else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
             <div class="form-group">
               <label class="control-label">Current Password</label>
-              <input class="form-control white_bg" id="password" name="password"  type="password" required>
+              <input class="form-control white_bg" id="password" name="password" type="password" required>
             </div>
             <div class="form-group">
               <label class="control-label">Password</label>

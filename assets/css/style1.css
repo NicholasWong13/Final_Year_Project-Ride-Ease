@@ -1,6 +1,6 @@
 /*===========================
     Table of CSS
- 
+  1. General Code
 	  1.1. Typography
 		1.2. Button
 		1.3. Dark-overlay
@@ -23,7 +23,7 @@
 		3.5. Fun-Facts
 		3.6. Featured-Cars
 		3.7. Trending-Cars
-		3.8 Testimonial-Section
+		3.8  Testimonial-Section
 		3.9. Blog-Section
 		3.10. Popular-Brands
 		3.11. Login / Register / Forgot password
@@ -32,7 +32,7 @@
 	4. Home-Page-2
 		4.1. Header
 		4.2. Banner
-		4.13. Filter-Form
+		4.3. Filter-Form
 		4.4. About-us
 		4.5. Fan-Facts
 		4.6. Our-Services
@@ -74,7 +74,6 @@
 	21. Responsive CSS
 		                                                  
 ===========================*/
-
 
 
 /*====================
@@ -193,34 +192,6 @@ blockquote {
   border-bottom: 1px solid #dcd9d9;
   clear: both;
   margin: 40px auto;
-}
-
-/*-----------------
-	Rating
--------------------------*/ 
-/* Include your CSS styles for star ratings here */
-/* Example styles for the star rating system */
-.rate {
-  display: inline-block;
-}
-
-.rate input {
-  display: none;
-}
-
-.rate label {
-  cursor: pointer;
-  width: 25px;
-  font-size: 24px;
-  color: #FFD700; /* Star color */
-}
-
-.rate label:before {
-  content: '\2605'; /* Star character */
-}
-
-.rate input:checked ~ label {
-  color: #FFA500; /* Selected star color */
 }
 
 /*-----------------
@@ -521,74 +492,6 @@ blockquote,
 	margin:0px;
 }
 
-/*-------------------------------------
-	1.4. Booking Form
-------------------------------------------------*/
-.booking section {
-  background: rgba(0, 0, 0, 0) url("../images/fun-facts-bg.jpg") repeat scroll center center;
-  padding: 100px 0;
-  position: relative;
-}
-
-.bookingform {
-  background-color: #f2f2f2;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-   max-width:600px;
-margin:auto;
-}
-input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-input[type=datetime-local] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-input[type=email],textarea, select {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-input[type=number] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-input[type=time] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-input[type=date] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
 
 
 /*-----------------
@@ -598,11 +501,6 @@ input[type=date] {
 .form-group {
   margin-bottom: 15px;
   position: relative;
-}
-.form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: left;
 }
 .form-label {
   color: #111111;
@@ -719,6 +617,7 @@ input[type=date] {
 	background:#fff;
 	border:#e6e5e5 solid 1px;	
 }
+
 
 /*-----------------
 	1.6. Table
@@ -1146,6 +1045,8 @@ nav.navbar {
 }
 
 
+
+
 /*=======================
 	 3. Home-Page
 ================================*/
@@ -1154,12 +1055,12 @@ nav.navbar {
 	3.1. Banner
 -------------------------------*/
 .banner-section {
-    background-image: url("../images/banner-image.jpg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 160px 0;
-    position: relative;
+  background-image: url("../images/banner-image.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 160px 0;
+  position: relative;
 }
 .banner-section::after {
   background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
@@ -1444,7 +1345,7 @@ nav.navbar {
 	3.5. Fun-Facts
 -----------------------------*/
 .fun-facts-section {
-  background: rgba(0, 0, 0, 0) url("../images/fun-facts-bg.jpg") repeat scroll center center;
+  background: rgba(0, 0, 0, 0) url("../images/fun-facts-bg.jpg") repeat scroll 0 0;
   padding: 100px 0;
   position: relative;
 }
@@ -1610,9 +1511,6 @@ nav.navbar {
 .trending-car-m:hover .trending-hover {
 	top:0px;
 }
-.trending-car-m img {
-	width:100%;
-}
 .trending-hover h4 {
 	position:absolute;
 	margin:0 auto;
@@ -1690,7 +1588,7 @@ nav.navbar {
   width: 425px;
 }
 .testimonial-content::after {
-  background: rgba(0, 0, 0, 0) url("../images/600x380.jpg") repeat scroll 0 0 / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/testimonial-content-bg.jpg") repeat scroll 0 0 / cover ;
   border-radius: 0 30px;
   content: "";
   height: 100%;
@@ -1799,6 +1697,9 @@ nav.navbar {
   padding-right: 10px;
   position: relative;
   width: 90px;
+}
+#popular_brands div {
+	padding:0 10px;
 }
 .brand-hadding::after {
   border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #bbbbbb;
@@ -2002,46 +1903,7 @@ input.newsletter-input {
 	color:#fff;
 }
 
-/*=======================
-	 . Careers
-================================*/
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 20px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 16px;
-  transition: 0.4s;
-}
 
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-.accordion:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
-.active:after {
-  content: "\2212";
-}
-
-.panel {
-  padding: 0 20px;
-  font-size: 16px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
 
 
 /*=======================
@@ -2061,7 +1923,6 @@ input.newsletter-input {
      -webkit-transition-duration:0.3s;
       -ms-transition-duration:0.3s;
 }
-
 .header_style2 #navigation_bar {
   background: #fff;
   text-align:center;
@@ -2108,10 +1969,10 @@ input.newsletter-input {
 }
 
 }
+
 .header_style2.nav-stacked.affix {
 	padding:0px;
 }
-
 
 
 
@@ -2206,7 +2067,6 @@ form .slider.slider-horizontal {
 ------------------------*/
 .about_info {
   background: #ffffff none repeat scroll 0 0;
-  background-image: url("../images/aboutus-page-header-img.jpg");
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding:40px 20px;
   text-align:center;
@@ -2272,7 +2132,7 @@ form .slider.slider-horizontal {
 	margin:0 10px 20px 0;
 }
 .facts_section_bg {
-  background: rgba(0, 0, 0, 0) url("../images/960x870.jpg") no-repeat scroll center center / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/facts_bg.jpg") no-repeat scroll 0 0 / cover ;
   bottom: 0;
   height: 100%;
   left: 0;
@@ -2375,13 +2235,14 @@ form .slider.slider-horizontal {
 	4.8. Help
 ------------------------*/
 #help {
-  background-attachment: fixed;
-  background-image: url("../images/contact.jpg");
-  background-position: center center;
+  background-image: url("assets/images/contact.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+  background-size: cover; 
+  position:relative;
+  background-attachment:fixed;
 }
+
+
 
 
 /*========================================
@@ -2389,10 +2250,9 @@ form .slider.slider-horizontal {
 ==============================================*/
 
 .page-header {
-  background-image: url("../images/1920x250.jpg");
+  background-image: url("../images/listing-page-header-img.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position:center;
   border: 0 none;
   margin: 0 auto;
   padding: 0;
@@ -2619,7 +2479,7 @@ form .slider.slider-horizontal {
   background-attachment: scroll;
   background-clip: border-box;
   background-color: rgba(0, 0, 0, 0);
-  background-image: url("../images/300x300.jpg") !important;
+  background-image: url("../images/img_390x390.jpg") !important;
   background-origin: padding-box;
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -2767,6 +2627,7 @@ table.info-tabel tr td {
 }
 .listing_detail_wrap .nav-tabs > li.active a, .listing_detail_wrap .nav-tabs > li:hover a {
 	color:#fff;
+	background:#fa2837;
 }
 .listing_detail_wrap .tab-content {
   padding: 30px;
@@ -2932,7 +2793,7 @@ table.info-tabel tr td {
 
 
 .listing_detail_header {
-  background: rgba(0, 0, 0, 0) url("../images/1920x830.jpg") no-repeat fixed center center / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/listing-detail-header-img.jpg") no-repeat fixed center center / cover ;
   padding: 80px 0;
   position: relative;
 }
@@ -3006,7 +2867,7 @@ table.info-tabel tr td {
 	10. Contact-Us-Page
 ================================*/
 .contactus_page {
-	background-image:url(../images/1920x250.jpg);	
+	background-image:url(../images/contact-page-header-img.jpg);	
 }
 .contact_form {
 	padding:28px;
@@ -3076,13 +2937,13 @@ table.info-tabel tr td {
 	padding:20px 0;
 }
 .knowledge_base_faq {
-  background: rgba(0, 0, 0, 0) url("../images/700x450.jpg") no-repeat scroll 0 0 / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/knowledge_base_bg.jpg") no-repeat scroll 0 0 / cover ;
 }
 .about_services_faq {
-  background: rgba(0, 0, 0, 0) url("../images/700x450.jpg") no-repeat scroll 0 0 / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/about_services_faq_bg.jpg") no-repeat scroll 0 0 / cover ;
 }
 .support_faq {
-  background: rgba(0, 0, 0, 0) url("../images/700x450.jpg") no-repeat scroll 0 0 / cover ;
+  background: rgba(0, 0, 0, 0) url("../images/support_faq_bg.jpg") no-repeat scroll 0 0 / cover ;
 }
 
 
@@ -3091,7 +2952,7 @@ table.info-tabel tr td {
 	12. About-Us-Page
 ================================*/
 .aboutus_page {
-	background-image:url(../images/1920x250.jpg);
+	background-image:url(../images/aboutus-page-header-img.jpg);
 }
 .about_img {
   background: #000 none repeat scroll 0 0;
@@ -3248,7 +3109,7 @@ table.info-tabel tr td {
 	13. 404-Page
 ===========================*/
 .page_404 {
-	background-image:url(../images/1920x250.jpg);	
+	background-image:url(../images/error404-page-header-img.jpg);	
 }
 .error_text_m {
 	position:relative;
@@ -3306,7 +3167,7 @@ table.info-tabel tr td {
 	14. Our-Services-Page
 ==================================*/
 .services_page {
-	background-image:url(../images/1920x250.jpg);	
+	background-image:url(../images/services-page-header-img.jpg);	
 }
 .services_image {
 	position:relative;
@@ -3349,231 +3210,6 @@ table.info-tabel tr td {
 
 
 
-/*=====================
-	15. Our-Blog-Page
-==============================*/
-.blog_page {
-	background-image:url(../images/1920x250.jpg);
-}
-.our_blog {
-  padding: 80px 0;
-}
-
-
-/*--------------------
-	15.1. Aritcle
--------------------------------*/
-.article_wrap {
-  border-bottom: 1px solid #cfcfcf;
-  margin-bottom: 60px;
-  padding: 0 0 54px;
-}
-.article_info p {
-	font-size:17px;
-	line-height:33px;
-	margin:0 auto 40px	
-}
-.article_img {
-  position: relative;
-  overflow:hidden;
-  margin:0 auto 30px;
-  min-height:180px;
-}
-.article_img img {
-	transition-duration:0.3s;
-	 -moz-transition-duration:0.3s;
-	  -o-transition-duration:0.3s;
-	   -webkit-transition-duration:0.3s;
-	    -ms-transition-duration:0.3s;
-	transform:scale(1);
-	 -moz-transform:scale(1);
-	  -o-transform:scale(1);
-	   -webkit-transform:scale(1);
-	    -ms-transform:scale(1);
-	max-width:100%;
-}
-.article_img:hover img {
-	transform:scale(1.1);
-	 -moz-transform:scale(1.1);
-	  -o-transform:scale(1.1);
-	   -webkit-transform:scale(1.1);
-	    -ms-transform:scale(1.1);
-}
-.articale_header {
-  background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
-  bottom: 0;
-  left: 0;
-  padding: 30px;
-  position: absolute;
-  right: 0;
-}
-.articale_header h2 a {
-	color:#fff;
-}
-.article_meta ul {
-  margin: 0;
-  padding: 0;
-}
-.article_meta ul li {
-  color: #fff;
-  display: inline-block;
-  font-size: 15px;
-  list-style: outside none none;
-  vertical-align: middle;
-  margin:0 35px 10px 0;
-}
-.article_meta ul li i.fa {
-  margin-right: 5px;
-}
-.article_meta ul li a {
-	color:#fff;
-}
-.article_full_info .articale_header {
-	position:relative;
-	background:none;
-	padding:0px;
-}
-.article_full_info .article_meta {
-  background: #f5f5f5 none repeat scroll 0 0;
-  padding: 6px 26px;
-  margin:6px auto 22px;
-}
-.article_full_info .article_meta li, .article_full_info .article_meta li a {
-	color:#555;
-}
-.article_full_info {
-	border:0px;
-}
-.article_tag {
-  padding: 20px 45px;
-}
-.article_tag h6, .article_tag .tag_list {
-  display:inline-block;
-  vertical-align:middle;
-  margin:0 8px 0 0;
-}
-.article_tag .tag_list li {
-	margin-bottom:0px;
-}
-.share_article {
-	text-align:right;
-}
-.share_article ul, .share_article h6 {
-	display:inline-block;
-	padding:0px;
-	margin:0 8px 0;
-	vertical-align:middle;
-}
-.share_article ul li {
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 1px;
-  display: inline-block;
-  height: 26px;
-  line-height: 26px;
-  list-style: outside none none;
-  margin: 0 2px;
-  text-align: center;
-  transition-duration:0.3s;
- 	 -moz-transition-duration:0.3s;
-	  -o-transition-duration:0.3s;
-	   -webkit-transition-duration:0.3s;
-	    -ms-transition-duration:0.3s;
-  vertical-align: middle;
-  width: 26px;
-}
-.share_article ul li a {
-	display:block;
-	font-size:15px;
-}
-.share_article ul li a .fa {
-	margin:0px auto;
-}
-.share_article ul li:hover a {
-	color:#fff;
-}
-
-
-
-/*--------------------
-	15.2. Comment-List
-----------------------------*/
-.articale_comments {
-	margin:0 auto 130px;
-}
-.block-head {
-  border-bottom: 1px solid #cecece;
-  display: inline-block;
-  padding-bottom: 10px;
-  padding-right: 60px;
-  position: relative;
-}
-.block-head::after {
-  background: #cecece none repeat scroll 0 0;
-  bottom: -2px;
-  content: "";
-  height: 4px;
-  left: 0;
-  position: absolute;
-  width: 50px;
-}
-.commentlist {
-  margin: 0 0 30px;
-  padding: 0;
-}
-.commentlist li {
-  list-style: outside none none;
-  padding: 30px 0;
-}
-.commentlist li.comment {
-	 border-bottom: 1px solid #cecece;
-}
-.comment-author img {
-  float: left;
-}
-.commentlist li img.avatar {
-  border: medium none;
-  border-radius: 50%;
-  float: left;
-  height: 84px;
-  margin-bottom: 30px;
-  margin-right: 25px;
-  position: relative;
-  width: 84px;
-}
-.comment-body h1, .comment-body h2, .comment-body h3, .comment-body h4, .comment-body h5, .comment-body h6, .comment-body table, .comment-body ul, .comment-body ol, .comment-body blockquote, .comment-body dl, .comment-body address, .comment-body pre, .comment-body p, .comment-body .reply {
-  margin-left: 110px;
-}
-.comment-body p {
-  display: block;
-  margin-bottom: 15px;
-  padding-bottom: 0;
-}
-.comment-meta.commentmetadata {
-	margin-bottom:8px;
-}
-.comment-meta.commentmetadata, .comment-meta.commentmetadata a {
-  color: #b7b7b7;
-  font-size: 13px;
-}
-.comment-author .fn {
-  color: #111;
-  font-weight: 900;
-}
-.comment ul.children {
-  padding-left: 110px;
-}
-.comment ul.children li.comment {
-  border-bottom: 0 none;
-  border-top: 1px solid #cecece;
-  margin-top: 30px;
-  padding-bottom: 0;
-}
-.comment-form {
-	margin:40px 0;
-}
-
-
 /*---------------------------
 	15.3. Page-Pagination
 --------------------------------*/
@@ -3609,155 +3245,11 @@ table.info-tabel tr td {
 
 
 
-/*--------------------------
-	15.4. Side-Bar-Widgets
--------------------------------------*/
-.sidebar_widget {
-  border: 1px solid #e6e6e6;
-  margin: 0 auto 40px;
-  padding: 20px 16px 30px;
-  position: relative;
-}
-.widget_heading {
-  margin-bottom:26px;
-}
-.widget_heading i {
-	margin:0 5px 0 0;	
-}
-.search_btn {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: 0 none;
-  border-radius: 0;
-  font-size: 16px;
-  padding: 5px;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-   -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-     -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-}
-.blog_search {
-  position: relative;
-  margin-bottom:20px;
-}
-.blog_search input {
-	padding-right:50px;	
-}
-
-
-
-/*-------------------------
-	15.5. Popular-Posts
----------------------------------*/
-.popular_post ul {
-  margin: 0;
-  padding: 0;
-}
-.popular_post ul li {
-  list-style: outside none none;
-  margin: 0 auto 20px;
-  overflow: hidden;
-}
-.popular_post ul li a {
-  display: block;
-}
-.popular_post_img {
-  float: left;
-  width: 34%;
-  overflow:hidden;
-}
-.popular_post_img img {
-	transition-duration:0.3s;
-	 -moz-transition-duration:0.3s;
-	  -o-transition-duration:0.3s;
-	   -webkit-transition-duration:0.3s;
-	    -ms-transition-duration:0.3s;
-	transform:scale(1);
-	 -moz-transform:scale(1);
-	  -o-transform:scale(1);
-	   -webkit-transform:scale(1);
-	    -ms-transform:scale(1);
-	width: 100%;
-}
-.popular_post_img:hover img {
-	transform:scale(1.1);
-	 -moz-transform:scale(1.1);
-	  -o-transform:scale(1.1);
-	   -webkit-transform:scale(1.1);
-	    -ms-transform:scale(1.1);
-}
-.popular_post_title {
-  float: right;
-  width: 61%;
-}
-.popular_post_title a {
-  color: #111;
-  font-weight: 700;
-  line-height: 22px;
-}
-
-
-/*--------------------------
-	15.6. Blog-Categories
----------------------------------*/
-.categories_list ul {
-	padding:0px;
-	margin:0px;
-}
-.categories_list ul li {
-	list-style:none;
-	padding:5px;
-}
-.categories_list ul li a {
-  color: #555;
-  display: inline-block;
-  font-size: 15px;
-  padding-left: 15px;
-  position: relative;
-}
-.categories_list ul li a::after {
-  content: "\f0da";
-  font-family: fontawesome;
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
-
-/*--------------------
-	15.7. Blog-Tag
-----------------------------*/
-.tag_list ul {
-  margin: 0;
-  padding: 0;
-}
-.tag_list ul li {
-  display: inline-block;
-  margin: 0 2px 10px 0;
-  vertical-align: top;
-}
-.tag_list ul li a {
-  border: 1px solid #d6d3d3;
-  border-radius: 30px;
-  color: #555;
-  display: block;
-  font-size: 14px;
-  line-height: 28px;
-  padding: 0 16px;
-}
-.tag_list ul li a:hover {
-  color:#fff;
-}
-
-
 /*==========================
 	16. Profile-page
 ================================*/
 .profile_page {
-	background-image:url(../images/1920x250.jpg);
+	background-image:url(../images/profile-page-header-img.jpg);
 }
 .inner_pages {
 	padding:80px 0;
@@ -3991,35 +3483,35 @@ table.info-tabel tr td {
 }
 
 /*==========================
-	17. Location
+	17. Dealer-profile
 ================================*/
 
-.location_logo {
+.dealer_logo {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   float: left;
   padding: 24px;
   text-align: center;
 }
-.location_logo img {
+.dealer_logo img {
 	max-width:100%;
 }
-.location_profile .location_info {
+.dealer_profile .dealer_info {
   padding: 25px 0;
   width: 100%;
 }
-.location_social_links {
+.dealer_social_links {
 	padding:0px;
 	margin:20px 0 0;
 }
-.location_social_links li {
+.dealer_social_links li {
 	list-style:none;
 	float:left;
 	margin:10px 15px 10px 0;
 }
-.location_social_links li a {
+.dealer_social_links li a {
 	font-size:26px;	
 }
-.lcoation_social_links li a i {
+.dealer_social_links li a i {
 	margin:0px;
 }
 .facebook-icon a, .facebook-icon a:hover {
@@ -4034,27 +3526,27 @@ table.info-tabel tr td {
 .google-plus-icon a, .google-plus-icon a:hover {
 	color:#dd4a3a;	
 }
-.location_contact_info {
+.dealer_contact_info {
 	padding:12px 18px;
 	margin:0 auto 10px;	
 }
-.location_contact_info h6 {
+.dealer_contact_info h6 {
 	font-size:13px;
 	color:#a1a1a1;
 	margin:0 auto 1px;	
 }
-.location_contact_info a {
+.dealer_contact_info a {
   color: #111111;
   font-size: 16px;
   font-weight: 300;
 }
-.location_map {
+.dealer_map {
 	margin:30px 0;
 }
-.location_map iframe {
+.dealer_map iframe {
 	height:450px;
 }
-.location_listings {
+.dealer_listings {
 	padding:40px 0 10px	;
 }
 .comment_form {
@@ -4067,24 +3559,24 @@ table.info-tabel tr td {
 
 
 /*==========================
-	18. Location-list
+	18. Dealers-list
 ================================*/
-.location_list_wrap {
+.dealers_list_wrap {
 	margin:0 auto 50px;
 }
-.location_listing {
+.dealers_listing {
   border-bottom: 1px solid #e7e7e7;
   padding: 0 0px 20px;
   margin:0 auto 20px;
 }
-.location_listing .location_logo {
+.dealers_listing .dealer_logo {
   padding: 12px;
   width: 100%;
 }
-.location_listing .location_info {
+.dealers_listing .dealer_info {
   width:100%;
 }
-.location_listing .location_info h5 a {
+.dealers_listing .dealer_info h5 a {
 	color:#111;	
 }
 .view_profile {
@@ -4096,36 +3588,13 @@ table.info-tabel tr td {
 	font-size:18px;
 }
 
-/*==========================
-	19. Rating-Page
-================================*/
-.rating_page {
-  background-image:url(../images/blog-page-header-img.jpg);
-}
-
-.progress-label-left
-{
-    float: left;
-    margin-right: 0.5em;
-    line-height: 1em;
-}
-.progress-label-right
-{
-    float: right;
-    margin-left: 0.3em;
-    line-height: 1em;
-}
-.star-light
-{
-	color:#e9ecef;
-}
 
 
 /*==========================
 	19. Compare-Page
 ================================*/
 .compare_page {
-	background-image:url(../images/1920x250.jpg);
+	background-image:url(../images/compare-page-header-img.jpg);
 }
 .compare_info table td, .compare_info table th {
 	font-size:16px;
@@ -4278,7 +3747,7 @@ table.info-tabel tr td {
 	20. Coming-Soon-Page
 ================================*/
 .coming_soon_bg {
-	background-image:url(../images/1920x830.jpg);
+	background-image:url(../images/coming_soon_bg.jpg);
 	background-repeat:no-repeat;
 	background-size:cover;
 	position:relative;
@@ -4380,8 +3849,6 @@ table.info-tabel tr td {
 .coming_soon_wrap .footer_widget ul li a {
 	color:#555;	
 }
-
-
 
 
 /*=============================
@@ -4509,8 +3976,6 @@ h3 {
 }
 .copy-right {
   font-size: 14px;
-  line-height: 23px;
-  margin-top: 20px;
 }
 .back-top {
   right: 10px;
@@ -4975,7 +4440,6 @@ h3 {
 }
 #banner2 h3 {
   font-size:18px;
-  font-weight:400;
 }
 
 
@@ -4994,25 +4458,16 @@ h3 {
   font-size: 11px;
   padding: 0 15px;
 }
-.looking-car-content p {
-  font-size: 15px;
-  line-height: 22px;
-}
 .fun-facts-m {
   height: 130px;
   width: 130px;
-  padding:20px;
 }
 .fun-facts-m h2 {
-  font-size: 30px;
-  margin-bottom:8px;
+  font-size: 26px;
 }
 .fun-facts-m p {
-  font-size: 15px;
-  line-height: 16px;
-}
-.fun-facts-m h2 .fa {
-  display: none;
+  font-size: 12px;
+  line-height: 14px;
 }
 .popular_post ul li {
   display: block;
@@ -5088,9 +4543,6 @@ h3 {
 #banner2 h3, #banner2 h1 {
   font-size:16px;
   margin:0 auto 5px;
-}
-#banner2 h3 {
-	font-weight:400;
 }
 #banner2 .btn {
   font-size: 12px;
@@ -5374,7 +4826,6 @@ h3 {
 #banner2 h3 {
   font-size:20px;
   margin-bottom:10px;
-  font-weight:400;
 }
 #filter_form2 {
   margin: -60px 0 -20px;
@@ -5424,6 +4875,7 @@ h3 {
 .header_style2 .user_login i {
 	color:#fff;
 }
+
 #fun-facts.vc_row, #fun-facts .vc_col {
 	display:block;
 }
@@ -5623,6 +5075,5 @@ h5 {
   padding: 40px 20px;
 }
 
-
-
 }
+

@@ -2,24 +2,50 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
 
-if(isset($_REQUEST['del']))
-	{
-$delid=intval($_GET['del']);
-$sql = "delete from vehicles  WHERE  id=:delid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':delid',$delid, PDO::PARAM_STR);
-$query -> execute();
-$msg="Vehicle record deleted successfully";
-}
+if (strlen($_SESSION['alogin']) == 0) {
+    header('location:index.php');
+} else {
+    $msg = "";
+    $search = "";
 
+    if (isset($_GET['search'])) {
+        $search = $_GET['search'];
 
+        // Construct the SQL query to search for vehicles by VehiclesTitle
+        $sql = "SELECT vehicles.VehiclesTitle, brands.BrandName, vehicles.RegNo, vehicles.PricePerDay, vehicles.FuelType, vehicles.ModelYear, vehicles.id
+                FROM vehicles
+                JOIN brands ON brands.id = vehicles.VehiclesBrand
+                WHERE vehicles.VehiclesTitle LIKE :search";
+
+        // Prepare the SQL query
+        $query = $dbh->prepare($sql);
+
+        // Bind the search parameter with the wildcard for partial matching
+        $query->bindParam(':search', '%' . $search . '%', PDO::PARAM_STR);
+
+        // Execute the SQL query
+        $query->execute();
+
+        // Fetch the results as objects
+        $results = $query->fetchAll(PDO::FETCH_OBJ);
+    } else {
+        // If no search criteria is provided, retrieve all records
+        $sql = "SELECT vehicles.VehiclesTitle, brands.BrandName, vehicles.RegNo, vehicles.PricePerDay, vehicles.FuelType, vehicles.ModelYear, vehicles.id
+                FROM vehicles
+                JOIN brands ON brands.id = vehicles.VehiclesBrand";
+
+        // Prepare the SQL query
+        $query = $dbh->prepare($sql);
+
+        // Execute the SQL query
+        $query->execute();
+
+        // Fetch the results as objects
+        $results = $query->fetchAll(PDO::FETCH_OBJ);
+    }
 ?>
+
 
 <!DOCTYPE HTML>
   <html lang="en">
@@ -65,6 +91,18 @@ $msg="Vehicle record deleted successfully";
 						<h4 class="widget-title">Manage Vehicles</h4>
 					</header>
 					<hr class="widget-separator">
+					<form method="GET" action="manage-vehicles.php">
+                                <div class="input-group col-md-12">
+                                    <input type="text" class="form-control" placeholder="Search here..." name="search"
+                                        required="required" value="<?php echo htmlentities($search); ?>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit"><span
+                                                class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                    </form>
+						
+			<br />
 					<div class="widget-body">
 						<div class="table-responsive">
 							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 

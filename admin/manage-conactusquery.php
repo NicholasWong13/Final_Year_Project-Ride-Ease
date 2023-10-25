@@ -11,7 +11,7 @@ if(isset($_REQUEST['eid']))
 	{
 $eid=intval($_GET['eid']);
 $status=1;
-$sql = "UPDATE contactusquery SET status=:status WHERE  id=:eid";
+$sql = "UPDATE contactusquery SET status=:status WHERE id=:eid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query-> bindParam(':eid',$eid, PDO::PARAM_STR);

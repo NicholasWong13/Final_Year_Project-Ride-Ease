@@ -65,7 +65,7 @@ $query->execute();
           </header>
           <hr class="widget-separator">
           <div class="widget-body">
-            <?php
+<?php
 $id=$_SESSION['id'];
 $sql="SELECT admin.* where admin.ID=:id";
 $query = $dbh -> prepare($sql);
@@ -98,7 +98,7 @@ foreach($results as $row)
                 </div>
               </div>
               <div class="form-group">
-                <label for="email2" class="col-sm-3 control-label">Regsitration Date:</label>
+                <label for="email2" class="col-sm-3 control-label">Registration Date:</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="email2" name="" value="<?php  echo $row->CreationDate;?>" readonly="true">
                 </div>

@@ -128,14 +128,7 @@
 					<div class="widget-body">
 					<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
-								<thead>
-
-						<div class="row">
-							<div class="col-md-12">
-								<div class="panel panel-default">
-									<div class="panel-heading">Basic Info</div>
+						
 
 									<div class="panel-body">
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -145,7 +138,7 @@
 <input type="text" name="vehicletitle" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Select Brand<span style="color:red">*</span></label>
-<div class="col-sm-4">
+<div class="col-sm-2">
 <select class="selectpicker" name="brandname" required>
 <option value=""> Select </option>
 <?php $ret="select id,BrandName from brands";
@@ -174,12 +167,8 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<label class="col-sm-2 control-label">Price Per Day(in MYR)<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="priceperday" class="form-control" required>
-</div>
 <label class="col-sm-2 control-label">Select Fuel Type<span style="color:red">*</span></label>
-<div class="col-sm-4">
+<div class="col-sm-2">
 <select class="selectpicker" name="fueltype" required>
 <option value=""> Select </option>
 
@@ -189,6 +178,19 @@ foreach($results as $result)
 </select>
 </div>
 </div>
+<div class="form-group">
+<label class="col-sm-2 control-label">Reg No.<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<input type="text" name="regno" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label class="col-sm-2 control-label">Price Per Day(in MYR)<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<input type="text" name="priceperday" class="form-control" required>
+</div>
+</div>
+
 
 
 <div class="form-group">
@@ -206,7 +208,7 @@ foreach($results as $result)
 
 <div class="form-group">
 <div class="col-sm-12">
-<h4><b>Upload Images</b></h4>
+<h4><b>Upload Vehicles Images</b></h4>
 </div>
 </div>
 
@@ -234,8 +236,6 @@ Image 5<input type="file" name="img5">
 
 </div>
 <div class="hr-dashed"></div>									
-</div>
-</div>
 </div>
 </div>
 							

@@ -179,24 +179,36 @@
   <div class="container">
     <div class="section-header text-center">
       <h2>Trending <span>Cars of the Year</span></h2>
-      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. </p>
+      <p>Discover the hottest cars of the year, where style and performance meet in perfect harmony. Explore our selection of top-rated vehicles that are turning heads and breaking records. Find your dream car among these remarkable options.</p>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div id="trending_slider">
-          <div class="trending-car-m">
-          <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id);?>">
-          <div class="trending-car-img"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image"></a>
-            </div>
-            <div class="trending-hover">
-            <h4><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h4>
-            </div>
+    <?php
+    $sql = "SELECT vehicles.*, brands.BrandName FROM vehicles JOIN brands ON brands.id = vehicles.VehiclesBrand ORDER BY vehicles.Clicks DESC LIMIT 5";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+
+    if ($query->rowCount() > 0) {
+      ?>
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="trending_slider" class="owl-carousel">
+            <?php foreach ($results as $result) { ?>
+              <div class="trending-car-m">
+                <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                  <div class="trending-car-img"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="image"></div>
+                </a>
+                <div class="trending-hover">
+                  <h4><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?>, <?php echo htmlentities($result->VehiclesTitle); ?></a></h4>
+                </div>
+              </div>
+            <?php } ?>
           </div>
         </div>
       </div>
-    </div>
+    <?php } ?>
   </div>
 </section>
+
 
 <section class="fun-facts-section">
   <div class="container div_zindex">
@@ -301,7 +313,48 @@
 
 <?php include('includes/forgotpassword.php');?>
 
+<script>
+$(document).ready(function() {
+    // Function to track a click for a vehicle
+    function trackClick(vehicleId) {
+        $.ajax({
+            type: "POST",
+            url: "track_click.php",
+            data: { vehicleId: vehicleId },
+            success: function(data) {
+                // Reload the vehicle list after tracking a click
+                loadVehicleList();
+            }
+        });
+    }
 
+    // Function to load the vehicle list
+    function loadVehicleList() {
+        $.ajax({
+            type: "GET",
+            url: "get_most_clicked.php",
+            dataType: "json",
+            success: function(data) {
+                var vehicleList = $("#vehicleList");
+                vehicleList.empty();
+
+                $.each(data, function(index, vehicle) {
+                    var listItem = $("<li>");
+                    listItem.html(
+                        '<a href="#" onclick="trackClick(' + vehicle.id + ');">' +
+                        vehicle.BrandName + ' ' + vehicle.VehicleName +
+                        '</a>'
+                    );
+                    vehicleList.append(listItem);
+                });
+            }
+        });
+    }
+
+    // Initial load of the vehicle list
+    loadVehicleList();
+});
+</script>
 <!-- Scripts --> 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 

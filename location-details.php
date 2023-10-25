@@ -93,7 +93,7 @@
           <a href="mailto:contact@example.com">penang@rideease.com</a> </div>
         <div class="dealer_contact_info gray-bg">
           <h6><i class="fa fa-phone" aria-hidden="true"></i> Phone Number</h6>
-          <a href="tel:61-1234-5678-09">+61-1234-5678-09</a> </div>
+          <a href="tel:61-1234-5678-09"><?php echo htmlentities($result->ContactNumber);?></a> </div>
       </div>
     </div>
     <div class="space-60"></div>

@@ -2,24 +2,44 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
+
+if (strlen($_SESSION['alogin']) == 0) {
+    header('location:index.php');
+} else {
+    $msg = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Sanitize input data
+        $vehicle_make = filter_input(INPUT_POST, 'vehicle_make', FILTER_SANITIZE_STRING);
+        $vehicle_model = filter_input(INPUT_POST, 'vehicle_model', FILTER_SANITIZE_STRING);
+        $vehicle_year = filter_input(INPUT_POST, 'vehicle_year', FILTER_SANITIZE_NUMBER_INT);
+        $inspection_date = filter_input(INPUT_POST, 'inspection_date', FILTER_SANITIZE_STRING);
+        $checklist = implode(', ', $_POST["checklist"]);
+        $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
+
+        // Check for any required fields
+        if (empty($vehicle_make) || empty($vehicle_model) || empty($vehicle_year) || empty($inspection_date)) {
+            $error = "Please fill in all required fields.";
+        } else {
+            // Insert inspection data into the database
+            $sql = "INSERT INTO inspections (vehicle_make, vehicle_model, vehicle_year, inspection_date, checklist, comments) VALUES (:vehicle_make, :vehicle_model, :vehicle_year, :inspection_date, :checklist, :comments)";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':vehicle_make', $vehicle_make, PDO::PARAM_STR);
+            $query->bindParam(':vehicle_model', $vehicle_model, PDO::PARAM_STR);
+            $query->bindParam(':vehicle_year', $vehicle_year, PDO::PARAM_INT);
+            $query->bindParam(':inspection_date', $inspection_date, PDO::PARAM_STR);
+            $query->bindParam(':checklist', $checklist, PDO::PARAM_STR);
+            $query->bindParam(':comments', $comments, PDO::PARAM_STR);
+
+            if ($query->execute()) {
+                $msg = "Inspection data has been successfully recorded.";
+            } else {
+                $error = "Error: Data not recorded.";
+            }
+        }
+    }
 }
-else{
-
-if(isset($_REQUEST['del']))
-	{
-$delid=intval($_GET['del']);
-$sql = "delete from vehicles  WHERE  id=:delid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':delid',$delid, PDO::PARAM_STR);
-$query -> execute();
-$msg="Vehicle record deleted successfully";
-}
-
-
- ?>
+?>
 
 <!DOCTYPE HTML>
   <html lang="en">
@@ -29,137 +49,95 @@ $msg="Vehicle record deleted successfully";
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	
-	<title>Ride Ease | Vehicles Inspection   </title>
+	<title>Ride Ease | Vehicles Inspection </title>
 
-	<!-- Font awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<!-- Sandstone Bootstrap CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!-- Bootstrap Datatables -->
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-	<!-- Bootstrap social button library -->
-	<link rel="stylesheet" href="css/bootstrap-social.css">
-	<!-- Bootstrap select -->
-	<link rel="stylesheet" href="css/bootstrap-select.css">
-	<!-- Bootstrap file input -->
-	<link rel="stylesheet" href="css/fileinput.min.css">
-	<!-- Awesome Bootstrap checkbox -->
-	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
-	<!-- Admin Stye -->
-	<link rel="stylesheet" href="css/style.css">
-  <style>
-	.errorWrap {
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #dd3d36;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-.succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #5cb85c;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-		</style>
-
+	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
+	<!-- build:css assets/css/app.min.css -->
+	<link rel="stylesheet" href="libs/bower/animate.css/animate.min.css">
+	<link rel="stylesheet" href="libs/bower/fullcalendar/dist/fullcalendar.min.css">
+	<link rel="stylesheet" href="libs/bower/perfect-scrollbar/css/perfect-scrollbar.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/core.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<!-- endbuild -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+	<script src="libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
+	<script>
+		Breakpoints();
+	</script>
 </head>
 
-<body>
-	<?php include('includes/header.php');?>
+	
+<body class="menubar-left menubar-unfold menubar-light theme-primary">
 
-	<div class="ts-main-content">
-		<?php include('includes/leftbar.php');?>
-		<div class="content-wrapper">
-			<div class="container-fluid">
+<?php include_once('includes/header.php');?>
 
-				<div class="row">
+<?php include_once('includes/sidebar.php');?>
+
+
+<main id="app-main" class="app-main">
+  <div class="wrap">
+	<section class="app-content">
+		<div class="row">
 					<div class="col-md-12">
+					<div class="widget">
+					<header class="widget-header">
+						<h4 class="widget-title">Vehicles Inspection</h4>
+					</header>
+					<div class="widget-body">
+            <?php if ($error) { ?>
+                <div class="errorWrap"><strong>ERROR</strong>: <?php echo htmlentities($error); ?></div>
+            <?php } elseif ($msg) { ?>
+                <div class="succWrap"><strong>SUCCESS</strong>: <?php echo htmlentities($msg); ?></div>
+            <?php } ?>
+            <form action="vehicle-inspection.php" method="post">
+                <label for="vehicle_make">Vehicle Make:</label>
+                <input type="text" name="vehicle_make" required><br>
 
-						<h2 class="page-title">Vehicles Inspection</h2>
+                <label for="vehicle_model">Vehicle Model:</label>
+                <input type="text" name="vehicle_model" required><br>
 
-						<!-- Zero Configuration Table -->
-						<div class="panel panel-default">
-							<div class="panel-heading">Vehicle Details</div>
-							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-									<thead>
-										<tr>
-										<th>#</th>
-											<th>Vehicle Title</th>
-											<th>Brand </th>
-											<th>Reg No. </th>
-											<th>Reviewed By</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-										<th>#</th>
-											<th>Vehicle Title</th>
-											<th>Brand </th>
-											<th>Reg No. </th>
-											<th>Reviewed By</th>
-											<th>Action</th>
-										</tr>
-										</tr>
-									</tfoot>
-									<tbody>
+                <label for="vehicle_year">Vehicle Year:</label>
+                <input type="number" name="vehicle_year" required><br>
 
-<?php $sql = "SELECT vehicles.VehiclesTitle,brands.BrandName,vehicles.RegNo,vehicles.id from vehicles join brands on brands.id=vehicles.VehiclesBrand";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
-										<tr>
-											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->VehiclesTitle);?></td>
-											<td><?php echo htmlentities($result->BrandName);?></td>
-											<td><?php echo htmlentities($result->RegNo);?></td>
-											<td><?php echo htmlentities($result->PricePerDay);?></td>
-											<td><?php echo htmlentities($result->FuelType);?></td>
-											<td><?php echo htmlentities($result->ModelYear);?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
-										</tr>
-										<?php $cnt=$cnt+1; }} ?>
-										
-									</tbody>
-								</table>
+                <label for="inspection_date">Inspection Date:</label>
+                <input type="date" name="inspection_date" required><br>
 
-						
+                <h2>Inspection Checklist:</h2>
+                <input type="checkbox" name="checklist[]" value="Brakes"> Brakes<br>
+                <input type="checkbox" name="checklist[]" value="Lights"> Lights<br>
+                <input type="checkbox" name="checklist[]" value="Tires"> Tires<br>
+                <input type="checkbox" name="checklist[]" value="Engine"> Engine<br>
+                <input type="checkbox" name="checklist[]" value="Transmission"> Transmission<br>
 
-							</div>
-						</div>
+                <label for="comments">Additional Comments:</label><br>
+                <textarea name="comments" rows="4" cols="50"></textarea><br>
 
-					
+                <input type="submit" value="Submit Inspection">
+            </form>
+        </div>
+    </div>
+</div>
 
-					</div>
-				</div>
 
-			</div>
-		</div>
-	</div>
+	<!-- build:js assets/js/core.min.js -->
+	<script src="libs/bower/jquery/dist/jquery.js"></script>
+	<script src="libs/bower/jquery-ui/jquery-ui.min.js"></script>
+	<script src="libs/bower/jQuery-Storage-API/jquery.storageapi.min.js"></script>
+	<script src="libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+	<script src="libs/bower/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="libs/bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+	<script src="libs/bower/PACE/pace.min.js"></script>
+	<!-- endbuild -->
 
-	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
-	<script src="js/Chart.min.js"></script>
-	<script src="js/fileinput.js"></script>
-	<script src="js/chartData.js"></script>
-	<script src="js/main.js"></script>
+	<!-- build:js assets/js/app.min.js -->
+	<script src="assets/js/library.js"></script>
+	<script src="assets/js/plugins.js"></script>
+	<script src="assets/js/app.js"></script>
+	<!-- endbuild -->
+	<script src="libs/bower/moment/moment.js"></script>
+	<script src="libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
+	<script src="assets/js/fullcalendar.js"></script>
 </body>
 </html>
-<?php } ?>

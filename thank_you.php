@@ -10,10 +10,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Ride Ease | Pricing </title>
+  <title>Ride Ease | Thank You </title>
   <!--Bootstrap -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+  <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
   <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
   <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
   <link href="assets/css/slick.css" rel="stylesheet">
@@ -40,77 +40,38 @@
 
 <?php include('includes/header.php');?>
 
-<section class="page-header services_page">
+<section class="page-header aboutus_page">
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1>Pricing</h1>
+        <h1>Thank You</h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="index.php">Home</a></li>
-        <li>Pricing</li>
+        <li>Thank You</li>
       </ul>
     </div>
   </div>
   <div class="dark-overlay"></div>
-  </section>
+</section>
 
-  <!-- Basic Insurance Package -->
-<div class="col-md-4">
-    <div class="insurance-package">
-        <h2>Basic Coverage</h2>
-        <div class="price">
-            <span class="currency">RM</span>
-            <span class="amount">29</span>
-        </div>
-        <ul class="features">
-            <li>Liability Insurance</li>
-            <li>Basic Coverage</li>
-            <li>Single Driver</li>
-            <li>Rental Car Protection</li>
-        </ul>
-        <a href="#loginform" class="btn">Get Coverage</a>
+<section class="about_us section-padding">
+  <div class="container">
+    <div class="section-header text-center">
+      
+    <h2>Thank You for Your Booking!</h2>
+    
+    <p>Your booking has been successfully processed. Please wait for confimation from us. We appreciate your business.</p>
+
+    <!-- You can display booking details, payment information, or other relevant information here -->
+
+    <p>If you have any questions or need further assistance, please don't hesitate to contact us.</p>
+
+    <p><a href="payment.php">Payment</a> | <a href="index.php">Return to Homepage</a> | <a href="my-booking.php">View your bookings</a></p>
     </div>
-</div>
+</section>
 
-<!-- Premium Insurance Package -->
-<div class="col-md-4">
-    <div class="insurance-package">
-        <h2>Premium Coverage</h2>
-        <div class="price">
-            <span class="currency">RM</span>
-            <span class="amount">59</span>
-        </div>
-        <ul class="features">
-            <li>Comprehensive Insurance</li>
-            <li>Enhanced Coverage</li>
-            <li>Multiple Drivers</li>
-            <li>Roadside Assistance</li>
-        </ul>
-        <a href="#loginform" class="btn">Get Coverage</a>
-    </div>
-</div>
-
-<!-- Ultimate Insurance Package -->
-<div class="col-md-4">
-    <div class="insurance-package">
-        <h2>Ultimate Coverage</h2>
-        <div class="price">
-            <span class="currency">RM</span>
-            <span class="amount">99</span>
-        </div>
-        <ul class="features">
-            <li>Full Coverage Insurance</li>
-            <li>Premium Coverage</li>
-            <li>Family Plan</li>
-            <li>24/7 Customer Support</li>
-        </ul>
-        <a href="#loginform" class="btn">Get Coverage</a>
-    </div>
-</div>
-
-
-  <?php include('includes/footer.php');?>
+<?php include('includes/footer.php');?>
 
 <div id="back-top" class="back-top"> 
   <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> 

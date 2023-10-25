@@ -19,6 +19,21 @@
               <p class="uppercase_text">Locate Us (Head Office) : </p>
               <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3971.904025007885!2d100.31036697961282!3d5.43154732085301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304ac307f105d4d7%3A0x2d3bda55d253024f!2s48%2C%20Jalan%20Kelawai%2C%20George%20Town%2C%2010250%20George%20Town%2C%20Pulau%20Pinang!5e0!3m2!1sen!2smy!4v1691075649104!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>48, Jalan Kelawai,<br>10250 GeorgeTown</a> </div>
   
+              <meta namespace="referrer" content="no-referrer-when-downgrade">
+              <!--Start of Tawk.to Script-->
+              <script type="text/javascript">
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+              s1.async=true;
+              s1.src='https://embed.tawk.to/6535feefa84dd54dc4840aa7/1hddenmlc';
+              s1.charset='UTF-8';
+              s1.setAttribute('crossorigin','*');
+              s0.parentNode.insertBefore(s1,s0);
+              })();
+              </script>
+              <!--End of Tawk.to Script-->
+
   <?php   
   if(strlen($_SESSION['login'])==0)
 	{	

@@ -73,8 +73,6 @@ $error="Something went wrong. Please try again";
 
 						<div class="row">
 							<div class="col-md-10">
-								<div class="panel panel-default">
-									<div class="panel-heading">Form fields</div>
 									<div class="panel-body">
 										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
 										
@@ -89,8 +87,6 @@ $error="Something went wrong. Please try again";
 											</div>
 											<div class="hr-dashed"></div>
 											
-										
-								
 											
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">

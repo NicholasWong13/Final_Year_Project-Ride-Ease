@@ -6,13 +6,25 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }else{
+		if(isset($_REQUEST['eid']))
+			{
+		$eid=intval($_GET['eid']);
+		$status="2";
+		$sql = "UPDATE booking SET Status=:status WHERE id=:eid";
+		$query = $dbh->prepare($sql);
+		$query -> bindParam(':status',$status, PDO::PARAM_STR);
+		$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
+		$query -> execute();
+		
+		$msg="Booking Successfully Cancelled";
+		}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	
-	<title>Ride Ease || Cancelled Appointment Detail</title>
+	<title>Ride Ease | Cancelled Booking Detail</title>
 	
 	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
@@ -44,45 +56,45 @@ header('location:index.php');
 			<div class="col-md-12">
 				<div class="widget">
 					<header class="widget-header">
-						<h4 class="widget-title">Cancelled Appointment</h4>
+						<h4 class="widget-title">Cancelled Bookings</h4>
 					</header>
 					<hr class="widget-separator">
 					<div class="widget-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
 								<thead>
-									<tr>
-										<th>S.No</th>
-										<th>Appointment Number</th>
-										<th>Patient Name</th>
-										<th>Mobile Number</th>
-										<th>Email</th>
-									<th>Status</th>
-										<th>Action</th>
-										
-									</tr>
+								<tr>
+										<th>#</th>
+											<th>Name</th>
+											<th>Vehicle</th>
+											<th>From Date</th>
+											<th>Return Date</th>
+											<th>Status</th>
+											<th>Posting date</th>
+											<th>Action</th>
+										</tr>
 								</thead>
 							
 								<tbody>
-                  <?php
-              $docid=$_SESSION['damsid'];
-$sql="SELECT * from  tblappointment where Status='Cancelled' && Doctor=:docid";
+<?php
+$eid=$_SESSION['eid'];
+$sql="SELECT * from  booking where Status='2' && id=:eid";
 $query = $dbh -> prepare($sql);
-$query-> bindParam(':docid', $docid, PDO::PARAM_STR);
+$query-> bindParam(':eid', $id, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-
 $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?>
 									<tr>
-										<td><?php echo htmlentities($cnt);?></td>
-										<td><?php  echo htmlentities($row->AppointmentNumber);?></td>
-										<td><?php  echo htmlentities($row->Name);?></td>
-										<td><?php  echo htmlentities($row->MobileNumber);?></td>
-										<td><?php  echo htmlentities($row->Email);?></td>
+											<td><?php echo htmlentities($cnt);?></td>
+											<td><?php echo htmlentities($result->FullName);?></td>
+											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
+											<td><?php echo htmlentities($result->FromDate);?></td>
+											<td><?php echo htmlentities($result->ReturnDate);?></td>
+											
                                         <?php if($row->Status==""){ ?>
 
                      <td><?php echo "Not Updated Yet"; ?></td>
@@ -90,7 +102,7 @@ foreach($results as $row)
                   </td>
                   <?php } ?>             
                  
-										<td><a href="view-appointment-detail.php?editid=<?php echo htmlentities ($row->ID);?>&&aptid=<?php echo htmlentities ($row->AppointmentNumber);?>" class="btn btn-primary">View</a></td>
+										<td><a href="view-booking-detail.php?editid=<?php echo htmlentities ($row->id);?>" class="btn btn-primary">View</a></td>
 										
 									</tr>
 								 <?php $cnt=$cnt+1;}} ?> 
@@ -98,14 +110,15 @@ foreach($results as $row)
 								</tbody>
                   <tfoot>
                   <tr>
-                  <th>S.No</th>
-										<th>Appointment Number</th>
-										<th>Patient Name</th>
-										<th>Mobile Number</th>
-										<th>Email</th>
-										<th>Status</th>
-										<th>Action</th>
-                  </tr>
+										<th>#</th>
+											<th>Name</th>
+											<th>Vehicle</th>
+											<th>From Date</th>
+											<th>Return Date</th>
+											<th>Status</th>
+											<th>Posting date</th>
+											<th>Action</th>
+										</tr>
                 </tfoot>
 							</table>
 						</div>

@@ -3,35 +3,73 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 if(isset($_POST['submit']))
-
 {
+
+$fullname=$_POST['fullname'];
+$mobile=$_POST['mobile'];
+$age=$_POST['age'];
+$passenger=$_POST['passenger'];
 $fromdate=$_POST['fromdate'];
-$todate=$_POST['todate']; 
+$fromtime=$_POST['fromtime'];
+$returndate=$_POST['returndate']; 
+$returntime=$_POST['returntime'];
+$license=$_POST['license'];
+$pickuplocation=$_POST['pickuplocation'];
+$returnlocation=$_POST['returnlocation'];
 $message=$_POST['message'];
 $useremail=$_SESSION['login'];
 $status=0;
 $vhid=$_GET['vhid'];
-$sql="INSERT INTO booking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES(:useremail,:vhid,:fromdate,:todate,:message,:status)";
+
+//Check for duplicate schedules
+$checksql = "SELECT id FROM booking WHERE FromDate = :from  AND ReturnDate= :return AND (status = 1 OR status = 0)";
+$query= $dbh -> prepare($checksql);
+$query->bindParam(':from', $fromdate, PDO::PARAM_STR);
+$query->bindParam(':return', $returndate, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0) {
+    echo "<script>alert('Booking schedule already taken; please choose another one.');</script>";
+}
+else {
+
+if ($returndate < $fromdate) {
+     echo "<script>alert('Booking schedule is invalid. Please choose a sensible date.');</script>";
+    return;
+}
+
+$sql="INSERT INTO booking(fullname,mobile,userEmail,age,passenger,VehicleId,FromDate,FromTime,ReturnDate,ReturnTime,License,PickupLocation,ReturnLocation,message,Status) VALUES(:fullname,:mobile,:useremail,:age,:passenger,:vhid,:fromdate,:fromtime,:returndate,:returntime,:license,:pickuplocation,:returnlocation,:message,:status)";
 $query = $dbh->prepare($sql);
+$query->bindParam(':fullname',$fullname,PDO::PARAM_STR);
+$query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
 $query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
+$query->bindParam(':age',$age,PDO::PARAM_STR);
+$query->bindParam(':passenger',$passenger,PDO::PARAM_STR);
 $query->bindParam(':vhid',$vhid,PDO::PARAM_STR);
 $query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
-$query->bindParam(':todate',$todate,PDO::PARAM_STR);
+$query->bindParam(':fromtime',$fromtime,PDO::PARAM_STR);
+$query->bindParam(':returndate',$returndate,PDO::PARAM_STR);
+$query->bindParam(':returntime',$returndate,PDO::PARAM_STR);
+$query->bindParam(':license',$license,PDO::PARAM_STR);
+$query->bindParam(':pickuplocation',$pickuplocation,PDO::PARAM_STR);
+$query->bindParam(':returnlocation',$returnlocation,PDO::PARAM_STR);
 $query->bindParam(':message',$message,PDO::PARAM_STR);
 $query->bindParam(':status',$status,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-echo "<script>alert('Booking successfull.');</script>";
+$_SESSION['renter_notification_message'] = 'Another users has booked one of your vehicle';
+echo "<script>alert('Booking successful.');</script>";
+?>
+<?php
 }
 else 
 {
 echo "<script>alert('Something went wrong. Please try again');</script>";
 }
-
 }
-
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -218,9 +256,7 @@ $_SESSION['brndid']=$result->bid;
                    
 
 <tr>
-
 <td>Power Windows</td>
-
 <?php if($result->PowerWindows==1)
 {
 ?>
@@ -230,7 +266,7 @@ $_SESSION['brndid']=$result->bid;
 <?php } ?>
 </tr>
                    
- <tr>
+<tr>
 <td>CD Player</td>
 <?php if($result->CDPlayer==1)
 {
@@ -325,29 +361,25 @@ $_SESSION['brndid']=$result->bid;
           
         </div>
 <?php }} ?>
-   
       </div>
-      
-      <aside class="col-md-3">
-      
-        <div class="share_vehicle">
-          <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> </p>
-        </div>
-        <div class="sidebar_widget">
-          <div class="widget_heading">
-            <h5><i class="fa fa-envelope" aria-hidden="true"></i>Book Now</h5>
-          </div>
-          <?php if($_SESSION['login'])
-              {?>
-              <a href="booking.php" class="btn">Click here to Book</a>
-              <?php } else { ?>
-<a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login To Book</a>
 
-              <?php } ?>
-        </div>
+      <aside class="col-md-3">
+      <div class="share_vehicle">
+        <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> </p>
+      </div>
       </aside>
-    </div>
-    
+</div>
+
+        <?php if($_SESSION['login'])
+            {?>
+            <div class="form-group">
+            <a href="booking-form.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">Click Here To Book</a>
+            </div>
+            <?php } else { ?>
+<a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login For Book</a>
+            <?php } ?>
+        </form>
+        
     <div class="space-20"></div>
     <div class="divider"></div>
 
@@ -387,7 +419,6 @@ foreach($results as $result)
 
       </div>
     </div>
-    
   </div>
 </section>
 
@@ -403,6 +434,7 @@ foreach($results as $result)
 
 <?php include('includes/forgotpassword.php');?>
 
+<script src="assets/js/booking-form.js"></script> 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 
 <script src="assets/js/interface.js"></script> 

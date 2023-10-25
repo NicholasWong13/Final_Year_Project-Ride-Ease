@@ -1,62 +1,85 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['login'])==0)
-  { 
-header('location:index.php');
-}
-else{
-if(isset($_POST['updateprofile']))
-  {
-$name=$_POST['fullname'];
-$mobileno=$_POST['mobilenumber'];
-$icppno=$_POST['icppno'];
-$dob=$_POST['dob'];
-$adress=$_POST['address'];
-$city=$_POST['city'];
-$country=$_POST['country'];
-$email=$_SESSION['login'];
-$sql="update users set FullName=:name,ContactNo=:mobileno,icppno=:icppno,dob=:dob,Address=:adress,City=:city,Country=:country where EmailId=:email";
-$query = $dbh->prepare($sql);
-$query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':mobileno',$mobileno,PDO::PARAM_STR);
-$query->bindParam(':icppno',$icppno,PDO::PARAM_STR);
-$query->bindParam(':dob',$dob,PDO::PARAM_STR);
-$query->bindParam(':adress',$adress,PDO::PARAM_STR);
-$query->bindParam(':city',$city,PDO::PARAM_STR);
-$query->bindParam(':country',$country,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
-$query->execute();
-$msg="Profile Updated Successfully";
+
+// Check if the user is logged in
+if (empty($_SESSION['login'])) {
+    header('location:index.php');
+    exit;
 }
 
+$msg = "";
+
+if (isset($_POST['updateprofile'])) {
+    // Sanitize and validate user inputs
+    $name = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
+    $mobile = filter_input(INPUT_POST, 'mobilenumber', FILTER_SANITIZE_STRING);
+    $icpno = filter_input(INPUT_POST, 'icpno', FILTER_SANITIZE_STRING);
+    $dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
+    $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
+    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
+    $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
+    $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+    $email = $_SESSION['login'];
+
+    $imagePath = ''; // Initialize the image path
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = 'uploads/'; // Specify the directory where you want to store uploaded images
+        $tempName = $_FILES['image']['tmp_name'];
+        $originalName = $_FILES['image']['name'];
+        $imagePath = $uploadDir . $originalName;
+
+        // Move the uploaded image to the specified directory
+        if (move_uploaded_file($tempName, $imagePath)) {
+            // Image uploaded successfully
+        } else {
+            $msg = "Image upload failed.";
+        }
+    }
+
+    // Update the user's profile
+    $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :imagePath, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':name', $name, PDO::PARAM_STR);
+    $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+    $query->bindParam(':icpno', $icpno, PDO::PARAM_STR);
+    $query->bindParam(':imagePath', $imagePath, PDO::PARAM_STR);
+    $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+    $query->bindParam(':address', $address, PDO::PARAM_STR);
+    $query->bindParam(':city', $city, PDO::PARAM_STR);
+    $query->bindParam(':state', $state, PDO::PARAM_STR);
+    $query->bindParam(':country', $country, PDO::PARAM_STR);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->execute();
+    $msg = "Profile Updated Successfully";
+}
 ?>
 
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="keywords" content="">
-<meta name="description" content="">
-<title>Ride Ease | My Profile</title>
-<!--Bootstrap -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
-<!--Custome Style -->
-<link rel="stylesheet" href="assets/css/style1.css" type="text/css">
-<!--OWL Carousel slider-->
-<link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
-<link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
-<!--slick-slider -->
-<link href="assets/css/slick.css" rel="stylesheet">
-<!--bootstrap-slider -->
-<link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
-<!--FontAwesome Font Style -->
-<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Ride Ease | My Profile</title>
+    <!--Bootstrap -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
+    <!--Custome Style -->
+    <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
+    <!--OWL Carousel slider-->
+    <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
+    <!--slick-slider -->
+    <link href="assets/css/slick.css" rel="stylesheet">
+    <!--bootstrap-slider -->
+    <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
+    <!--FontAwesome Font Style -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
-<!-- SWITCHER -->
+    <!-- SWITCHER -->
 		<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
@@ -64,12 +87,12 @@ $msg="Profile Updated Successfully";
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
  
  <style>
     .errorWrap {
@@ -133,7 +156,7 @@ foreach($results as $result)
       <div class="dealer_info">
         <h5><?php echo htmlentities($result->FullName);?></h5>
         <p><?php echo htmlentities($result->Address);?><br>
-          <?php echo htmlentities($result->City);?>&nbsp;<?php echo htmlentities($result->Country);?></p>
+          <?php echo htmlentities($result->City);?>,&nbsp;<?php echo htmlentities($result->State);?>,&nbsp;<?php echo htmlentities($result->Country);?></p>
       </div>
     </div>
   
@@ -174,8 +197,13 @@ foreach($results as $result)
             </div>
             <div class="form-group">
               <label class="control-label">Identification / Passport Number</label>
-              <input class="form-control white_bg" name="icppno" value="<?php echo htmlentities($result->ICPPno);?>" id="icppno" type="text" required>
+              <input class="form-control white_bg" name="icpno" value="<?php echo htmlentities($result->icpno);?>" id="icpno" type="text" required>
             </div>
+            <div class="form-group">
+        <label class="control-label">Identification / Passport Image</label>
+        <input type="file" class="form-control-file" name="image" accept="image/*">
+        <small class="form-text text-muted">Upload an image of your identification or passport.</small>
+    </div>
             <div class="form-group">
               <label class="control-label">Date of Birth&nbsp;(dd/mm/yyyy)</label>
               <input class="form-control white_bg" value="<?php echo htmlentities($result->dob);?>" name="dob" placeholder="dd/mm/yyyy" id="birth-date" type="date">
@@ -185,21 +213,18 @@ foreach($results as $result)
               <textarea class="form-control white_bg" name="address" rows="4" ><?php echo htmlentities($result->Address);?></textarea>
             </div>
             <div class="form-group">
-              <label class="control-label">Country</label>
-              <input class="form-control white_bg"  id="country" name="country" value="<?php echo htmlentities($result->City);?>" type="text">
-            </div>
-            <div class="form-group">
               <label class="control-label">City</label>
               <input class="form-control white_bg" id="city" name="city" value="<?php echo htmlentities($result->City);?>" type="text">
             </div>
             <div class="form-group">
               <label class="control-label">State</label>
-              <input class="form-control white_bg"  id="state" name="state" value="<?php echo htmlentities($result->City);?>" type="text">
+              <input class="form-control white_bg"  id="state" name="state" value="<?php echo htmlentities($result->State);?>" type="text">
             </div>
             <div class="form-group">
-              <label class="control-label">Identification Card / Passport</label>
-              <span style="color:red">*</span><input type="file" name="Icpp" accept="image" required>
+              <label class="control-label">Country</label>
+              <input class="form-control white_bg"  id="country" name="country" value="<?php echo htmlentities($result->Country);?>" type="text">
             </div>
+           
             <?php }} ?>
            
             <div class="form-group">
@@ -239,4 +264,3 @@ foreach($results as $result)
 
 </body>
 </html>
-<?php } ?>

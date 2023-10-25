@@ -5,16 +5,22 @@ include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
-} else{
+}
+else{
 
-?>
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="theme-color" content="#3e454c">
 	
-	<title>Ride Ease || New Booking Detail</title>
-	
+	<title>Ride Ease | New Bookings  </title>
 	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
 	<!-- build:css assets/css/app.min.css -->
@@ -31,12 +37,12 @@ header('location:index.php');
 		Breakpoints();
 	</script>
 </head>
-	
-<body class="menubar-left menubar-unfold menubar-light theme-primary">
 
-<?php include_once('includes/header.php');?>
+<body>
+	<?php include('includes/header.php');?>
 
-<?php include_once('includes/sidebar.php');?>
+	<div class="ts-main-content">
+		<?php include('includes/leftbar.php');?>
 
 <main id="app-main" class="app-main">
   <div class="wrap">
@@ -45,78 +51,101 @@ header('location:index.php');
 			<div class="col-md-12">
 				<div class="widget">
 					<header class="widget-header">
-						<h4 class="widget-title">New Booking</h4>
+						<h4 class="widget-title">New Bookings</h4>
 					</header>
 					<hr class="widget-separator">
 					<div class="widget-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
-								<thead>
+					<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">Bookings Info</div>
+							<div class="panel-body">
+							<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
 									<tr>
-										<th>S.No</th>
-										<th>Appointment Number</th>
-										<th>Patient Name</th>
-										<th>Mobile Number</th>
-										<th>Email</th>
-									<th>Status</th>
-										<th>Action</th>
-										
-									</tr>
-								</thead>
-							
-								<tbody>
-<?php
-$adminid=$_SESSION['adminid'];
-$sql="SELECT * from  booking where Status is null && Admin=:adminid";
+										<th>#</th>
+											<th>Name</th>
+											<th>Booking No.</th>
+											<th>Vehicle</th>
+											<th>From Date</th>
+											<th>To Date</th>
+											<th>Status</th>
+											<th>Posting date</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+										<th>#</th>
+										<th>Name</th>
+											<th>Booking No.</th>
+											<th>Vehicle</th>
+											<th>From Date</th>
+											<th>To Date</th>
+											<th>Status</th>
+											<th>Posting date</th>
+											<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+
+									<?php 
+$status=0;
+									$sql = "SELECT users.FullName,brands.BrandName,vehicles.VehiclesTitle,booking.FromDate,booking.ToDate,booking.message,booking.VehicleId as vid,tblbooking.Status,booking.PostingDate,booking.id,booking.BookingNumber  from booking join vehicles on vehicles.id=booking.VehicleId join users on users.EmailId=booking.userEmail join brands on vehicles.VehiclesBrand=brands.id where booking.Status=:status";
 $query = $dbh -> prepare($sql);
-$query-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-
 $cnt=1;
 if($query->rowCount() > 0)
 {
-foreach($results as $row)
-{               ?>
-									<tr>
-										<td><?php echo htmlentities($cnt);?></td>
-										<td><?php  echo htmlentities($row->AppointmentNumber);?></td>
-										<td><?php  echo htmlentities($row->Name);?></td>
-										<td><?php  echo htmlentities($row->MobileNumber);?></td>
-										<td><?php  echo htmlentities($row->Email);?></td>
-                                        <?php if($row->Status==""){ ?>
+foreach($results as $result)
+{				?>	
+										<tr>
+											<td><?php echo htmlentities($cnt);?></td>
+											<td><?php echo htmlentities($result->FullName);?></td>
+											<td><?php echo htmlentities($result->BookingNumber);?></td>
+											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
+											<td><?php echo htmlentities($result->FromDate);?></td>
+											<td><?php echo htmlentities($result->ToDate);?></td>
+											<td><?php 
+if($result->Status==0)
+{
+echo htmlentities('Not Confirmed yet');
+} else if ($result->Status==1) {
+echo htmlentities('Confirmed');
+}
+ else{
+ 	echo htmlentities('Cancelled');
+ }
+										?></td>
+											<td><?php echo htmlentities($result->PostingDate);?></td>
+										<td>
 
-                     <td><?php echo "Not Updated Yet"; ?></td>
-<?php } else { ?>                  <td><?php  echo htmlentities($row->Status);?>
-                  </td>
-                  <?php } ?>             
-                 
-										<td><a href="view-appointment-detail.php?editid=<?php echo htmlentities ($row->ID);?>&&aptid=<?php echo htmlentities ($row->AppointmentNumber);?>" class="btn btn-primary">View</a></td>
+
+<a href="booking-details.php?bid=<?php echo htmlentities($result->id);?>"> View</a>
+</td>
+
+										</tr>
+										<?php $cnt=$cnt+1; }} ?>
 										
-									</tr>
-								 <?php $cnt=$cnt+1;}} ?> 
-	
-								</tbody>
-                  <tfoot>
-                  <tr>
-                  <th>S.No</th>
-										<th>Appointment Number</th>
-										<th>Patient Name</th>
-										<th>Mobile Number</th>
-										<th>Email</th>
-										<th>Status</th>
-										<th>Action</th>
-                  </tr>
-                </tfoot>
-							</table>
+									</tbody>
+								</table>
+
+						
+
+							</div>
 						</div>
+
 					</div>
+				</div>
+
 			</div>
-			
 		</div>
-	</section>
-</div>
-  <?php include_once('includes/footer.php');?>
+	</div>
+	
+	<?php include_once('includes/footer.php');?>
 </main>
 
 <?php include_once('includes/customizer.php');?>

@@ -67,43 +67,39 @@
   <div class="dark-overlay"></div>
 </section>
 
-<!-- GOOGLE MAP LOCATIONS AREA START -->
-<div class="ltn__google-map-locations-area">
-  <div id="gmap"></div>
-    </div>
-
 <section class="inner_pages">
   <div class="container">
-    <div class="location_list_wrap">
-      <div class="location_listing">
-        <div class="row">
-          <div class="col-sm-3 col-xs-4"> 
-  <?php 
-  $sql = "SELECT * from  location ";
-  $query = $dbh -> prepare($sql);
-  $query->execute();
-  $results=$query->fetchAll(PDO::FETCH_OBJ);
-  $cnt=1;
-  if($query->rowCount() > 0)
-  {
-  foreach($results as $result)
-  {       ?>  
-          <div class="location_logo"><img src="assets/images/<?php echo htmlentities($result->Loctimg);?>" class="img-responsive" alt="Image" /> </a> 
-          </div>
-          <div class="col-sm-6 col-xs-8">
-          <div class="location_info">
-            <h5> Ride Ease - <?php echo htmlentities($result->LocationName);?> Branch</h5>
-            <p class="address"><?php echo htmlentities($result->Address);?></p>
+        <div class="location">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <?php 
+$sql = "SELECT * from location";
+$query = $dbh -> prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+foreach($results as $result)
+{               ?>  
+                            <div class="col-md-6">
+                                <div class="location-item">
+                                    <div class="location-text">
+                              <h3><?php echo htmlentities($result->id);?>. Ride Ease - <?php echo htmlentities($result->LocationName);?> Branch</h3>
+                    <p><strong>Address: </strong><?php echo htmlentities($result->Address);?></p>
+                    <p><strong>Call: </strong><?php echo htmlentities($result->ContactNumber);?></p>
+                    <i><p><strong>Email: </strong><?php echo htmlentities($result->Email);?></i></p>
+                                    </div><br/>
+                                   </div>
+                            </div>
+<?php } ?>
+                      
+                        </div>
+                    </div>
+           
+                </div>
             </div>
-          </div>
-            <div class="col-sm-3 col-xs-12">
-            <a href="location-details.php?loctid=<?php echo htmlentities($result->id);?>" class="btn btn-xs outline">View Profile <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-          </div>
         </div>
-      <?php }} ?>
-      </div>
-         </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -132,8 +128,6 @@
 <!--Slider-JS--> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeeHDCOXmUMja1CFg96RbtyKgx381yoBU"></script>
 
   </body>
 

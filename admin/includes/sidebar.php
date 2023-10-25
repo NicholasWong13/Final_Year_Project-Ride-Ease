@@ -74,14 +74,14 @@ $uname=$row->UserName;
 
         <li>
           <a href="analytics.php">
-            <i class="fa fa-bar-chart"></i> 
+            <i class="menu-icon zmdi zmdi-desktop-windows zmdi-hc-lg"></i> 
             <span class="menu-text">Analytics</span>
           </a>
         </li>
 
         <li class="has-submenu">
         <a href="javascript:void(0)" class="submenu-toggle">
-          <i class="fa fa-files-o"></i>
+          <i class="menu-icon zmdi zmdi-label zmdi-hc-lg"></i>
           <span clss="menu-text">Brands</span>
           <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
         </a>
@@ -93,7 +93,7 @@ $uname=$row->UserName;
 
        <li class="has-submenu">
         <a href="javascript:void(0)" class="submenu-toggle">
-          <i class="fa fa-files-o"></i>
+          <i class="menu-icon zmdi zmdi-car zmdi-hc-lg"></i>
           <span clss="menu-text">Vehicles</span>
           <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
         </a>
@@ -114,35 +114,49 @@ $uname=$row->UserName;
             <li><a href="new-booking.php"><span class="menu-text">New Booking</span></a></li>
             <li><a href="approved-booking.php"><span class="menu-text">Approved Booking</span></a></li>
             <li><a href="cancelled-booking.php"><span class="menu-text">Cancelled Booking</span></a></li>
-            <li><a href="all-booking.php"><span class="menu-text">All Booking</span></a></li>
+            <li><a href="manage-bookings.php"><span class="menu-text">All Booking</span></a></li>
            
           </ul>
         </li>
 
         <li>
+          <a href="reg-users.php">
+            <i class="menu-icon zmdi zmdi-account-circle zmdi-hc-lg"></i> 
+            <span class="menu-text">Users</span>
+            </a>
+        </li>
+
+        <li>
           <a href="testimonials.php">
-            <i class="fa fa-table"></i> 
+            <i class="menu-icon zmdi zmdi-widgets zmdi-hc-lg"></i> 
             <span class="menu-text">Testimonials</span>
           </a>
         </li>
 
 				<li>
           <a href="manage-conactusquery.php">
-            <i class="fa fa-desktop"></i> 
+            <i class="menu-icon zmdi zmdi-comment-more zmdi-hc-lg"></i> 
             <span class="menu-text">Contact Us Query</span>
           </a>
         </li>
 
         <li>
+          <a href="manage-locations.php">
+            <i class="menu-icon zmdi zmdi-gps-dot zmdi-hc-lg"></i> 
+            <span class="menu-text">Location</span>
+          </a>
+        </li>
+
+        <li>
           <a href="manage-pages.php">
-            <i class="fa fa-files-o"></i> 
+            <i class="menu-icon zmdi zmdi-search-in-page zmdi-hc-lg"></i> 
             <span class="menu-text">Manage Pages</span>
           </a>
         </li>
 
 				<li>
           <a href="manage-subscribers.php">
-            <i class="fa fa-table"></i> 
+            <i class="menu-icon zmdi zmdi-accounts-list-alt zmdi-hc-lg "></i> 
             <span class="menu-text">Subscribers</span>
           </a>
         </li>

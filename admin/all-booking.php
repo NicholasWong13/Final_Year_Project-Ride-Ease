@@ -13,7 +13,7 @@ header('location:index.php');
 <html lang="en">
 <head>
 	
-	<title>Ride Ease || All Bookings Detail</title>
+	<title>Ride Ease | All Bookings Detail</title>
 	
 	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
@@ -67,9 +67,9 @@ header('location:index.php');
 							
 								<tbody>
 <?php
-$sql="SELECT * from  booking";
+$sql="SELECT * from  booking where id=:id";
 $query = $dbh -> prepare($sql);
-$query-> bindParam(':id', $docid, PDO::PARAM_STR);
+$query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 
@@ -83,7 +83,7 @@ foreach($results as $row)
 										<td><?php  echo htmlentities($row->BookingNumber);?></td>
 										<td><?php  echo htmlentities($row->FullName);?></td>
 										<td><?php  echo htmlentities($row->Mobile);?></td>
-										<td><?php  echo htmlentities($row->EmailId);?></td>
+										<td><?php  echo htmlentities($row->useremail);?></td>
                                         <?php if($row->Status==""){ ?>
 
                      <td><?php echo "Not Updated Yet"; ?></td>
@@ -91,7 +91,7 @@ foreach($results as $row)
                   </td>
                   <?php } ?>             
 				  <td><?php  echo htmlentities($row->Status);?>
-										<td><a href="view-appointment-detail.php?editid=<?php echo htmlentities ($row->ID);?>&&bookid=<?php echo htmlentities ($row->BookingNumber);?>" class="btn btn-primary">View</a></td>
+										<td><a href="view-booking-detail.php?editid=<?php echo htmlentities ($row->ID);?>&&bookid=<?php echo htmlentities ($row->BookingNumber);?>" class="btn btn-primary">View</a></td>
 										
 									</tr>
 								 <?php $cnt=$cnt+1;}} ?> 
