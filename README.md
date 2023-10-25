@@ -3,15 +3,9 @@
 By Nicholas Wong Kai Xin
 
 <h1 align="center">Ride Ease</h1>
-<p align="center">
- 
-</p>
 
 ## About The Project
 
-
-
-<br>
 
 ## Programming Languages 
 <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"/>
