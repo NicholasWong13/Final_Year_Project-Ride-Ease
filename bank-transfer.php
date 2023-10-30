@@ -1,17 +1,20 @@
 <?php 
-  session_start();
-  include('includes/config.php');
-  error_reporting(0);
+session_start();
+include('includes/config.php');
+error_reporting(0);
 
-// Define the path to the bank transfer receipt
-$temp_receipt_path = 'receipt_image.jpg'; // Replace with the actual path
+// Define the filename and path for the receipt image
+$receiptPath = 'receipts/' . $receiptFileName; // The 'receipts' directory
 
 // Check if the file exists
-if (!file_exists($temp_receipt_path)) {
-    die("Bank transfer receipt image not found.");
+if (file_exists($receiptPath)) {
+    // Display the image if it exists
+    echo '<img src="' . $receiptPath . '" alt="Bank Transfer Receipt">';
+} else {
+    // File does not exist
+    echo "Bank transfer receipt image not found.";
 }
 ?>
-
 
 <!DOCTYPE HTML>
   <html lang="en">
@@ -19,8 +22,8 @@ if (!file_exists($temp_receipt_path)) {
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Ride Ease | Thank You - Bank Transfer </title>
-  <!--Bootstrap -->
+  <title>Ride Ease | Bank Transfer </title>
+  
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
   <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
@@ -68,11 +71,15 @@ if (!file_exists($temp_receipt_path)) {
     <div class="container">
         <h1>Bank Transfer Receipt</h1>
 
-        <!-- Display the bank transfer receipt here -->
-        <img src="<?php echo $temp_receipt_path; ?>" alt="Bank Transfer Receipt" />
+        <?php
+        if (file_exists($receiptPath)) {
+            echo '<img src="' . $receiptPath . '" alt="Bank Transfer Receipt">';
+        } else {
+            echo "Bank transfer receipt image not found.";
+        }
+        ?>
 
-        <!-- You can add additional information or instructions for the user -->
-        <p>Thank you for your bank transfer. Your receipt is shown above. If there are any issues, please contact our support team.</p>
+       <p>Thank you for your bank transfer. Your receipt is shown above. If there are any issues, please contact our support team.</p>
     </div>
 </section>
 

@@ -190,7 +190,6 @@ foreach($results as $result)
           </div>
         </div>
       </aside>
-      <!--/Side-Bar--> 
     </div>
   </div>
 </section>

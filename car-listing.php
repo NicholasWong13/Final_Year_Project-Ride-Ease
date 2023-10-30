@@ -14,16 +14,18 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 // Ensure that $startFrom is not negative
 $startFrom = max(($currentPage - 1) * $recordsPerPage, 0);
 
+// Query to count total records
+$countSql = "SELECT COUNT(*) FROM vehicles";
+$countQuery = $dbh->prepare($countSql);
+$countQuery->execute();
+$totalRecords = $countQuery->fetchColumn();
+$totalPages = ceil($totalRecords / $recordsPerPage);
+
+// Query to fetch data with LIMIT for pagination
 $sql = "SELECT vehicles.*, brands.BrandName, brands.id as bid FROM vehicles JOIN brands ON brands.id = vehicles.VehiclesBrand LIMIT $startFrom, $recordsPerPage";
 $query = $dbh->prepare($sql);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-$sql = "SELECT COUNT(*) FROM vehicles";
-$query = $dbh->prepare($sql);
-$query->execute();
-$totalRecords = $query->fetchColumn();
-$totalPages = ceil($totalRecords / $recordsPerPage);
 ?>
 
   <!DOCTYPE HTML>
@@ -115,6 +117,7 @@ $totalPages = ceil($totalRecords / $recordsPerPage);
                                     </li>
                                     <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
                                     <li><i class="fa fa-tachometer" aria-hidden="true"></i><?php echo htmlentities($result->Mileage); ?></li>
+                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i><?php echo htmlentities($result->Location); ?></li>
                                 </ul>
                                 <ul>
                                     <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>

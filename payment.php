@@ -1,86 +1,100 @@
 <?php
 session_start();
-include('includes/config.php'); // Include your database connection script here
+include('includes/config.php');
+error_reporting(0);
 
-// Define the absolute path to the directory where uploads should be stored
-$uploadDirectory = 'uploads/'; // Replace with your actual server path
+if (isset($_SESSION['bookingNumber'])) {
+    $bookingNumber = $_SESSION['bookingNumber'];
 
-// Check if 'bookingID' is set in the session
-if (isset($_SESSION['bookingID'])) {
-    $bookingID = $_SESSION['bookingID'];
+    $getBookingIdQuery = "SELECT id FROM booking WHERE BookingNumber = :booking_number";
+    
+    try {
+        $stmt = $dbh->prepare($getBookingIdQuery);
+        $stmt->bindParam(':booking_number', $bookingNumber);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $payment_method = $_POST['payment_method'];
+        if (!$result) {
+            echo "Booking not found.";
+            exit;
+        }
 
-        if ($payment_method == 'cash') {
-            // Handle cash payment
-            // You can insert a record into the database here
+        $bookingId = $result['id'];
 
-            // Example query to insert payment information
-            $paymentAmount = 1000; // Assuming a fixed amount of RM1000
-            $paymentDate = date("Y-m-d H:i:s"); // Use the current date and time
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $payment_method = $_POST['payment_method'];
 
-            $insertPaymentQuery = "INSERT INTO payment (BookingID, Amount, PaymentDate, PaymentMethod) 
-                                   VALUES (:bookingID, :paymentAmount, :paymentDate, 'Cash')";
-            $stmt = $dbh->prepare($insertPaymentQuery);
-            $stmt->bindParam(':bookingID', $bookingID);
-            $stmt->bindParam(':paymentAmount', $paymentAmount);
-            $stmt->bindParam(':paymentDate', $paymentDate);
-            $stmt->execute();
+            if ($payment_method == 'cash') {
+                $paymentAmount = 1000; 
+                $paymentDate = date("Y-m-d H:i:s");
 
-            if ($stmt) {
-                // Payment successful, you can redirect or display a success message
-                header('Location: cash-payment.php?success=true');
-                exit();
-            } else {
-                // Handle database insertion error
-                echo "Payment failed. Please try again or contact support.";
-            }
-        } elseif ($payment_method == 'bank_transfer') {
-            // Handle bank transfer payment
-            if (isset($_FILES['receipt_file']) && $_FILES['receipt_file']['error'] == UPLOAD_ERR_OK) {
-                $temp_receipt_path = $uploadDirectory . basename($_FILES['receipt_file']['name']);
+                $insertPaymentQuery = "INSERT INTO payment (BookingId, PaymentDate, Amount, PaymentMethod) 
+                    VALUES (:booking_id, :payment_date, :payment_amount, :payment_method)";
 
-                if (move_uploaded_file($_FILES['receipt_file']['tmp_name'], $temp_receipt_path)) {
-                    // Insert a record into the database with the receipt path
-
-                    // Example query to insert payment information
-                    $paymentAmount = 1000; // Assuming a fixed amount of RM1000
-                    $paymentDate = date("Y-m-d H:i:s"); // Use the current date and time
-
-                    $insertPaymentQuery = "INSERT INTO payment (BookingID, Amount, PaymentDate, PaymentMethod, ReceiptPath) 
-                                       VALUES (:bookingID, :paymentAmount, :paymentDate, 'Bank Transfer', :temp_receipt_path)";
+                try {
                     $stmt = $dbh->prepare($insertPaymentQuery);
-                    $stmt->bindParam(':bookingID', $bookingID);
-                    $stmt->bindParam(':paymentAmount', $paymentAmount);
-                    $stmt->bindParam(':paymentDate', $paymentDate);
-                    $stmt->bindParam(':temp_receipt_path', $temp_receipt_path);
-                    $stmt->execute();
+                    $stmt->bindParam(':booking_id', $bookingId); 
+                    $stmt->bindParam(':payment_date', $paymentDate);
+                    $stmt->bindParam(':payment_amount', $paymentAmount);
+                    $stmt->bindParam(':payment_method', $payment_method);
 
-                    if ($stmt) {
-                        // Payment successful, you can redirect or display a success message
-                        header('Location: bank-transfer.php?success=true');
+                    if ($stmt->execute()) {
+                        header('Location: cash-payment.php'); 
                         exit();
                     } else {
-                        // Handle database insertion error
                         echo "Payment failed. Please try again or contact support.";
                     }
-                } else {
-                    // Handle file upload error
-                    echo "File Upload Error: There was a problem with the file upload.";
+                } catch (PDOException $e) {
+                    echo "Database Error: " . $e->getMessage();
                 }
-            } else {
-                // Handle file upload error
-                echo "File Upload Error: Please upload a valid receipt file.";
+            } elseif ($payment_method == 'bank_transfer') {
+                $bankAccountNumber = $_POST['bank_account_number'];
+                
+                if (!empty($_FILES['bank_transfer_receipt']['name'])) {
+                    $uploadDir = 'receipts/';
+                    $uploadFile = $uploadDir . basename($_FILES['bank_transfer_receipt']['name']);
+
+                    if (move_uploaded_file($_FILES['bank_transfer_receipt']['tmp_name'], $uploadFile)) {
+                        $paymentAmount = 1000; 
+                        $paymentDate = date("Y-m-d H:i:s");
+
+                        $insertPaymentQuery = "INSERT INTO payment (BookingId, PaymentDate, Amount, PaymentMethod, BankAccountNumber, ReceiptPath) 
+                            VALUES (:booking_id, :payment_date, :payment_amount, :payment_method, :bank_account_number, :receipt_path)";
+
+                        try {
+                            $stmt = $dbh->prepare($insertPaymentQuery);
+                            $stmt->bindParam(':booking_id', $bookingId); 
+                            $stmt->bindParam(':payment_date', $paymentDate);
+                            $stmt->bindParam(':payment_amount', $paymentAmount);
+                            $stmt->bindParam(':payment_method', $payment_method);
+                            $stmt->bindParam(':bank_account_number', $bankAccountNumber);
+                            $stmt->bindParam(':receipt_path', $uploadFile);
+
+                            if ($stmt->execute()) {
+                                header('Location: bank-transfer.php'); 
+                                exit();
+                            } else {
+                                echo "Payment failed. Please try again or contact support.";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Database Error: " . $e->getMessage();
+                        }
+                    } else {
+                        echo "Failed to upload the receipt.";
+                    }
+                } else {
+                    echo "Please upload the bank transfer receipt.";
+                }
             }
         }
+    } catch (PDOException $e) {
+        echo "Database Error: " . $e->getMessage();
     }
 } else {
-    // Handle the case where 'bookingID' is not set in the session
     echo "Booking information not found. Please go back to the booking page and start again.";
+    exit;
 }
 ?>
-
 
 
 <!DOCTYPE HTML>
@@ -164,8 +178,8 @@ if (isset($_SESSION['bookingID'])) {
             </div>
 
             <div class="form-group">
-                <label class="control-label">Bank Transfer Receipt (Upload)</label>
-                <input type="file" name="receipt_file" accept="image/*" />
+                <label class="control-label">Upload Receipt</label>
+                <input type="file" name="bank_transfer_receipt" accept=".pdf, .jpg, .jpeg, .png" />
             </div>
 
             <div class="form-group">

@@ -2235,7 +2235,7 @@ form .slider.slider-horizontal {
 	4.8. Help
 ------------------------*/
 #help {
-  background-image: url("assets/images/contact.jpg");
+  background-image: url("../images/contact.jpg");
   background-repeat: no-repeat;
   background-size: cover; 
   position:relative;

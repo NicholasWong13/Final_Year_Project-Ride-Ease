@@ -120,6 +120,13 @@ $uname=$row->UserName;
         </li>
 
         <li>
+          <a href="manage-payment.php">
+            <i class="menu-icon zmdi zmdi-account-circle zmdi-hc-lg"></i> 
+            <span class="menu-text">Payment</span>
+            </a>
+        </li>
+
+        <li>
           <a href="reg-users.php">
             <i class="menu-icon zmdi zmdi-account-circle zmdi-hc-lg"></i> 
             <span class="menu-text">Users</span>

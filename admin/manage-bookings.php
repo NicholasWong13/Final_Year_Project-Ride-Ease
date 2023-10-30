@@ -155,7 +155,27 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 <td><?php echo htmlentities($result->PricePerDay); ?></td>
                                                                 <td><?php echo htmlentities($result->FromDate); ?></td>
                                                                 <td><?php echo htmlentities($result->ReturnDate); ?></td>
-                                                                <td><img src="data:image/jpeg;base64,<?php echo base64_encode($result->License); ?>" /></td>
+                                                                <td>
+<?php
+if ($result->License) {
+    $imagePath = "uploads/" . $result->License; // Update the path as needed
+
+    // Debugging: Print the image path and URL
+    echo "Image Path: $imagePath<br>";
+
+    if (file_exists($imagePath)) {
+        // Create a link to open the image in a new tab or window
+        echo "<a href='$imagePath' target='_blank'>View Image</a>";
+    } else {
+        echo "Image Not Found: $imagePath"; // Debug the file path
+    }
+} else {
+    echo "No License Image";
+}
+?>
+</td>
+
+
                                                                 <td><?php
                                                                     if ($result->Status == 0) {
                                                                         echo htmlentities('Not Confirmed yet');

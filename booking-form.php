@@ -3,6 +3,9 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
+// After processing the booking form, set the bookingID in the session
+$_SESSION['bookingID'] = $bookingID;
+
 // Generate a unique booking number
 $uniqueBookingNumber = generateUniqueBookingNumber();
 
@@ -59,8 +62,6 @@ function getVehiclePricePerDay($vhid) {
       return $result['PricePerDay'];
   }
 
-  // Handle the case where the vehicle is not found.
-  // You can return a default value or perform other actions.
 }
 
 if (isset($_POST['submit'])) {
@@ -77,7 +78,19 @@ if (isset($_POST['submit'])) {
   // Combine the selected hours and minutes for ReturnTime
   $returntime = $_POST['returnhour'] . ":" . $_POST['returnminute'] . ":00";
 
-  $license = $_POST['license'];
+  $uploadDirectory = 'uploads/';  // Directory where you want to store uploaded files
+  $licenseTempFile = $_FILES['license']['tmp_name'];
+  $licenseFileName = $_FILES['license']['name'];
+  $licenseFileLocation = $uploadDirectory . $licenseFileName;
+
+  // Move the uploaded file to the desired directory
+  if (move_uploaded_file($licenseTempFile, $licenseFileLocation)) {
+      // File upload was successful
+  } else {
+      // File upload failed
+      echo "<script>alert('File upload failed. Please try again.');</script>";
+  }
+  
   $pickuplocation = $_POST['pickuplocation'];
   $returnlocation = $_POST['returnlocation'];
   $message = $_POST['message'];
@@ -115,7 +128,7 @@ if (isset($_POST['submit'])) {
               $query->bindParam(':fromtime', $fromtime, PDO::PARAM_STR);
               $query->bindParam(':returndate', $returndate, PDO::PARAM_STR);
               $query->bindParam(':returntime', $returntime, PDO::PARAM_STR);
-              $query->bindParam(':license', $license, PDO::PARAM_STR);
+              $query->bindParam(':license', $licenseFileLocation, PDO::PARAM_STR);
               $query->bindParam(':pickuplocation', $pickuplocation, PDO::PARAM_STR);
               $query->bindParam(':returnlocation', $returnlocation, PDO::PARAM_STR);
               $query->bindParam(':message', $message, PDO::PARAM_STR);
@@ -145,7 +158,7 @@ if (isset($_POST['submit'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ride Ease | Booking Form </title>
-  <!--Bootstrap -->
+
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
   <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
