@@ -12,11 +12,11 @@ error_reporting(0);
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>Ride Ease | Car Listing</title>
+<title>Ride Ease | Search Car Result</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
-<link rel="stylesheet" href="assets/css/style.css" type="text/css">
+<link rel="stylesheet" href="assets/css/style1.css" type="text/css">
 <!--OWL Carousel slider-->
 <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
 <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
@@ -54,11 +54,11 @@ error_reporting(0);
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1>Car Listing</h1>
+        <h1>Search Car Result</h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="index.php">Home</a></li>
-        <li>Car Listing</li>
+        <li>Search Car Result</li>
       </ul>
     </div>
   </div>
@@ -117,79 +117,6 @@ foreach($results as $result)
       <?php }} ?>
          </div>
       
-      <!--Side-Bar-->
-      <aside class="col-md-3 col-md-pull-9">
-        <div class="sidebar_widget">
-          <div class="widget_heading">
-            <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your Car </h5>
-          </div>
-          <div class="sidebar_filter">
-            <form action="#" method="get">
-              <div class="form-group select">
-                <select class="form-control">
-                  <option>Select Brand</option>
-
-<?php 
-$sql = "SELECT * from  brands ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-
-{
-foreach($results as $result)
-{       ?>  
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?></option>
-<?php }} ?>
-                 
-                </select>
-              </div>
-              <div class="form-group select">
-                <select class="form-control">
-                  <option>Select Fuel Type</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Electric">Electric</option>
-                </select>
-              </div>
-             
-              <div class="form-group">
-                <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="sidebar_widget">
-          <div class="widget_heading">
-            <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Cars</h5>
-          </div>
-          <div class="recent_addedcars">
-            <ul>
-<?php 
-$sql = "SELECT vehicles.*,brands.BrandName,brands.id as bid  from vehicles join brands on brands.id=vehicles.VehiclesBrand order by id desc limit 4";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{  ?>
-
-              <li class="gray-bg">
-                <div class="recent_post_img"> <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
-                <div class="recent_post_title"> <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a>
-                  <p class="widget_price">RM<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
-                </div>
-              </li>
-              <?php }} ?>
-              
-            </ul>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 </section>

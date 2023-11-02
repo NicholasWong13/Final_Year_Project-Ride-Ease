@@ -91,9 +91,6 @@
 <h6><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
 <span class="price">RM<?php echo htmlentities($result->PricePerDay);?> /Day</span> 
 </div>
-<div class="inventory_info_m" text-align="justify">
-<p><?php echo substr($result->VehiclesOverview,0,1000);?></p>
-</div>
 </div>
 </div>
 <?php }}?>

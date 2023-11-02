@@ -8,23 +8,23 @@ if (strlen($_SESSION['alogin']) == 0) {
     if (isset($_REQUEST['eid'])) {
         $eid = intval($_GET['eid']);
         $status = "2";
-        $sql = "UPDATE booking SET Status=:status WHERE id=:eid";
+        $sql = "UPDATE payment SET Status=:status WHERE id=:eid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':status', $status, PDO::PARAM_STR);
         $query->bindParam(':eid', $eid, PDO::PARAM_STR);
         $query->execute();
-        $msg = "Booking Successfully Cancelled";
+        $msg = "Payment Successfully Cancelled";
     }
 
     if (isset($_REQUEST['aeid'])) {
         $aeid = intval($_GET['aeid']);
         $status = 1;
-        $sql = "UPDATE booking SET Status=:status WHERE id=:aeid";
+        $sql = "UPDATE payment SET Status=:status WHERE id=:aeid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':status', $status, PDO::PARAM_STR);
         $query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
         $query->execute();
-        $msg = "Booking Successfully Confirmed";
+        $msg = "Payment Successfully Confirmed";
     }
     ?>
 
@@ -90,93 +90,52 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Booking No</th>
-                                                        <th>Full Name</th>
-                                                        <th>Vehicle</th>
-                                                        <th>Mobile</th>
-                                                        <th>Email</th>
-                                                        <th>Price/Day (RM)</th>
-                                                        <th>From Date</th>
-                                                        <th>Return Date</th>
-                                                        <th>Driver License</th>
+                                                        <th>Booking ID</th>
+                                                        <th>Payment Date</th>
+                                                        <th>Amount (RM)</th>
+                                                        <th>Payment Method</th>
+                                                        <th>Transaction ID</th>
+                                                        <th>Receipt Path</th>
                                                         <th>Status</th>
-                                                        <th>Total Days</th>
-                                                        <th>Total Cost (RM)</th>
-                                                        <th>Posting date</th>
+                                                        <th>Posting Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tfoot>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Booking No</th>
-                                                        <th>Full Name</th>
-                                                        <th>Vehicle</th>
-                                                        <th>Mobile</th>
-                                                        <th>Email</th>
-                                                        <th>Price/Day (RM)</th>
-                                                        <th>From Date</th>
-                                                        <th>Return Date</th>
-                                                        <th>Driver License</th>
+                                                        <th>Booking ID</th>
+                                                        <th>Payment Date</th>
+                                                        <th>Amount (RM)</th>
+                                                        <th>Payment Method</th>
+                                                        <th>Transaction ID</th>
+                                                        <th>Receipt Path</th>
                                                         <th>Status</th>
-                                                        <th>Total Days</th>
-                                                        <th>Total Cost (RM)</th>
-                                                        <th>Posting date</th>
+                                                        <th>Posting Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                     </tfoot>
                                                     <tbody>
 
                                                     <?php
-                                                    $sql = "SELECT booking.BookingNumber,users.FullName,brands.BrandName,vehicles.VehiclesTitle,booking.Mobile,users.EmailId,vehicles.PricePerDay,booking.FromDate,booking.ReturnDate,booking.License,booking.VehicleId as vid,booking.Status,booking.PostingDate,booking.id  from booking join vehicles on vehicles.id=booking.VehicleId join users on users.EmailId=booking.userEmail join brands on vehicles.VehiclesBrand=brands.id  ";
+                                                    $sql = "SELECT * FROM payment"; // You may need to join this table with other related tables
                                                     $query = $dbh->prepare($sql);
                                                     $query->execute();
                                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
                                                     $cnt = 1;
                                                     if ($query->rowCount() > 0) {
                                                         foreach ($results as $result) {
-                                                            $fromDate = new DateTime($result->FromDate);
-                                                            $returnDate = new DateTime($result->ReturnDate);
-                                                            $interval = $fromDate->diff($returnDate);
-                                                            $totalDays = $interval->days;
-                                                            $totalCost = $totalDays * $result->PricePerDay;
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo htmlentities($cnt); ?></td>
-                                                                <td><?php echo htmlentities($result->BookingNumber); ?></td>
+                                                                <td><?php echo htmlentities($result->BookingId); ?></td>
+                                                                <td><?php echo htmlentities($result->PaymentDate); ?></td>
+                                                                <td><?php echo htmlentities($result->Amount); ?></td>
+                                                                <td><?php echo htmlentities($result->PaymentMethod); ?></td>
+                                                                <td><?php echo htmlentities($result->TransactionId); ?></td>
+                                                                <td><?php echo htmlentities($result->ReceiptPath); ?></td>
                                                                 <td>
-                                                                    <a href="edit-users.php?id=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->FullName); ?></a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>
-                                                                        , <?php echo htmlentities($result->VehiclesTitle); ?></a></td>
-                                                                <td>+60<?php echo htmlentities($result->Mobile); ?></td>
-                                                                <td><?php echo htmlentities($result->EmailId); ?></td>
-                                                                <td><?php echo htmlentities($result->PricePerDay); ?></td>
-                                                                <td><?php echo htmlentities($result->FromDate); ?></td>
-                                                                <td><?php echo htmlentities($result->ReturnDate); ?></td>
-                                                                <td>
-<?php
-if ($result->License) {
-    $imagePath = "uploads/" . $result->License; // Update the path as needed
-
-    // Debugging: Print the image path and URL
-    echo "Image Path: $imagePath<br>";
-
-    if (file_exists($imagePath)) {
-        // Create a link to open the image in a new tab or window
-        echo "<a href='$imagePath' target='_blank'>View Image</a>";
-    } else {
-        echo "Image Not Found: $imagePath"; // Debug the file path
-    }
-} else {
-    echo "No License Image";
-}
-?>
-</td>
-
-
-                                                                <td><?php
+                                                                <?php
                                                                     if ($result->Status == 0) {
                                                                         echo htmlentities('Not Confirmed yet');
                                                                     } else if ($result->Status == 1) {
@@ -185,15 +144,11 @@ if ($result->License) {
                                                                         echo htmlentities('Cancelled');
                                                                     }
                                                                     ?></td>
-                                                                <td><?php echo htmlentities($totalDays); ?></td>
-                                                                <td><?php echo htmlentities($totalCost); ?></td>
                                                                 <td><?php echo htmlentities($result->PostingDate); ?></td>
-                                                                <td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id); ?>"
-                                                                       onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
-                                                                    <a href="manage-bookings.php?eid=<?php echo htmlentities($result->id); ?>"
-                                                                       onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a> /
-                                                                    <a href="booking-details.php?bid=<?php echo htmlentities($result->id); ?>"> View</a> /
-                                                                    <a href="print-booking-details.php?bid=<?php echo htmlentities($result->id); ?>"> Print</a> 
+                                                                <td><a href="manage-payment.php?aeid=<?php echo htmlentities($result->id); ?>"
+                                                                       onclick="return confirm('Do you really want to Confirm this payment')"> Confirm</a> /
+                                                                    <a href="manage-payment.php?eid=<?php echo htmlentities($result->id); ?>"
+                                                                       onclick="return confirm('Do you really want to Cancel this payment')"> Cancel</a>
                                                                 </td>
                                                             </tr>
                                                             <?php

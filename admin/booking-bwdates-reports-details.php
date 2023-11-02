@@ -17,6 +17,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         <title>Ride Ease || B/W Dates Booking Detail</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
         <link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/Chart.min.css">
@@ -46,7 +48,6 @@ if (strlen($_SESSION['alogin']) == 0) {
         <div class="wrap">
             <section class="app-content">
                 <div class="row">
-                    <!-- DOM dataTable -->
                     <div class="col-md-12">
                         <div class="widget">
                             <header class="widget-header">
@@ -69,7 +70,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <th>From Date</th>
                                             <th>Return Date</th>
                                             <th>Price Per Day (RM)</th>
-                                            <th>Total Cost (RM)</th>
+                                            <th>Total Amount (RM)</th>
                                             <th>Posting date</th>
                                         </tr>
                                         </thead>
@@ -96,6 +97,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 $pricePerDay = $result->PricePerDay;
                                                 $totalCost = $totalDays * $pricePerDay;
                                                 $totalAmountEarned += $totalCost; // Add to total amount earned
+
+                                                // Store the total cost for each day
+                                            $totalCosts[] = $totalCost;
+
+                                             // Convert Posting Date to a human-readable format
+                                             $postingDate = date('Y-m-d', strtotime($result->PostingDate));
+                                             $dateLabels[] = $postingDate;
+
                                                 ?>
                                                 <tr>
                                                     <td><?php echo htmlentities($cnt); ?></td>
@@ -115,6 +124,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </tbody>
                                     </table>
                                     <br/><div>Total Amount Earned: <span style="color: red;">RM <?php echo number_format($totalAmountEarned, 2); ?></span></div>
+                                    <div class="col-md-12">
+                        <canvas id="totalCostChart" width="400" height="200"></canvas>
+                    </div>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +138,56 @@ if (strlen($_SESSION['alogin']) == 0) {
         <?php include_once('includes/footer.php'); ?>
     </main>
     <?php include_once('includes/customizer.php'); ?>
+    <script>
+    // Get the data for the chart
+    var fdate = new Date("<?php echo $fdate; ?>");
+    var tdate = new Date("<?php echo $tdate; ?>");
+
+    // Create a line chart
+    var ctx = document.getElementById("totalCostChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line', // Line chart
+        data: {
+            labels: <?php echo json_encode($dateLabels); ?>, // Use the posting dates as x-axis labels
+            datasets: [
+                {
+                    label: 'Total Cost (RM)',
+                    data: <?php echo json_encode($totalCosts); ?>,
+                    borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Posting Date' // Change the x-axis label
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Total Cost (RM)'
+                    }
+                },
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Total Cost from ' + fdate.toDateString() + ' to ' + tdate.toDateString(),
+                    position: 'top'
+                }
+            }
+        }
+    });
+</script>
     <!-- build:js assets/js/core.min.js -->
     <script src="libs/bower/jquery/dist/jquery.js"></script>
     <script src="libs/bower/jquery-ui/jquery-ui.min.js"></script>

@@ -69,9 +69,6 @@ $msg="Page data updated  successfully";
 								<thead>
 				<div class="row">
 					<div class="col-md-12">
-
-
-						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
 							<div class="panel-heading">Listed  Brands</div>
 							<div class="panel-body">

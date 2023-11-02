@@ -111,8 +111,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 								<thead>
 										<tr>
 										<th>#</th>
-											<th>Vehicle Title</th>
 											<th>Brand </th>
+											<th>Vehicle Title</th>
 											<th>Reg No. </th>
 											<th>Price Per Day (MYR)</th>
 											<th>Fuel Type</th>
@@ -123,8 +123,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<tfoot>
 										<tr>
 										<th>#</th>
-											<th>Vehicle Title</th>
 											<th>Brand </th>
+											<th>Vehicle Title</th>
 											<th>Reg No. </th>
 											<th>Price Per Day (MYR)</th>
 											<th>Fuel Type</th>
@@ -135,7 +135,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT vehicles.VehiclesTitle,brands.BrandName,vehicles.RegNo,vehicles.PricePerDay,vehicles.FuelType,vehicles.ModelYear,vehicles.id from vehicles join brands on brands.id=vehicles.VehiclesBrand";
+<?php $sql = "SELECT brands.BrandName,vehicles.VehiclesTitle,vehicles.RegNo,vehicles.PricePerDay,vehicles.FuelType,vehicles.ModelYear,vehicles.id from vehicles join brands on brands.id=vehicles.VehiclesBrand";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -146,8 +146,8 @@ foreach($results as $result)
 {				?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->VehiclesTitle);?></td>
 											<td><?php echo htmlentities($result->BrandName);?></td>
+											<td><?php echo htmlentities($result->VehiclesTitle);?></td>
 											<td><?php echo htmlentities($result->RegNo);?></td>
 											<td><?php echo htmlentities($result->PricePerDay);?></td>
 											<td><?php echo htmlentities($result->FuelType);?></td>

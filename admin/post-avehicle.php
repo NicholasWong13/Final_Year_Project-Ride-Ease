@@ -128,9 +128,8 @@
 					<div class="widget-body">
 					<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-						
 
-									<div class="panel-body">
+<div class="panel-body">
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
 <div class="form-group">
 <label class="col-sm-2 control-label">Vehicle Title<span style="color:red">*</span></label>
@@ -276,7 +275,6 @@ Image 5<input type="file" name="img5">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
 <input type="checkbox" id="powersteering" name="powersteering" value="1">
-<input type="checkbox" id="powersteering" name="powersteering" value="1">
 <label for="inlineCheckbox5"> Power Steering </label>
 </div>
 </div>
@@ -325,10 +323,9 @@ Image 5<input type="file" name="img5">
 </div>
 </div>
 
-
 	<div class="form-group">
-		<div class="col-sm-8 col-sm-offset-2">
-			<button class="btn btn-default" type="reset">Cancel</button>
+		<div class="col-sm-8 col-sm-offset-4"><br/>
+			<br/><button class="btn btn-default" type="reset">Cancel</button>
 			<button class="btn btn-primary" name="submit" type="submit">Save changes</button>
 		</div>
 	</div>

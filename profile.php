@@ -2,7 +2,6 @@
 session_start();
 include('includes/config.php');
 
-// Check if the user is logged in
 if (empty($_SESSION['login'])) {
     header('location:index.php');
     exit;
@@ -25,7 +24,7 @@ if (isset($_POST['updateprofile'])) {
     $imagePath = ''; // Initialize the image path
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/'; // Specify the directory where you want to store uploaded images
+        $uploadDir = 'images/'; // Specify the directory where you want to store uploaded images
         $tempName = $_FILES['image']['tmp_name'];
         $originalName = $_FILES['image']['name'];
         $imagePath = $uploadDir . $originalName;
@@ -201,7 +200,7 @@ foreach($results as $result)
             </div>
             <div class="form-group">
         <label class="control-label">Identification / Passport Image</label>
-        <input type="file" class="form-control-file" name="image" accept="image/*">
+        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
         <small class="form-text text-muted">Upload an image of your identification or passport.</small>
     </div>
             <div class="form-group">

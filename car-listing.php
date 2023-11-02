@@ -22,8 +22,10 @@ $totalRecords = $countQuery->fetchColumn();
 $totalPages = ceil($totalRecords / $recordsPerPage);
 
 // Query to fetch data with LIMIT for pagination
-$sql = "SELECT vehicles.*, brands.BrandName, brands.id as bid FROM vehicles JOIN brands ON brands.id = vehicles.VehiclesBrand LIMIT $startFrom, $recordsPerPage";
+$sql = "SELECT vehicles.*, brands.BrandName, brands.id as bid FROM vehicles JOIN brands ON brands.id = vehicles.VehiclesBrand LIMIT :startFrom, :recordsPerPage";
 $query = $dbh->prepare($sql);
+$query->bindParam(':startFrom', $startFrom, PDO::PARAM_INT);
+$query->bindParam(':recordsPerPage', $recordsPerPage, PDO::PARAM_INT);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_OBJ);
 ?>

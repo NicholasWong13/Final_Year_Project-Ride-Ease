@@ -175,41 +175,6 @@
   </div>
 </section>
 
-<section class="section-padding gray-bg">
-  <div class="container">
-    <div class="section-header text-center">
-      <h2>Trending <span>Cars of the Year</span></h2>
-      <p>Discover the hottest cars of the year, where style and performance meet in perfect harmony. Explore our selection of top-rated vehicles that are turning heads and breaking records. Find your dream car among these remarkable options.</p>
-    </div>
-    <?php
-    $sql = "SELECT vehicles.*, brands.BrandName FROM vehicles JOIN brands ON brands.id = vehicles.VehiclesBrand ORDER BY vehicles.Clicks DESC LIMIT 5";
-    $query = $dbh->prepare($sql);
-    $query->execute();
-    $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-    if ($query->rowCount() > 0) {
-      ?>
-      <div class="row">
-        <div class="col-lg-12">
-          <div id="trending_slider" class="owl-carousel">
-            <?php foreach ($results as $result) { ?>
-              <div class="trending-car-m">
-                <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                  <div class="trending-car-img"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="image"></div>
-                </a>
-                <div class="trending-hover">
-                  <h4><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?>, <?php echo htmlentities($result->VehiclesTitle); ?></a></h4>
-                </div>
-              </div>
-            <?php } ?>
-          </div>
-        </div>
-      </div>
-    <?php } ?>
-  </div>
-</section>
-
-
 <section class="fun-facts-section">
   <div class="container div_zindex">
     <div class="row">

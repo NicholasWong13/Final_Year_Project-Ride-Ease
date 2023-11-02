@@ -66,6 +66,38 @@
 
 <?php include('includes/forgotpassword.php');?>
 
+<!-- Countdown Timer Script -->
+<script>
+  // Set the target date and time for the countdown (YYYY, MM-1, DD, HH, MM, SS)
+  var targetDate = new Date(2023, 10, 30, 0, 0, 0); // For example, October 30, 2023, at midnight
+
+  // Function to update the countdown timer
+  function updateCountdown() {
+    var currentDate = new Date();
+    var timeLeft = targetDate - currentDate;
+
+    if (timeLeft <= 0) {
+      document.getElementById("countdown").innerHTML = "The countdown has ended!";
+      clearInterval(countdownInterval);
+    } else {
+      var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      // Update the countdown timer element
+      document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    }
+  }
+
+  // Initial call to update countdown
+  updateCountdown();
+
+  // Update the countdown timer every second
+  var countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+
 <!-- Scripts --> 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 

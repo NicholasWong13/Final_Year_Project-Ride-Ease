@@ -10,7 +10,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Ride Ease | Services Page</title>
+  <title>Ride Ease | Services </title>
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
@@ -135,13 +135,7 @@
       <div class="col-md-6 col-md-pull-6">
         <h3>One <span>Way</span></h3>
         <p>Save valuable time and money with the Deliver & Collect service. Work or pack right up to the last minute and have your hire car delivered to your home, office, or hotel. We’ll deliver and collect to and from any UK address. Choose a delivery and collect day and time to suit you from just £10 each way. Deliver & Collect can also be used for van hire and is available on all hire car categories. </p>
-        <br>
-        <h4>Do you need to rent a car urgently?</h4>
-        <ul class="list_style_none">
-          <li><i class="fa fa-check" aria-hidden="true"></i> Pellentesque lacus urna, feugiat non consectetur</li>
-          <li><i class="fa fa-check" aria-hidden="true"></i> Aliquam sem neque, efficitur atero lectus vitae</li>
-          <li><i class="fa fa-check" aria-hidden="true"></i> Pellentesque erat libero, eleifend sit amet felis</li>
-        </ul>
+        
       </div>
     </div>
     <div class="space-80"></div>
@@ -155,14 +149,14 @@
       </div>
       <div class="col-md-6">
         <h3>Premium <span>Pick Up</span></h3>
-        <p>Want to get from the airport to your office or meeting place? Why not relax after a flight and let our professional chauffeur takes you to your destination. No more worries about traffic congestion or parking, you are free to read your briefing papers on the way or focus on the important matters and arrive at your destination relax and on-time.</p>
-        <br>
-        <h4>Benefits</h4>
-        <ul class="list_style_none">
-          <li><i class="fa fa-check" aria-hidden="true"></i> Our professional English-speaking and courteous chauffeur will meet and escort you to the car</li>
-          <li><i class="fa fa-check" aria-hidden="true"></i> The fleet is air conditioned and non-smoking and is made up of a range of high quality luxury model vehicles</li>
-          <li><i class="fa fa-check" aria-hidden="true"></i> We can also arrange transfers to or from your home or office.</li>
-        </ul>
+        <p>Experience our premium pick-up service that ensures a luxurious and hassle-free journey from the moment you land at the airport. We prioritize your comfort and convenience to make your travel seamless.</p>
+    <br>
+    <h4>Benefits</h4>
+    <ul class="list_style_none">
+      <li><i class="fa fa-check" aria-hidden="true"></i> Our professional, English-speaking chauffeur will greet you at the airport and assist you with your luggage.</li>
+      <li><i class="fa fa-check" aria-hidden="true"></i> Travel in style with our air-conditioned and non-smoking luxury vehicles.</li>
+      <li><i class="fa fa-check" aria-hidden="true"></i> Enjoy a stress-free ride to your destination without worrying about traffic or parking.</li>
+    </ul>
       </div>
     </div>
   </div>

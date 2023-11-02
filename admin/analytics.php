@@ -2,16 +2,38 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin']) == 0) {  
+if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
-}
-else {
-    // Fetch your analytics data here
+} else {
+    // Fetch user data for the chart
+    $userData = array();
+    $sql = "SELECT RegDate, COUNT(*) AS UserCount FROM users GROUP BY RegDate";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    // Example data for the charts
-    $usersData = json_encode([50, 80, 60, 90, 70, 100]);
-    $bookingsData = json_encode([30, 40, 50, 60, 70, 80]);
-}
+    foreach ($results as $row) {
+        $userData['labels'][] = $row['RegDate'];
+        $userData['data'][] = (int) $row['UserCount'];
+    }
+    
+    // Calculate the total number of users
+    $totalUsers = array_sum($userData['data']);
+
+     // Fetch booking data by month
+     $bookingsData = array();
+     $sqlBookings = "SELECT MONTH(FromDate) AS Month, COUNT(*) AS BookingCount FROM booking GROUP BY MONTH(FromDate)";
+     $queryBookings = $dbh->prepare($sqlBookings);
+     $queryBookings->execute();
+     $resultsBookings = $queryBookings->fetchAll(PDO::FETCH_ASSOC);
+ 
+     foreach ($resultsBookings as $row) {
+         $bookingsData['labels'][] = date("F", mktime(0, 0, 0, $row['Month'], 1));
+         $bookingsData['data'][] = (int) $row['BookingCount'];
+     }
+
+    // Calculate the total number of bookings
+    $totalBookings = array_sum($bookingsData['data']);
 ?>
 
 <!DOCTYPE HTML>
@@ -23,6 +45,8 @@ else {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>Ride Ease | Admin Analytics</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
@@ -54,7 +78,7 @@ else {
                     <div class="content-wrapper">
                         <div class="container-fluid">
                             <div class="row">
-                                <h2 class="page-title">Admin Analytics</h2>
+                                <h2 class="page-title">Analytics</h2>
                             </div>
                         </div>
                     </div>
@@ -65,6 +89,7 @@ else {
                             <div class="panel-heading">Users Analytics</div>
                             <div class="panel-body">
                                 <canvas id="usersChart" width="400" height="200"></canvas>
+                                <p style="color: blue">Total Users: <span style="color: red;"><?php echo $totalUsers; ?></span></p> <!-- Display the total number of users -->
                             </div>
                         </div>
                     </div>
@@ -73,6 +98,7 @@ else {
                             <div class="panel-heading">Bookings Analytics</div>
                             <div class="panel-body">
                                 <canvas id="bookingsChart" width="400" height="200"></canvas>
+                                <p style="color: blue">Total Bookings: <span style="color: red;"><?php echo $totalBookings; ?></span></p> <!-- Display the total number of bookings -->
                             </div>
                         </div>
                     </div>
@@ -83,48 +109,81 @@ else {
         <?php include_once('includes/footer.php'); ?>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/Chart.min.js"></script>
+    <div class="col-md-12">
+        <canvas id="userChart" width="400" height="200"></canvas>
+    </div>
     <script>
-        // Chart for Users
-        var usersChart = document.getElementById('usersChart').getContext('2d');
-        var usersData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    // Chart for Users
+    var userData = <?php echo json_encode($userData); ?>;
+    var ctxUser = document.getElementById("usersChart").getContext('2d');
+    var userChart = new Chart(ctxUser, {
+        type: 'bar',
+        data: {
+            labels: userData.labels,
             datasets: [
                 {
-                    label: 'New Users',
-                    data: <?php echo $usersData; ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    label: 'Number of Users',
+                    data: userData.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
                     borderWidth: 1
                 }
             ]
-        };
-        new Chart(usersChart, {
-            type: 'line',
-            data: usersData,
-        });
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Users'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Registration Date' // Modify the x-axis label
+                    }
+                }
+            }
+        }
+    });
 
-        // Chart for Bookings
-        var bookingsChart = document.getElementById('bookingsChart').getContext('2d');
-        var bookingsData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [
-                {
-                    label: 'Bookings',
-                    data: <?php echo $bookingsData; ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }
-            ]
-        };
-        new Chart(bookingsChart, {
+
+        var bookingsData = <?php echo json_encode($bookingsData); ?>;
+        var ctxBookings = document.getElementById('bookingsChart').getContext('2d');
+        var bookingsChart = new Chart(ctxBookings, {
             type: 'bar',
-            data: bookingsData,
+            data: {
+                labels: bookingsData.labels,
+                datasets: [
+                    {
+                        label: 'Number of Bookings',
+                        data: bookingsData.data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Bookings'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    }
+                }
+            }
         });
     </script>
 
-    <!-- Your JavaScript files here -->
 
     <!-- build:js assets/js/core.min.js -->
     <script src="libs/bower/jquery/dist/jquery.js"></script>
@@ -146,3 +205,4 @@ else {
     <script src="assets/js/fullcalendar.js"></script>
 </body>
 </html>
+<?php }?>

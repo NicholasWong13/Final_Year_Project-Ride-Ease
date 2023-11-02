@@ -73,48 +73,61 @@
         }
     </style>
 
- <script>
-        function checkAvailability() {
-            $("#loaderIcon").show();
-            jQuery.ajax({
+<script>
+    function checkAvailability() {
+        $("#loaderIcon").show();
+        var email = $("#emailid").val();
+        jQuery.ajax({
             url: "check_availability.php",
-            data:'emailid='+$("#emailid").val(),
+            data: 'emailid=' + email,
             type: "POST",
-            success:function(data){
-            $("#user-availability-status").html(data);
-            $("#loaderIcon").hide();
+            success: function (data) {
+                $("#user-availability-status").html(data);
+
+                if (isValidEmailDomain(email)) {
+                    $("#loaderIcon").hide();
+                } else {
+                    $("#user-availability-status").html("Invalid Email Domain");
+                    $("#loaderIcon").hide();
+                }
             },
-            error:function (){}
-            });
-            }
+            error: function () { }
+        });
+    }
 
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            var toggleButton = document.getElementById("togglePassword");
+    function isValidEmailDomain(email) {
+        var validDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"]; // Add your valid domains here
+        var domain = email.split('@')[1];
+        return validDomains.includes(domain);
+    }
 
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.textContent = "Hide";
-            } else {
-                passwordField.type = "password";
-                toggleButton.textContent = "Show";
-            }
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var toggleButton = document.getElementById("togglePassword");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "Show";
         }
+    }
 
-        function toggleconfirmPasswordVisibility() {
-            var passwordField = document.getElementById("cpassword");
-            var toggleButton = document.getElementById("toggleconfirmPassword");
+    function toggleconfirmPasswordVisibility() {
+        var passwordField = document.getElementById("cpassword");
+        var toggleButton = document.getElementById("toggleconfirmPassword");
 
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.textContent = "Hide";
-            } else {
-                passwordField.type = "password";
-                toggleButton.textContent = "Show";
-            }
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "Show";
         }
+    }
+</script>
 
-  </script>
  
 <div class="modal fade" id="signupform">
   <div class="modal-dialog" role="document">

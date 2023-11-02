@@ -44,7 +44,7 @@
           <div class="media-group dropdown-menu animated flipInY">
          
 
-            <a href="view-appointment-detail.php?editid=&&aptid=" class="media-group-item">
+            <a href="view-booking-detail.php?editid=&&aptid=" class="media-group-item">
               <div class="media">
                 <div class="media-left">
                   <div class="avatar avatar-xs avatar-circle">
@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 <div class="media-body">
-                  <h5 class="media-heading">New Appointment</h5>
+                  <h5 class="media-heading">New Booking</h5>
                   <small class="media-meta">at ()</small>
                 </div>
               </div>

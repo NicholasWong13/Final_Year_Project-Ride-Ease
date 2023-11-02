@@ -77,21 +77,7 @@ function checkuser() {
         return true;
     }
 }
-function checkemailid() {
-    var pattern1 = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    var email = $('#emailid').val();
-    var validemail = pattern1.test(email);
-    if (email == "") {
-        $('#email_err').html('Required Field');
-        return false;
-    } else if (!validemail) {
-        $('#email_err').html('Invalid Email');
-        return false;
-    } else {
-        $('#email_err').html('');
-        return true;
-    }
-}
+
 function checkpass() {
     console.log("sass");
     var pattern2 = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;

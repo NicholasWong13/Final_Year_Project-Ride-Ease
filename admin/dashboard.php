@@ -140,6 +140,24 @@ $bookings=$query3->rowCount();
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
+								<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body bk-warning text-light">
+												<div class="stat-panel text-center">
+<?php 
+$sql7 ="SELECT id from payments ";
+$query3= $dbh -> prepare($sql3);
+$query3->execute();
+$results3=$query3->fetchAll(PDO::FETCH_OBJ);
+$payments=$query3->rowCount();
+?>												
+													<div class="stat-panel-number h1 "><?php echo htmlentities($payments);?></div>
+													<div class="stat-panel-title text-uppercase">Payments</div>
+												</div>
+											</div>
+											<a href="manage-brands.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
+										</div>
+									</div>
 									<div class="col-md-3">
 										<div class="panel panel-default">
 											<div class="panel-body bk-primary text-light">

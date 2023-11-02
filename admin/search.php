@@ -3,17 +3,25 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
+$results = array();
+
 if (isset($_POST['search'])) {
     $searchdata = $_POST['searchdata'];
-    $results = array();
 
-    $sql = "SELECT * FROM booking WHERE BookingNumber LIKE :searchdata OR Name LIKE :searchdata OR MobileNumber LIKE :searchdata";
+    $sql = "SELECT * FROM booking 
+            WHERE BookingNumber LIKE :searchdata 
+            OR Name LIKE :searchdata 
+            OR MobileNumber LIKE :searchdata 
+            OR Email LIKE :searchdata";
+
     $query = $dbh->prepare($sql);
     $query->bindParam(':searchdata', '%' . $searchdata . '%', PDO::PARAM_STR);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_OBJ);
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +47,8 @@ if (isset($_POST['search'])) {
 		<script>
 			Breakpoints();
 		</script>
-    </head>
-
-
 </head>
+
 <body class="menubar-left menubar-unfold menubar-light theme-primary">
     <?php include_once('includes/header.php'); ?>
     <?php include_once('includes/sidebar.php'); ?>
@@ -55,9 +61,9 @@ if (isset($_POST['search'])) {
                             <header class="widget-header">
                                 <form method="post">
                                     <div class="form-group">
-                                        <label>Search by Booking No./Name/Mobile No.</label>
+                                        <label>Search by Booking No./Name/Mobile No./Email</label>
                                         <input id="searchdata" type="text" name="searchdata" required="true"
-                                            class="form-control" placeholder="Booking No./Name/Mobile No.">
+                                            class="form-control" placeholder="Booking No./Name/Mobile No./Email">
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-primary" name="search" id="submit">Search</button>

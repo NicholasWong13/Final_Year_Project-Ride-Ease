@@ -37,7 +37,7 @@
 		4.5. Fan-Facts
 		4.6. Our-Services
 		4.7. Testimonial
-		4.8. Help
+		4.8. Need Help
 	
 	5. Inner-Page-Heading-Section
 	6. Breadcrumb
@@ -53,15 +53,6 @@
 	
 	13. 404-Page
 	14. Our-Services-Page
-	
-	15. Our-Blog-Page
-		15.1. Aritcle
-		15.2. Comment-List
-		15.3. Page-Pagination
-		15.4. Side-Bar-Widgets
-		15.5. Popular-Posts
-		15.6. Blog-Categories
-		15.7. Blog-Tag
 	
 	16. Profile-page
 		16.1. Post-a-vehicle
@@ -2232,7 +2223,7 @@ form .slider.slider-horizontal {
 
 
 /*-----------------
-	4.8. Help
+	4.8. Need Help
 ------------------------*/
 #help {
   background-image: url("../images/contact.jpg");
@@ -2241,7 +2232,6 @@ form .slider.slider-horizontal {
   position:relative;
   background-attachment:fixed;
 }
-
 
 
 
@@ -4445,7 +4435,6 @@ h3 {
 
 
 }
-
 
 
 @media (max-width:480px) {

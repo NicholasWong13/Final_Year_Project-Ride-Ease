@@ -87,12 +87,8 @@
           <p text-align="justify">Making a reservation with Ride Ease is quick and easy. You can visit our website and use our user-friendly online booking platform. Simply enter your desired pickup location, dates, and times, and browse through our available vehicles. Once you've selected the car that suits your needs, proceed to the reservation and payment process. If you need any assistance, our customer service team is always ready to help.</p>
         </div>
         <div class="faq_text">
-          <h4>What is the minimum age requirement for renting a car?</h4>
-          <p></p>
-        </div>
-        <div class="faq_text">
-          <h4>What is Lorem Ipsum?</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <h4>What is the minimum age to rent a car?</h4>
+          <p text-align="justify">The minimum age requirement for renting a car from Ride Ease is 21 years old.</p>
         </div>
       </div>
       <div class="col-md-4">
@@ -104,11 +100,11 @@
         </div>
         <div class="faq_text">
           <h4>How can I make a reservation with Ride Ease?</h4>
-          <p>Making a reservation with Ride Ease is quick and easy. You can visit our website and use our user-friendly online booking platform. Simply enter your desired pickup location, dates, and times, and browse through our available vehicles. Once you've selected the car that suits your needs, proceed to the reservation and payment process. If you need any assistance, our customer service team is always ready to help. The minimum age requirement for renting a car from Ride Ease is 21 years old.</p>
+          <p text-align="justify">Making a reservation with Ride Ease is quick and easy. You can visit our website and use our user-friendly online booking platform. Simply enter your desired pickup location, dates, and times, and browse through our available vehicles. Once you've selected the car that suits your needs, proceed to the reservation and payment process. If you need any assistance, our customer service team is always ready to help. The minimum age requirement for renting a car from Ride Ease is 21 years old.</p>
         </div>
         <div class="faq_text">
-          <h4>Where can I get some?</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <h4>What types of cars do you offer?</h4>
+          <p text-align="justify">We offer a diverse fleet of vehicles, including compact cars, sedans, SUVs, and more. You can choose the vehicle that best suits your travel needs and preferences.</p>
         </div>
       </div>
       <div class="col-md-4">
@@ -123,16 +119,12 @@
           <p text-align="justify">Reserving and canceling a car rental involves several key considerations. When making a reservation, you typically provide your details, rental dates, and vehicle preferences online or by phone. Understanding the cancellation policy is vital; it usually includes a specific time frame for free cancellations, potential fees if you cancel outside this window, and possible refunds. You can often modify reservations, but this may affect the total cost. Be aware of no-show fees and consider that returning the car early may not result in a refund for unused days. Always obtain cancellation confirmation and note that third-party bookings may have different policies. Special promotions and prepaid reservations might have unique cancellation rules. Lastly, insurance covering trip interruptions or cancellations can provide peace of mind. Familiarizing yourself with these policies ensures a smoother car rental experience.</p>
         </div>
         <div class="faq_text">
-          <h4>Pick-Up and Drop-Off</h4>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <h4>Pick-Up and Drop-Off</h4>
+          <p text-align="justify">Our pick-up and drop-off locations are conveniently located at various points. You can choose the most suitable location when making your reservation, and our team will assist you with a smooth vehicle handover process.</p>
         </div>
         <div class="faq_text">
-          <h4>Age and License Requirements</h4>
-          <p>The minimum age requirement for renting a car from Ride Ease is 21 years old.</p>
-        </div>
-        <div class="faq_text">
-          <h4>Terms and Conditions</h4>
-          <p>The minimum age requirement for renting a car from Ride Ease is 21 years old.</p>
+        <h4>Terms and Conditions</h4>
+          <p text-align="justify">It's important to review and understand the terms and conditions of your rental. This document outlines the rental agreement, including pricing, policies, and responsibilities. Make sure to read and agree to these terms before finalizing your reservation.</p>
         </div>
       </div>
     </div>
