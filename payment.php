@@ -159,9 +159,9 @@ if (isset($_SESSION['bookingNumber'])) {
             <div class="form-group">
                 <label class="control-label">Bank Transfer Details</label>
                 <div>
-                    <p>Bank Name: Ride Ease</p>
-                    <p>Account Holder's Name: Ride Ease</p>
-                    <p>Account Number: Your Account Number</p>
+                    <p>Bank Name: <b><span style="color: blue;">Maybank Berhad</span></b></p>
+                    <p>Account Holder's Name: <b><span style="color: blue;">Ride Ease</span></b></p>
+                    <p>Account Number: <b><span style="color: blue;">514019999999</span></b></p>
                 </div>
             </div>
 
@@ -191,10 +191,8 @@ if (isset($_SESSION['bookingNumber'])) {
                 <div class="card-content">
                     <label for="cards" style="font-size: 24px;">Accepted Methods</label>
                     <div style= 'margin-bottom: 20px; padding: 7px 0; font-size: 40px;'>
-                        <i class="fa fa-cc-visa payable-cards" style="color: navy;"></i>
-                        <i class="fa fa-cc-amex payable-cards" style="color: blue;"></i>
-                        <i class="fa fa-cc-mastercard payable-cards" style="color: red;"></i>
-                        <i class="fa fa-cc-discover payable-cards" style="color: orange;"></i>
+                        <i class="fa fa fa-money" style="color: black;"></i>
+                        <i class="fa fa-bank" style="color: gold;"></i>
                     </div>
                 </div>
             </div>

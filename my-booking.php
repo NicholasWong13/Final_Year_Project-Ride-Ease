@@ -52,16 +52,10 @@ else{
 </head>
 <body>
 
-<!-- Start Switcher -->
 <?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
-        
-<!--Header-->
-<?php include('includes/header.php');?>
-<!--Page Header-->
-<!-- /Header --> 
 
-<!--Page Header-->
+<?php include('includes/header.php');?>
+
 <section class="page-header profile_page">
   <div class="container">
     <div class="page-header_wrap">
@@ -74,10 +68,9 @@ else{
       </ul>
     </div>
   </div>
-  <!-- Dark Overlay-->
-  <div class="dark-overlay"></div>
+  <div class="dark-overlay">
+  </div>
 </section>
-<!-- /Page Header--> 
 
 <?php 
 $useremail=$_SESSION['login'];
@@ -112,18 +105,25 @@ foreach($results as $result)
           <h5 class="uppercase underline">My Bookings </h5>
           <div class="my_vehicles_list">
             <ul class="vehicle_listing">
-<?php 
-$useremail=$_SESSION['login'];
- $sql = "SELECT vehicles.Vimage1 as Vimage1,vehicles.VehiclesTitle,vehicles.id as vid,brands.BrandName,booking.FromDate,booking.ReturnDate,booking.message,booking.Status  from booking join vehicles on booking.VehicleId=vehicles.id join brands on brands.id=vehicles.VehiclesBrand where booking.userEmail=:useremail";
-$query = $dbh -> prepare($sql);
-$query-> bindParam(':useremail', $useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{  ?>
+            <?php
+                                        $useremail = $_SESSION['login'];
+                                        $sql = "SELECT vehicles.Vimage1 as Vimage1,vehicles.VehiclesTitle,vehicles.id as vid,brands.BrandName,booking.FromDate,booking.ReturnDate,booking.message,booking.Status, booking.BookingNumber from booking join vehicles on booking.VehicleId=vehicles.id join brands on brands.id=vehicles.VehiclesBrand where booking.userEmail=:useremail";
+                                        $query = $dbh->prepare($sql);
+                                        $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
+                                        $query->execute();
+                                        $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                        $cnt = 1;
+                                        if ($query->rowCount() > 0) {
+                                            foreach ($results as $result) {
+                                              // Calculate the number of days
+$fromDateObj = new DateTime($result->FromDate);
+$returnDateObj = new DateTime($result->ReturnDate);
+$interval = $fromDateObj->diff($returnDateObj);
+$numOfDays = $interval->days;
+
+// Calculate the total price
+$totalPrice = $numOfDays * $pricePerDay;
+                                                ?>
 
 <li>
                 <div class="vehicle_img"> 
@@ -132,7 +132,13 @@ foreach($results as $result)
                 <div class="vehicle_title">
                   <h6><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->vid);?>"> 
                   <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
-                  <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>Return Date:</b> <?php echo htmlentities($result->ReturnDate);?></p>
+                  <p>
+                  <b>Booking Number:</b> <a href="booking-details.php?bookingNumber=<?php echo htmlentities($result->BookingNumber);?>">
+                <?php echo htmlentities($result->BookingNumber);?></a><br />
+                  <b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> 
+                  <b>Return Date:</b> <?php echo htmlentities($result->ReturnDate);?></p>
+                  <p><b>Total Price:</b> RM <?php echo $totalPrice; ?></p>
+                  <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($result->message);?> </p></div>
                 </div>
                 <?php if($result->Status==1)
                 { ?>
@@ -152,7 +158,6 @@ foreach($results as $result)
             <div class="clearfix"></div>
         </div>
                 <?php } ?>
-       <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($result->message);?> </p></div>
               </li>
               <?php }} ?>
             </ul>

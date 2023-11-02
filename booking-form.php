@@ -278,20 +278,24 @@ if (isset($_POST['submit'])) {
         </select>
     </div>
 </div>
-    <div class="form-group">
-    <label class="control-label">Pick Up Location</label>
-    <select name="pickuplocation" class="form-control" id="pickuplocation">
-    <option value="">Pick Up Location</option>
-    <?php
-    $sql="SELECT * FROM location";
-    $stmt=$dbh->query($sql);
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    while($row =$stmt->fetch()) { 
-    ?>
-    <option value="<?php echo $row['ID'];?>"><?php echo $row['LocationName'];?></option>
-    <?php }?>
-    </select>
-    </div>
+<div class="form-group">
+   <label class="control-label">Pick Up Location</label>
+   <select name="pickuplocation" class="form-control" id="pickuplocation">
+      <option value="">Pick Up Location</option>
+      <?php
+      // Loop through the locations based on LocationID
+      foreach ($locations as $location) {
+         $locationID = $location['LocationID'];
+         $locationName = htmlentities($location['LocationName']);
+         $selected = ($_POST['pickuplocation'] == $locationID) ? 'selected' : '';
+
+         echo "<option value='$locationID' $selected>$locationName</option>";
+      }
+      ?>
+   </select>
+</div>
+
+
 
     <div class="form-group">
     <label class="control-label">Return Location</label>
@@ -319,7 +323,7 @@ if (isset($_POST['submit'])) {
           </div>
             <div class="form-group checkbox col-md-12">
                   <input type="checkbox" id="terms_agree" required="required" checked="">
-                  <label for="terms_agree">By clicking Book now, you are confirming that you have read, understood and accepted our <a href="Terms & Conditions.pdf" target="_blank"> Terms & Conditions </a>, <a href="Policy Terms.pdf" target="_blank"> Policy Terms </a> and the <a href="Rental Terms.pdf" target="_blank"> Rental Terms.</a></label>
+                  <label for="terms_agree">By clicking Book now, you are confirming that you have read, understood and accepted our <a href="Terms & Conditions.pdf" target="_blank"> Terms & Conditions </a>, <a href="Policy Terms.pdf" target="_blank"> Policy Terms </a> and <a href="Rental Terms.pdf" target="_blank"> Rental Terms.</a></label>
           </div>
           <p>Ride Ease will collect a deposit amount <b> RM1000 </b> on you. You could lose your whole deposit if the car is damaged or stolen, but as long as you have our Full Protection, Ride Ease will refund you! (The cover price you see includes all applicable taxes and fees).</p>
         </form>

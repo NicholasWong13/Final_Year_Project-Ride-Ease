@@ -24,11 +24,15 @@ if (isset($_POST['updateprofile'])) {
     $imagePath = ''; // Initialize the image path
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'images/'; // Specify the directory where you want to store uploaded images
+        $uploadDir = 'document/'; // Specify the directory where you want to store uploaded images
         $tempName = $_FILES['image']['tmp_name'];
         $originalName = $_FILES['image']['name'];
-        $imagePath = $uploadDir . $originalName;
-
+        $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
+    
+        // Generate a unique filename to avoid overwriting existing images
+        $uniqueFilename = uniqid() . '.' . $fileExtension;
+        $imagePath = $uploadDir . $uniqueFilename;
+    
         // Move the uploaded image to the specified directory
         if (move_uploaded_file($tempName, $imagePath)) {
             // Image uploaded successfully
@@ -36,7 +40,7 @@ if (isset($_POST['updateprofile'])) {
             $msg = "Image upload failed.";
         }
     }
-
+    
     // Update the user's profile
     $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :imagePath, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
     $query = $dbh->prepare($sql);

@@ -78,7 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <th>City</th>
                                         <th>State</th>
                                         <th>Country</th>
-                                        <th>Image</th> <!-- Add this column for the image -->
+                                        <th>Image</th> 
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -95,7 +95,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <th>City</th>
                                         <th>State</th>
                                         <th>Country</th>
-                                        <th>Image</th> <!-- Add this column for the image -->
+                                        <th>Image</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>

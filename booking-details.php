@@ -40,9 +40,6 @@ if (isset($_GET['bookingNumber'])) {
         $pickuplocation = $row['PickupLocation'];
         $returnlocation = $row['ReturnLocation'];
         $message = $row['message'];
-
-        // Set the bookingNumber in the session
-        $_SESSION['bookingNumber'] = $bookingNumber;
     } else {
         echo "Booking not found.";
         exit;
@@ -59,7 +56,7 @@ if (isset($_GET['bookingNumber'])) {
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ride Ease | Booking Confirmation</title>
+    <title>Ride Ease | Booking Details</title>
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
@@ -68,7 +65,7 @@ if (isset($_GET['bookingNumber'])) {
     <link href="assets/css/slick.css" rel="stylesheet">
     <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
+    <link rel="stylesheet" id="switcher-css" type="text css" href="assets/switcher/css/switcher.css" media="all" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
@@ -91,17 +88,16 @@ if (isset($_GET['bookingNumber'])) {
     <div class="container">
         <div class="page-header_wrap">
             <div class="page-heading">
-                <h1>Booking Confirmation</h1>
+                <h1>Booking Details</h1>
             </div>
             <ul class="coustom-breadcrumb">
                 <li><a href="index.php">Home</a></li>
-                <li>Booking Confirmation</li>
+                <li>Booking Details</li>
             </ul>
         </div>
     </div>
     <div class="dark-overlay"></div>
 </section>
-
 
 <section class="about_us section-padding">
     <div class="container">
@@ -117,16 +113,12 @@ if (isset($_GET['bookingNumber'])) {
             <li>From Time: <?php echo date("h:i A", strtotime($fromtime)); ?></li>
             <li>Return Date: <?php echo $returndate; ?></li>
             <li>Return Time: <?php echo date("h:i A", strtotime($returntime)); ?></li>
-            <li>Return Date: <?php echo $returndate; ?></li>
-            <li>Return Time: <?php echo $returntime; ?></li>
-            <li>License: <?php echo $license; ?></li>
+            <li>License: <a href="uploads/" target="_blank"><img src="uploads/$license" alt="License"></a></li>
+            <li>Image License Link: <?php echo $license; ?></li>
             <li>Pickup Location: <?php echo $pickuplocation; ?></li>
             <li>Return Location: <?php echo $returnlocation; ?></li>
             <li>Message: <?php echo $message; ?></li>
         </ul>
-
-        <button class="btn btn-primary" onclick="location.href='payment.php?bookingNumber=<?php echo $bookingNumber; ?>'">Make Payment Deposit</button>
-   
     </div>  
 </section>
 
@@ -155,4 +147,3 @@ if (isset($_GET['bookingNumber'])) {
 
 </body>
 </html>
-

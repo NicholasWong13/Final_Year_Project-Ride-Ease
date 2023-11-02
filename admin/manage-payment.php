@@ -94,7 +94,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <th>Payment Date</th>
                                                         <th>Amount (RM)</th>
                                                         <th>Payment Method</th>
-                                                        <th>Transaction ID</th>
                                                         <th>Receipt Path</th>
                                                         <th>Status</th>
                                                         <th>Posting Date</th>
@@ -108,7 +107,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <th>Payment Date</th>
                                                         <th>Amount (RM)</th>
                                                         <th>Payment Method</th>
-                                                        <th>Transaction ID</th>
                                                         <th>Receipt Path</th>
                                                         <th>Status</th>
                                                         <th>Posting Date</th>
@@ -132,9 +130,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 <td><?php echo htmlentities($result->PaymentDate); ?></td>
                                                                 <td><?php echo htmlentities($result->Amount); ?></td>
                                                                 <td><?php echo htmlentities($result->PaymentMethod); ?></td>
-                                                                <td><?php echo htmlentities($result->TransactionId); ?></td>
-                                                                <td><?php echo htmlentities($result->ReceiptPath); ?></td>
-                                                                <td>
+                                                                <?php echo '<td><a href="view-receipt.php?path=' . htmlentities($result->ReceiptPath) . '" target="_blank">View Receipt</a></td>';
+        ?>
+</td>
+
+
+<td>
                                                                 <?php
                                                                     if ($result->Status == 0) {
                                                                         echo htmlentities('Not Confirmed yet');
