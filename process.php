@@ -1,5 +1,5 @@
 <?php
-  //error_reporting(0);
+  error_reporting(0);
   if(isset($_POST['signup']))
   {
   $fullname=$_POST['fullname']
@@ -29,7 +29,7 @@
 $name = htmlspecialchars(trim($_POST['username']));
 $email = htmlspecialchars(trim($_POST['email']));
 $pass = htmlspecialchars(trim($_POST['password']));
-//$cpass = htmlspecialchars(trim($_POST['cpassword']));
+$cpass = htmlspecialchars(trim($_POST['cpassword']));
 $mobile = htmlspecialchars(trim($_POST['mobile']));
 
 if (empty($name) || empty($email) || empty($pass) || empty($mobile)) {

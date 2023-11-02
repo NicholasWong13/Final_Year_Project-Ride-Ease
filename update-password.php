@@ -161,7 +161,7 @@ foreach($results as $result)
         <?php include('includes/sidebar.php');?>
       <div class="col-md-6 col-sm-8">
         <div class="profile_wrap">
-<form name="chngpwd" method="post" onSubmit="return valid();">
+    <form name="chngpwd" method="post" onSubmit="return valid();">
         
             <div class="gray-bg field-title">
               <h6>Update password</h6>
