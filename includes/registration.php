@@ -96,7 +96,7 @@
     }
 
     function isValidEmailDomain(email) {
-        var validDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"]; // Add your valid domains here
+        var validDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"]; 
         var domain = email.split('@')[1];
         return validDomains.includes(domain);
     }
