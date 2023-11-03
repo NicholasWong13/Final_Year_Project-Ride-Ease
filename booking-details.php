@@ -60,12 +60,13 @@ if (isset($_GET['bookingNumber'])) {
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/print.css" media="print">
     <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
     <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
     <link href="assets/css/slick.css" rel="stylesheet">
     <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" id="switcher-css" type="text css" href="assets/switcher/css/switcher.css" media="all" />
+    <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
     <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
@@ -101,26 +102,87 @@ if (isset($_GET['bookingNumber'])) {
 
 <section class="about_us section-padding">
     <div class="container">
-        <p>Below are the details of your booking:</p>
+        <h2>Booking Details</h2>
+        <table class="table table-bordered">
+            <tr>
+                <td>Booking Number:</td>
+                <td><?php echo $bookingNumber; ?></td>
+            </tr>
+            <tr>
+                <td>Full Name:</td>
+                <td><?php echo $fullname; ?></td>
+            </tr>
+            <tr>
+                <td>Mobile:</td>
+                <td>+60<?php echo $mobile; ?></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><?php echo $age; ?></td>
+            </tr>
+            <tr>
+                <td>No. of Passengers:</td>
+                <td><?php echo $passenger; ?></td>
+            </tr>
+            <tr>
+                <td>From Date:</td>
+                <td><?php echo $fromdate; ?></td>
+            </tr>
+            <tr>
+                <td>From Time:</td>
+                <td><?php echo date("h:i A", strtotime($fromtime)); ?></td>
+            </tr>
+            <tr>
+                <td>Return Date:</td>
+                <td><?php echo $returndate; ?></td>
+            </tr>
+            <tr>
+                <td>Return Time:</td>
+                <td><?php echo date("h:i A", strtotime($returntime)); ?></td>
+            </tr>
+            <tr>
+    <td>License:</td>
+    <td>
+        <?php
+        if (file_exists($license)) {
+            echo '<a href="' . $license . '" target="_blank">View License</a>';
+        } else {
+            echo 'License image not found';
+        }
+        ?>
+    </td>
+</tr>
 
-        <ul>
-            <li>Booking Number: <?php echo $bookingNumber; ?></li>
-            <li>Full Name: <?php echo $fullname; ?></li>
-            <li>Mobile: +60<?php echo $mobile; ?></li>
-            <li>Age: <?php echo $age; ?></li>
-            <li>No. of Passengers: <?php echo $passenger; ?></li>
-            <li>From Date: <?php echo $fromdate; ?></li>
-            <li>From Time: <?php echo date("h:i A", strtotime($fromtime)); ?></li>
-            <li>Return Date: <?php echo $returndate; ?></li>
-            <li>Return Time: <?php echo date("h:i A", strtotime($returntime)); ?></li>
-            <li>License: <a href="uploads/" target="_blank"><img src="uploads/$license" alt="License"></a></li>
-            <li>Image License Link: <?php echo $license; ?></li>
-            <li>Pickup Location: <?php echo $pickuplocation; ?></li>
-            <li>Return Location: <?php echo $returnlocation; ?></li>
-            <li>Message: <?php echo $message; ?></li>
-        </ul>
-    </div>  
+            <tr>
+                <td>Pickup Location:</td>
+                <td><?php echo $pickuplocation; ?></td>
+            </tr>
+            <tr>
+                <td>Return Location:</td>
+                <td><?php echo $returnlocation; ?></td>
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td><?php echo $message; ?></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" onclick="printBookingDetails()">Print Booking Details</button>
+    </div>
 </section>
+
+<script>
+    function printBookingDetails() {
+        // Hide the print button before printing
+        document.querySelector(".btn").style.display = "none";
+        
+        // Trigger the browser's print functionality
+        window.print();
+        
+        // Show the print button after printing
+        document.querySelector(".btn").style.display = "block";
+    }
+</script>
+
 
 <?php include('includes/footer.php');?>
 

@@ -1,6 +1,5 @@
 # 6001CEM Individual Project
-# Final_Year_Project-Ride-Ease
-By Nicholas Wong Kai Xin
+# By Nicholas Wong Kai Xin
 
 <h1 align="center">Ride Ease</h1>
 

@@ -109,80 +109,83 @@ if (strlen($_SESSION['alogin']) == 0) {
         <?php include_once('includes/footer.php'); ?>
     </main>
 
-    <div class="col-md-12">
-        <canvas id="userChart" width="400" height="200"></canvas>
-    </div>
     <script>
-    // Chart for Users
-    var userData = <?php echo json_encode($userData); ?>;
-    var ctxUser = document.getElementById("usersChart").getContext('2d');
-    var userChart = new Chart(ctxUser, {
-        type: 'bar',
-        data: {
-            labels: userData.labels,
-            datasets: [
-                {
-                    label: 'Number of Users',
-                    data: userData.data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                    borderWidth: 1
+// Chart for Users
+var userData = <?php echo json_encode($userData); ?>;
+var ctxUser = document.getElementById("usersChart").getContext('2d');
+var userChart = new Chart(ctxUser, {
+    type: 'bar',
+    data: {
+        labels: userData.labels, // These labels should already be month names
+        datasets: [
+            {
+                label: 'Number of Users',
+                data: userData.data,
+                backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: false, // Exclude 0 from the y-axis
+                stepSize: 1, // Set the stepSize to 1 to display only whole numbers
+                min: 0, // Start from the minimum value (1)
+                title: {
+                    display: true,
+                    text: 'Number of Users'
                 }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of Users'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Registration Date' // Modify the x-axis label
-                    }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Registration Month'
                 }
             }
         }
-    });
+    }
+});
 
-
-        var bookingsData = <?php echo json_encode($bookingsData); ?>;
-        var ctxBookings = document.getElementById('bookingsChart').getContext('2d');
-        var bookingsChart = new Chart(ctxBookings, {
-            type: 'bar',
-            data: {
-                labels: bookingsData.labels,
-                datasets: [
-                    {
-                        label: 'Number of Bookings',
-                        data: bookingsData.data,
-                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                        borderWidth: 1
-                    }
-                ]
+// Chart for Bookings
+var bookingsData = <?php echo json_encode($bookingsData); ?>;
+var ctxBookings = document.getElementById('bookingsChart').getContext('2d');
+var bookingsChart = new Chart(ctxBookings, {
+    type: 'bar',
+    data: {
+        labels: bookingsData.labels, // These labels should already be month names
+        datasets: [
+            {
+                label: 'Number of Bookings',
+                data: bookingsData.data,
+                backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: false, // Exclude 0 from the y-axis
+                stepSize: 1, // Set the stepSize to 1 to display only whole numbers
+                min: 0, // Start from the minimum value (1)
+                title: {
+                    display: true,
+                    text: 'Number of Bookings'
+                }
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Number of Bookings'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    }
+            x: {
+                title: {
+                    display: true,
+                    text: 'Month'
                 }
             }
-        });
-    </script>
+        }
+    }
+});
+
+</script>
+
 
 
     <!-- build:js assets/js/core.min.js -->

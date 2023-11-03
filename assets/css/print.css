@@ -1,0 +1,9 @@
+/* print.css */
+/* Hide header and footer when printing */
+.default-header, .footer-top, .footer-bottom, .page-header{
+    display: none;
+}
+
+.print-btn, .btn-primary {
+    display: none;
+}

@@ -63,6 +63,7 @@ if (isset($_GET['bookingNumber'])) {
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style1.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/print.css" media="print">
     <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
     <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
     <link href="assets/css/slick.css" rel="stylesheet">
@@ -83,7 +84,6 @@ if (isset($_GET['bookingNumber'])) {
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 <body>
-<?php include('includes/colorswitcher.php');?>
 
 <?php include('includes/header.php');?>
 
@@ -102,33 +102,76 @@ if (isset($_GET['bookingNumber'])) {
     <div class="dark-overlay"></div>
 </section>
 
-
 <section class="about_us section-padding">
     <div class="container">
-        <p>Below are the details of your booking:</p>
-
-        <ul>
-            <li>Booking Number: <?php echo $bookingNumber; ?></li>
-            <li>Full Name: <?php echo $fullname; ?></li>
-            <li>Mobile: +60<?php echo $mobile; ?></li>
-            <li>Age: <?php echo $age; ?></li>
-            <li>No. of Passengers: <?php echo $passenger; ?></li>
-            <li>From Date: <?php echo $fromdate; ?></li>
-            <li>From Time: <?php echo date("h:i A", strtotime($fromtime)); ?></li>
-            <li>Return Date: <?php echo $returndate; ?></li>
-            <li>Return Time: <?php echo date("h:i A", strtotime($returntime)); ?></li>
-            <li>Return Date: <?php echo $returndate; ?></li>
-            <li>Return Time: <?php echo $returntime; ?></li>
-            <li>License: <?php echo $license; ?></li>
-            <li>Pickup Location: <?php echo $pickuplocation; ?></li>
-            <li>Return Location: <?php echo $returnlocation; ?></li>
-            <li>Message: <?php echo $message; ?></li>
-        </ul>
+        <table border="1">
+            <tr>
+                <td>Booking Number:</td>
+                <td><?php echo $bookingNumber; ?></td>
+            </tr>
+            <tr>
+                <td>Full Name:</td>
+                <td><?php echo $fullname; ?></td>
+            </tr>
+            <tr>
+                <td>Mobile:</td>
+                <td>+60<?php echo $mobile; ?></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><?php echo $age; ?></td>
+            </tr>
+            <tr>
+                <td>No. of Passengers:</td>
+                <td><?php echo $passenger; ?></td>
+            </tr>
+            <tr>
+                <td>From Date:</td>
+                <td><?php echo $fromdate; ?></td>
+            </tr>
+            <tr>
+                <td>From Time:</td>
+                <td><?php echo date("h:i A", strtotime($fromtime)); ?></td>
+            </tr>
+            <tr>
+                <td>Return Date:</td>
+                <td><?php echo $returndate; ?></td>
+            </tr>
+            <tr>
+                <td>Return Time:</td>
+                <td><?php echo date("h:i A", strtotime($returntime)); ?></td>
+            </tr>
+            <tr>
+    <td>License:</td>
+    <td>
+        <?php
+        if (file_exists($license)) {
+            echo '<a href="' . $license . '" target="_blank">View License</a>';
+        } else {
+            echo 'License image not found';
+        }
+        ?>
+    </td>
+</tr>
+            <tr>
+                <td>Pickup Location:</td>
+                <td><?php echo $pickuplocation; ?></td>
+            </tr>
+            <tr>
+                <td>Return Location:</td>
+                <td><?php echo $returnlocation; ?></td>
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td><?php echo $message; ?></td>
+            </tr>
+        </table>
 
         <button class="btn btn-primary" onclick="location.href='payment.php?bookingNumber=<?php echo $bookingNumber; ?>'">Make Payment Deposit</button>
-   
-    </div>  
+        <button class="btn print-btn" onclick="printPage()">Print</button>
+    </div>
 </section>
+
 
 <?php include('includes/footer.php');?>
 
@@ -143,6 +186,13 @@ if (isset($_GET['bookingNumber'])) {
 <?php include('includes/forgotpassword.php');?>
 
 <!-- Scripts -->
+
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
+
 <script src="assets/js/booking-form.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>

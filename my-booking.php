@@ -131,7 +131,7 @@ $totalPrice = $numOfDays * $pricePerDay;
                 <img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
                 <div class="vehicle_title">
                   <h6><a href="vehicle-details.php?vhid=<?php echo htmlentities($result->vid);?>"> 
-                  <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
+                  <?php echo htmlentities($result->BrandName);?> <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
                   <p>
                   <b>Booking Number:</b> <a href="booking-details.php?bookingNumber=<?php echo htmlentities($result->BookingNumber);?>">
                 <?php echo htmlentities($result->BookingNumber);?></a><br />
