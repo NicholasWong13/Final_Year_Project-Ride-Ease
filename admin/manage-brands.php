@@ -14,7 +14,7 @@ $sql = "delete from brands WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$msg="Page data updated  successfully";
+$msg="Page data updated successfully";
 }
 ?>
 
