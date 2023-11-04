@@ -40,7 +40,7 @@
         
 <?php include('includes/header.php');?>
 
-<section class="page-header aboutus_page">
+<section class="page-header listing_page">
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">

@@ -76,105 +76,93 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
                                 else if ($msg) { ?>
                                     <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-                                <div class="table-responsive">
-                                    <table id="zctb"
-                                           class="display table table-striped table-bordered table-hover"
-                                           cellspacing="0" width="100%">
-                                        <thead>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Payment Info</div>
-                                            <div class="panel-body">
-                                                <table id="zctb"
-                                                       class="display table table-striped table-bordered table-hover"
-                                                       cellspacing="0" width="100%">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Booking ID</th>
-                                                        <th>Payment Date</th>
-                                                        <th>Amount (RM)</th>
-                                                        <th>Payment Method</th>
-                                                        <th>Receipt Path</th>
-                                                        <th>Status</th>
-                                                        <th>Posting Date</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Booking ID</th>
-                                                        <th>Payment Date</th>
-                                                        <th>Amount (RM)</th>
-                                                        <th>Payment Method</th>
-                                                        <th>Receipt Path</th>
-                                                        <th>Status</th>
-                                                        <th>Posting Date</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                    <tbody>
-
-                                                    <?php
-                                                    $sql = "SELECT * FROM payment"; // You may need to join this table with other related tables
-                                                    $query = $dbh->prepare($sql);
-                                                    $query->execute();
-                                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                                    $cnt = 1;
-                                                    if ($query->rowCount() > 0) {
-                                                        foreach ($results as $result) {
-                                                            ?>
-                                                            <tr>
-                                                                <td><?php echo htmlentities($cnt); ?></td>
-                                                                <td><?php echo htmlentities($result->BookingId); ?></td>
-                                                                <td><?php echo htmlentities($result->PaymentDate); ?></td>
-                                                                <td><?php echo htmlentities($result->Amount); ?></td>
-                                                                <td><?php echo htmlentities($result->PaymentMethod); ?></td>
-                                                                <?php
-        if ($result->PaymentMethod !== 'cash') {
-            echo '<td><a href="view-receipt.php?path=' . htmlentities($result->ReceiptPath) . '" target="_blank">View Receipt</a></td>';
-        } else {
-            echo '<td>N/A</td>'; // Display "N/A" for cash payments
-        }
-        ?>
-</td>
-
-
-<td>
-                                                                <?php
-                                                                    if ($result->Status == 0) {
-                                                                        echo htmlentities('Not Confirmed yet');
-                                                                    } else if ($result->Status == 1) {
-                                                                        echo htmlentities('Confirmed');
-                                                                    } else {
-                                                                        echo htmlentities('Cancelled');
-                                                                    }
-                                                                    ?></td>
-                                                                <td><?php echo htmlentities($result->PostingDate); ?></td>
-                                                                <td><a href="manage-payment.php?aeid=<?php echo htmlentities($result->id); ?>"
-                                                                       onclick="return confirm('Do you really want to Confirm this payment')"> Confirm</a> /
-                                                                    <a href="manage-payment.php?eid=<?php echo htmlentities($result->id); ?>"
-                                                                       onclick="return confirm('Do you really want to Cancel this payment')"> Cancel</a>
-                                                                </td>
-                                                            </tr>
+                                    <div class="table-responsive">
+                                        <table id="zctb"
+                                               class="display table table-striped table-bordered table-hover"
+                                               cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Booking ID</th>
+                                                    <th>Payment Date</th>
+                                                    <th>Amount (RM)</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Receipt Path</th>
+                                                    <th>Status</th>
+                                                    <th>Posting Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Booking ID</th>
+                                                    <th>Payment Date</th>
+                                                    <th>Amount (RM)</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Receipt Path</th>
+                                                    <th>Status</th>
+                                                    <th>Posting Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php
+                                                $sql = "SELECT * FROM payment";
+                                                $query = $dbh->prepare($sql);
+                                                $query->execute();
+                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                                $cnt = 1;
+                                                if ($query->rowCount() > 0) {
+                                                    foreach ($results as $result) {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo htmlentities($cnt); ?></td>
+                                                            <td><?php echo htmlentities($result->BookingId); ?></td>
+                                                            <td><?php echo htmlentities($result->PaymentDate); ?></td>
+                                                            <td><?php echo htmlentities($result->Amount); ?></td>
+                                                            <td><?php echo htmlentities($result->PaymentMethod); ?></td>
                                                             <?php
-                                                            $cnt++;
-                                                        }
+                                                            if ($result->PaymentMethod !== 'cash') {
+                                                                echo '<td><a href="view-receipt.php?path=' . htmlentities($result->ReceiptPath) . '" target="_blank">View Receipt</a></td>';
+                                                            } else {
+                                                                echo '<td>N/A</td>';
+                                                            }
+                                                            ?>
+                                                            <td>
+                                                                <?php
+                                                                if ($result->Status == 0) {
+                                                                    echo htmlentities('Not Confirmed yet');
+                                                                } elseif ($result->Status == 1) {
+                                                                    echo htmlentities('Confirmed');
+                                                                } else {
+                                                                    echo htmlentities('Cancelled');
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo htmlentities($result->PostingDate); ?></td>
+                                                            <td>
+                                                                <a href="manage-payment.php?aeid=<?php echo htmlentities($result->id); ?>"
+                                                                   onclick="return confirm('Do you really want to Confirm this payment')"> Confirm</a>
+                                                                /
+                                                                <a href="manage-payment.php?eid=<?php echo htmlentities($result->id); ?>"
+                                                                   onclick="return confirm('Do you really want to Cancel this payment')"> Cancel</a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $cnt++;
                                                     }
-                                                    ?>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
         <?php include_once('includes/footer.php'); ?>
     </main>
     <?php include_once('includes/customizer.php'); ?>
