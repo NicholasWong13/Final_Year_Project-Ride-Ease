@@ -216,7 +216,6 @@ $testimonials=$query5->rowCount();
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
