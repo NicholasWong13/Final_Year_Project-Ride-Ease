@@ -29,7 +29,7 @@ echo "<script type='text/javascript'> document.location = 'dashboard.php'; </scr
 <html lang="en">
 <head>
 	
-	<title>Ride Ease - Login Page</title>
+	<title>Ride Ease - Admin Login Page</title>
 
 	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
@@ -56,7 +56,7 @@ echo "<script type='text/javascript'> document.location = 'dashboard.php'; </scr
 	<form method="post" name="login">
 		<div class="form-group">
 			
-			<input type="text" placeholder="Username" name="username" class="form-control mb">
+			<input type="text" placeholder="Username" name="username" class="form-control" required="true">
 </div>
 
 		<div class="form-group">

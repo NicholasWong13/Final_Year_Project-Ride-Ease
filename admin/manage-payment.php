@@ -130,7 +130,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 <td><?php echo htmlentities($result->PaymentDate); ?></td>
                                                                 <td><?php echo htmlentities($result->Amount); ?></td>
                                                                 <td><?php echo htmlentities($result->PaymentMethod); ?></td>
-                                                                <?php echo '<td><a href="view-receipt.php?path=' . htmlentities($result->ReceiptPath) . '" target="_blank">View Receipt</a></td>';
+                                                                <?php
+        if ($result->PaymentMethod !== 'cash') {
+            echo '<td><a href="view-receipt.php?path=' . htmlentities($result->ReceiptPath) . '" target="_blank">View Receipt</a></td>';
+        } else {
+            echo '<td>N/A</td>'; // Display "N/A" for cash payments
+        }
         ?>
 </td>
 
