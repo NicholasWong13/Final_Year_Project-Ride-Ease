@@ -125,7 +125,7 @@
         <ul class="nav navbar-nav">
           <li class="dropdown"><a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vehicles</a>
           	 <ul class="dropdown-menu">
-              <li><a href="car-listing.php">Car Listing</a></li>
+              <li><a href="vehicle-listing.php">Vehicles Listing</a></li>
               <li><a href="compare-vehicle.php">Compare Vehicles</a></li>
               <li><a href="recently-vehicle.php">Recently Listed Vehicles</a></li>
             </ul>

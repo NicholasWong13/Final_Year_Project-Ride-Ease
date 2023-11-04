@@ -115,7 +115,6 @@ foreach($results as $result)
                                         $cnt = 1;
                                         if ($query->rowCount() > 0) {
                                             foreach ($results as $result) {
-                                              // Calculate the number of days
 $fromDateObj = new DateTime($result->FromDate);
 $returnDateObj = new DateTime($result->ReturnDate);
 $interval = $fromDateObj->diff($returnDateObj);

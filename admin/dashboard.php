@@ -6,15 +6,12 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-
 else{
 	?>
 	
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
 	<title>Ride Ease - Admin Dashboard</title>
 	
 	<link rel="stylesheet" href="libs/bower/font-awesome/css/font-awesome.min.css">

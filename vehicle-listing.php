@@ -79,11 +79,11 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
     <div class="container">
         <div class="page-header_wrap">
             <div class="page-heading">
-                <h1>Car Listing</h1>
+                <h1>Vehicle Listing</h1>
             </div>
             <ul class="coustom-breadcrumb">
                 <li><a href="index.php">Home</a></li>
-                <li>Car Listing</li>
+                <li>Vehicle Listing</li>
             </ul>
         </div>
     </div>
@@ -193,7 +193,7 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     ?>
                                     <li class="gray-bg">
                                         <div class="recent_post_img"> <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1); ?>" alt="image"></a> </div>
-                                        <div class="recent_post_title"> <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></a>
+                                        <div class="recent_post_title"> <a href="vehicle-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?> <?php echo htmlentities($result->VehiclesTitle); ?></a>
                                             <p class="widget_price">RM<?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
                                         </div>
                                     </li>
