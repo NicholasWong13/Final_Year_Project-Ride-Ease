@@ -2,74 +2,7 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-if(isset($_POST['submit']))
-{
 
-$fullname=$_POST['fullname'];
-$mobile=$_POST['mobile'];
-$age=$_POST['age'];
-$passenger=$_POST['passenger'];
-$fromdate=$_POST['fromdate'];
-$fromtime=$_POST['fromtime'];
-$returndate=$_POST['returndate']; 
-$returntime=$_POST['returntime'];
-$license=$_POST['license'];
-$pickuplocation=$_POST['pickuplocation'];
-$returnlocation=$_POST['returnlocation'];
-$message=$_POST['message'];
-$useremail=$_SESSION['login'];
-$status=0;
-$vhid=$_GET['vhid'];
-
-//Check for duplicate schedules
-$checksql = "SELECT id FROM booking WHERE FromDate = :from  AND ReturnDate= :return AND (status = 1 OR status = 0)";
-$query= $dbh -> prepare($checksql);
-$query->bindParam(':from', $fromdate, PDO::PARAM_STR);
-$query->bindParam(':return', $returndate, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0) {
-    echo "<script>alert('Booking schedule already taken; please choose another one.');</script>";
-}
-else {
-
-if ($returndate < $fromdate) {
-     echo "<script>alert('Booking schedule is invalid. Please choose a sensible date.');</script>";
-    return;
-}
-
-$sql="INSERT INTO booking(fullname,mobile,userEmail,age,passenger,VehicleId,FromDate,FromTime,ReturnDate,ReturnTime,License,PickupLocation,ReturnLocation,message,Status) VALUES(:fullname,:mobile,:useremail,:age,:passenger,:vhid,:fromdate,:fromtime,:returndate,:returntime,:license,:pickuplocation,:returnlocation,:message,:status)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':fullname',$fullname,PDO::PARAM_STR);
-$query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
-$query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
-$query->bindParam(':age',$age,PDO::PARAM_STR);
-$query->bindParam(':passenger',$passenger,PDO::PARAM_STR);
-$query->bindParam(':vhid',$vhid,PDO::PARAM_STR);
-$query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
-$query->bindParam(':fromtime',$fromtime,PDO::PARAM_STR);
-$query->bindParam(':returndate',$returndate,PDO::PARAM_STR);
-$query->bindParam(':returntime',$returndate,PDO::PARAM_STR);
-$query->bindParam(':license',$license,PDO::PARAM_STR);
-$query->bindParam(':pickuplocation',$pickuplocation,PDO::PARAM_STR);
-$query->bindParam(':returnlocation',$returnlocation,PDO::PARAM_STR);
-$query->bindParam(':message',$message,PDO::PARAM_STR);
-$query->bindParam(':status',$status,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$_SESSION['renter_notification_message'] = 'Another users has booked one of your vehicle';
-echo "<script>alert('Booking successful.');</script>";
-?>
-<?php
-}
-else 
-{
-echo "<script>alert('Something went wrong. Please try again');</script>";
-}
-}
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -192,16 +125,13 @@ $_SESSION['brndid']=$result->bid;
         </div>
         <div class="listing_more_info">
           <div class="listing_detail_wrap"> 
-            <!-- Nav tabs -->
             <ul class="nav nav-tabs gray-bg" role="tablist">
               <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Vehicle Overview </a></li>
               <li role="presentation"><a href="#rental-info" aria-controls="rental-info" role="tab" data-toggle="tab">Rental Info</a></li>
               <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Accessories</a></li>   
             </ul>
             
-            <!-- Tab panes -->
-            <div class="tab-content"> 
-              <!-- vehicle-overview -->
+            <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
                 
                 <p><?php echo htmlentities($result->VehiclesOverview);?></p>
@@ -212,9 +142,7 @@ $_SESSION['brndid']=$result->bid;
                 <p><?php echo htmlentities($result->RentalInfo);?></p>
               </div>
 
-              <!-- Accessories -->
               <div role="tabpanel" class="tab-pane" id="accessories"> 
-                <!--Accessories-->
                 <table>
                   <thead>
                     <tr>

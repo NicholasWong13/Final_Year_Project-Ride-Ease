@@ -12,7 +12,7 @@ error_reporting(0);
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>Ride Ease | Search Car Result</title>
+<title>Ride Ease | Search Vehicle Result</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
@@ -71,35 +71,34 @@ error_reporting(0);
       <div class="col-md-9 col-md-push-3">
         <div class="result-sorting-wrapper">
           <div class="sorting-count">
-<?php 
-//Query for Listing count
-$brand=$_POST['brand'];
-$fueltype=$_POST['fueltype'];
-$sql = "SELECT id from vehicles where vehicles.VehiclesBrand=:brand and vehicles.FuelType=:fueltype";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=$query->rowCount();
-?>
-<p><span><?php echo htmlentities($cnt);?> Listings</span></p>
-</div>
-</div>
 
-<?php 
+    <?php 
+    $brand=$_POST['brand'];
+    $fueltype=$_POST['fueltype'];
+    $sql = "SELECT id from vehicles where vehicles.VehiclesBrand=:brand and vehicles.FuelType=:fueltype";
+    $query = $dbh -> prepare($sql);
+    $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
+    $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
+    $query->execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    $cnt=$query->rowCount();
+    ?>
+    <p><span><?php echo htmlentities($cnt);?> Listings</span></p>
+    </div>
+    </div>
 
-$sql = "SELECT vehicles.*,brands.BrandName,brands.id as bid  from vehicles join brands on brands.id=vehicles.VehiclesBrand where vehicles.VehiclesBrand=:brand and vehicles.FuelType=:fueltype";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{  ?>
+    <?php 
+    $sql = "SELECT vehicles.*,brands.BrandName,brands.id as bid  from vehicles join brands on brands.id=vehicles.VehiclesBrand where vehicles.VehiclesBrand=:brand and vehicles.FuelType=:fueltype";
+    $query = $dbh -> prepare($sql);
+    $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
+    $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
+    $query->execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    $cnt=1;
+    if($query->rowCount() > 0)
+    {
+    foreach($results as $result)
+    {  ?>
         <div class="product-listing-m gray-bg">
           <div class="product-listing-img"><img src="assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a> 
           </div>
