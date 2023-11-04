@@ -91,21 +91,13 @@ $error="Something went wrong. Please try again";
 													<button class="btn btn-primary" name="submit" type="submit">Submit</button>
 												</div>
 											</div>
-
 										</form>
-
 									</div>
 								</div>
 							</div>
-							
 						</div>
-						
-					
-
 					</div>
 				</div>
-				
-			
 			</div>
 		</div>
 	</div>
