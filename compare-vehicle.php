@@ -3,7 +3,6 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
-// Fetch the list of vehicles from the database
 $sql = "SELECT vehicles.*, brands.BrandName FROM vehicles
         JOIN brands ON brands.id = vehicles.VehiclesBrand";
 $query = $dbh->prepare($sql);
@@ -11,14 +10,11 @@ $query->execute();
 $vehicles = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['compare_vehicles'])) {
-    // Check which vehicles were selected for comparison
     $selectedVehicleIDs = isset($_POST['compare']) ? $_POST['compare'] : array();
 
     if (count($selectedVehicleIDs) < 2) {
-        // Not enough vehicles to compare
         echo '<h2>Please select at least two vehicles to compare.</h2>';
     } else {
-        // Fetch vehicle details for comparison
         $comparisonData = array();
         foreach ($selectedVehicleIDs as $vehicleID) {
             foreach ($vehicles as $vehicle) {
@@ -29,8 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['compare_vehicles'])) 
         }
     }
 }
-
-// Include your header and other HTML content here
 ?>
 
 <!DOCTYPE HTML>
