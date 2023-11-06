@@ -1,29 +1,37 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-} else{
-    if(isset($_POST['submit']))
-  {
-  $id=$_SESSION['id'];
-  $name=$_POST['uname'];
-  $mobno=$_POST['mobilenumber'];
-  $email=$_POST['email'];
-  $sql="update admin set UserName=:name,Mobile=:mobilenumber,Email=:email, where ID=:id";
-     $query = $dbh->prepare($sql);
-     $query->bindParam(':name',$name,PDO::PARAM_STR);
-     $query->bindParam(':email',$email,PDO::PARAM_STR);
-     $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
-     $query->bindParam(':id',$id,PDO::PARAM_STR);
-$query->execute();
 
-        echo '<script>alert("Profile has been updated")</script>';
-     
-  }
-  ?>
+if (strlen($_SESSION['alogin']) == 0 || !isset($_SESSION['id'])) {
+    header('location: profile.php');
+    exit;
+}
+
+if (isset($_POST['submit'])) {
+    $id = $_SESSION['id'];
+    $name = $_POST['uname'];
+    $mobno = $_POST['mobilenumber'];
+    $email = $_POST['email'];
+
+    $sql = "UPDATE admin SET UserName = :name, Mobile = :mobilenumber, Email = :email WHERE ID = :id";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':name', $name, PDO::PARAM_STR);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':mobilenumber', $mobno, PDO::PARAM_STR);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
+    $query->execute();
+
+    echo '<script>alert("Profile has been updated");</script>';
+}
+
+$id = $_SESSION['id'];
+$sql = "SELECT * FROM admin WHERE ID = :id";
+$query = $dbh->prepare($sql);
+$query->bindParam(':id', $id, PDO::PARAM_STR);
+$query->execute();
+$row = $query->fetch(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,4 +148,3 @@ foreach($results as $row)
   <script src="assets/js/fullcalendar.js"></script>
 </body>
 </html>
-<?php }  ?>

@@ -57,72 +57,76 @@
 
 <section id="filter_form2">
   <div class="container">
-  	<div class="main_bg white-text">
-        <h3>Find Your Dream Car</h3>
-        <div class="row">
+    <div class="main_bg white-text">
+      <h3>Find Your Dream Car</h3>
+      <div class="row">
         <form action="search-carresult.php" method="post">
-            <div class="form-group col-md-4 col-sm-8">
-              <div class="select">
-                <select class="form-control">
-                  <option>Select Location </option>
-  <?php 
-  $sql = "SELECT * from  location ";
-  $query = $dbh -> prepare($sql);
-  $query->execute();
-  $results=$query->fetchAll(PDO::FETCH_OBJ);
-  $cnt=1;
-  if($query->rowCount() > 0)
-  {
-  foreach($results as $result)
-  {       ?>  
-  <option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->LocationName);?></option>
-  <?php }} ?>
-                </select>
-              </div>
+          <div class="form-group col-md-4 col-sm-8">
+            <div class="select">
+              <select class="form-control" name="location">
+                <option>Select Location</option>
+                <?php
+                $sql = "SELECT * from location";
+                $query = $dbh->prepare($sql);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                  foreach ($results as $result) {
+                ?>
+                    <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->LocationName); ?></option>
+                <?php
+                  }
+                }
+                ?>
+              </select>
             </div>
-            <div class="form-group col-md-4 col-sm-8">
-              <div class="select">
-                <select class="form-control">
-                  <option>Select Brand</option>
-  <?php 
-  $sql = "SELECT * from  brands ";
-  $query = $dbh -> prepare($sql);
-  $query->execute();
-  $results=$query->fetchAll(PDO::FETCH_OBJ);
-  $cnt=1;
-  if($query->rowCount() > 0)
-  {
-  foreach($results as $result)
-  {       ?>  
-  <option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?></option>
-  <?php }} ?>
-                </select>
-              </div>
+          </div>
+          <div class="form-group col-md-4 col-sm-8">
+            <div class="select">
+              <select class="form-control" name="brand">
+                <option>Select Brand</option>
+                <?php
+                $sql = "SELECT * from brands";
+                $query = $dbh->prepare($sql);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0) {
+                  foreach ($results as $result) {
+                ?>
+                    <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
+                <?php
+                  }
+                }
+                ?>
+              </select>
             </div>
-            <div class="form-group col-md-3 col-sm-6">
-              <div class="form-group select">
-                <select class="form-control" name="fueltype">
-                  <option>Select Fuel Type</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Electric">Electric</option>
-                </select>
-              </div>
+          </div>
+          <div class="form-group col-md-3 col-sm-6">
+            <div class="form-group select">
+              <select class="form-control" name="fueltype">
+                <option>Select Fuel Type</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
             </div>
-           
-            <div class="form-group col-md-6 col-sm-6">
-              <label class="form-label">Price Range (RM) </label>
-              <input id="price_range" type="text" class="span2" value="" data-slider-min="50" data-slider-max="6000" data-slider-step="5" data-slider-value="[1000,5000]"/>
-            </div>
-            
-            <div class="form-group col-md-3 col-sm-6">
+          </div>
+
+          <div class="form-group col-md-6 col-sm-6">
+            <label class="form-label">Price Range (RM)</label>
+            <input id="price_range" type="text" class="span2" name="price_range" value="" data-slider-min="50" data-slider-max="6000" data-slider-step="5" data-slider-value="[1000,5000]" />
+          </div>
+
+          <div class="form-group col-md-3 col-sm-6">
             <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car</button>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
+
 
 <section class="section-padding gray-bg">
   <div class="container">

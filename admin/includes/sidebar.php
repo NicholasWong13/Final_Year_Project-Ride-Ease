@@ -9,23 +9,18 @@
       <div class="media-body">
         <div class="foldable">
           <?php
-          $id = $_SESSION['ID']; // Use the correct session variable name (e.g., 'ID' instead of 'id')
-
-          // Prepare and execute the SQL query
+          $id = $_SESSION['ID'];
           $sql = "SELECT UserName, Email FROM admin WHERE ID = :id";
           $query = $dbh->prepare($sql);
-          $query->bindParam(':id', $id, PDO::PARAM_INT); // Use PDO::PARAM_INT for integer values
+          $query->bindParam(':id', $id, PDO::PARAM_INT); 
           $query->execute();
         
-          // Check if any results were returned
           if ($query->rowCount() > 0) {
             $row = $query->fetch(PDO::FETCH_OBJ);
         
-            // Retrieve the values from the database
             $Email = $row->Email;
             $UserName = $row->UserName;
           } else {
-            // Handle the case where no data is found, e.g., show a default message
             $UserName = "Admin";
             $Email = "admin@rideease.com";
           }
@@ -122,8 +117,6 @@
           </a>
           <ul class="submenu">
             <li><a href="new-booking.php"><span class="menu-text">New Booking</span></a></li>
-            <li><a href="approved-booking.php"><span class="menu-text">Approved Booking</span></a></li>
-            <li><a href="cancelled-booking.php"><span class="menu-text">Cancelled Booking</span></a></li>
             <li><a href="manage-bookings.php"><span class="menu-text">All Booking</span></a></li>
           </ul>
         </li>

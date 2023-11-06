@@ -3,56 +3,45 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
-// After processing the booking form, set the bookingID in the session
 $_SESSION['bookingID'] = $bookingID;
 
-// Generate a unique booking number
 $uniqueBookingNumber = generateUniqueBookingNumber();
 
 function generateUniqueBookingNumber() {
     global $dbh;
 
-    // Define a prefix for your booking numbers
-    $prefix = 'RE'; // You can change this prefix as needed
+    $prefix = 'RE'; 
 
     $isUnique = false;
     $bookingNumber = '';
 
-    // Loop until a unique booking number is generated
     while (!$isUnique) {
-        // Generate a random 6-digit number
         $randomPart = mt_rand(100000, 999999);
 
-        // Combine the prefix and random part to create the booking number
         $bookingNumber = $prefix . $randomPart;
 
-        // Check if the booking number is unique
         $checkSql = "SELECT id FROM booking WHERE BookingNumber = :bookingNumber";
         $query = $dbh->prepare($checkSql);
         $query->bindParam(':bookingNumber', $bookingNumber, PDO::PARAM_STR);
         $query->execute();
 
         if ($query->rowCount() === 0) {
-            // Booking number is unique
             $isUnique = true;
         }
     }
 
     return $bookingNumber;
 }
-// Fetch the price per day based on the selected vehicle ID
+
 if (isset($_GET['vhid'])) {
   $vhid = $_GET['vhid'];
   $pricePerDay = getVehiclePricePerDay($vhid);
 } else {
-  // Handle the case where 'vhid' is not set.
-  // You can redirect the user to an error page or perform other actions.
 }
 
-// Function to get the price per day for a vehicle
 function getVehiclePricePerDay($vhid) {
   global $dbh;
-  $sql = "SELECT PricePerDay FROM vehicles WHERE id = :vhid"; // Replace 'vehicles' with your actual table name
+  $sql = "SELECT PricePerDay FROM vehicles WHERE id = :vhid"; 
   $query = $dbh->prepare($sql);
   $query->bindParam(':vhid', $vhid, PDO::PARAM_INT);
   $query->execute();
@@ -70,24 +59,19 @@ if (isset($_POST['submit'])) {
   $age = $_POST['age'];
   $passenger = $_POST['no_of_passenger'];
   $fromdate = $_POST['fromdate'];
-  // Combine the selected hours and minutes for FromTime
   $fromtime = $_POST['fromhour'] . ":" . $_POST['fromminute'] . ":00";
   
   $returndate = $_POST['returndate'];
   
-  // Combine the selected hours and minutes for ReturnTime
   $returntime = $_POST['returnhour'] . ":" . $_POST['returnminute'] . ":00";
 
-  $uploadDirectory = 'uploads/';  // Directory where you want to store uploaded files
+  $uploadDirectory = 'uploads/';  
   $licenseTempFile = $_FILES['license']['tmp_name'];
   $licenseFileName = $_FILES['license']['name'];
   $licenseFileLocation = $uploadDirectory . $licenseFileName;
 
-  // Move the uploaded file to the desired directory
   if (move_uploaded_file($licenseTempFile, $licenseFileLocation)) {
-      // File upload was successful
   } else {
-      // File upload failed
       echo "<script>alert('File upload failed. Please try again.');</script>";
   }
   
@@ -98,7 +82,6 @@ if (isset($_POST['submit'])) {
   $status = 0;
   $vhid = $_GET['vhid'];
 
-  // Check if the user is at least 21 years old
   if ($age < 21) {
       echo "<script>alert('You must be at least 21 years old to book a vehicle.');</script>";
   } else {
@@ -138,7 +121,6 @@ if (isset($_POST['submit'])) {
 
               if ($lastInsertId) {
                   $_SESSION['renter_notification_message'] = 'Another user has booked one of your vehicles';
-                  // Redirect to the booking confirmation page without displaying the success message
                   header("Location: booking-confirmation.php?bookingNumber=$uniqueBookingNumber");
                   exit();
               } else {
@@ -294,8 +276,6 @@ if (isset($_POST['submit'])) {
       ?>
    </select>
 </div>
-
-
 
     <div class="form-group">
     <label class="control-label">Return Location</label>
