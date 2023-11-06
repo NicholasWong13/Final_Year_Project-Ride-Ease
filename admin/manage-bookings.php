@@ -148,8 +148,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                     <a href="edit-users.php?id=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->FullName); ?></a>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>
-                                                                        , <?php echo htmlentities($result->VehiclesTitle); ?></a></td>
+                                                                    <a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?> <?php echo htmlentities($result->VehiclesTitle); ?></a></td>
                                                                 <td>+60<?php echo htmlentities($result->Mobile); ?></td>
                                                                 <td><?php echo htmlentities($result->EmailId); ?></td>
                                                                 <td><?php echo htmlentities($result->PricePerDay); ?></td>
