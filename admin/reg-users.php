@@ -121,12 +121,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <td><?php echo htmlentities($result->State); ?></td>
                                                 <td><?php echo htmlentities($result->Country); ?></td>
 												<td>
-    <?php if (!empty($result->Image)) { ?>
-        <img src="<?php echo $result->Image; ?>" alt="User Image" width="100">
-    <?php } else { ?>
-        No Image
-    <?php } ?>
-</td>
+                                                <?php if (!empty($result->Image)) { ?>
+                                                    <img src="<?php echo $result->Image; ?>" alt="User Image" width="100">
+                                                <?php } else { ?>
+                                                    No Image
+                                                <?php } ?>
+                                                </td>
                                                 <td>
                                                     <a href="edit-users.php?id=<?php echo $result->id; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                                     <a href="reg-users.php?del=<?php echo $result->id; ?>"
