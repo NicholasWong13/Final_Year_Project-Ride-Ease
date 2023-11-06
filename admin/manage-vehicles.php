@@ -12,36 +12,27 @@ if (strlen($_SESSION['alogin']) == 0) {
     if (isset($_GET['search'])) {
         $search = $_GET['search'];
 
-        // Construct the SQL query to search for vehicles by VehiclesTitle
         $sql = "SELECT vehicles.VehiclesTitle, brands.BrandName, vehicles.RegNo, vehicles.PricePerDay, vehicles.FuelType, vehicles.ModelYear, vehicles.id
                 FROM vehicles
                 JOIN brands ON brands.id = vehicles.VehiclesBrand
                 WHERE vehicles.VehiclesTitle LIKE :search";
 
-        // Prepare the SQL query
         $query = $dbh->prepare($sql);
 
-        // Bind the search parameter with the wildcard for partial matching
         $query->bindParam(':search', '%' . $search . '%', PDO::PARAM_STR);
 
-        // Execute the SQL query
         $query->execute();
 
-        // Fetch the results as objects
         $results = $query->fetchAll(PDO::FETCH_OBJ);
     } else {
-        // If no search criteria is provided, retrieve all records
         $sql = "SELECT vehicles.VehiclesTitle, brands.BrandName, vehicles.RegNo, vehicles.PricePerDay, vehicles.FuelType, vehicles.ModelYear, vehicles.id
                 FROM vehicles
                 JOIN brands ON brands.id = vehicles.VehiclesBrand";
 
-        // Prepare the SQL query
         $query = $dbh->prepare($sql);
 
-        // Execute the SQL query
         $query->execute();
 
-        // Fetch the results as objects
         $results = $query->fetchAll(PDO::FETCH_OBJ);
     }
 ?>
