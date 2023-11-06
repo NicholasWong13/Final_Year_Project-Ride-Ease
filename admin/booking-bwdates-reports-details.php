@@ -87,30 +87,27 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
 
                                         $cnt = 1;
-                                        $totalAmountEarned = 0; // Initialize total amount earned
+                                        $totalAmountEarned = 0; 
                                         if ($query->rowCount() > 0) {
                                             foreach ($results as $result) {
-                                                // Calculate the number of days and the total cost
                                                 $fromDate = strtotime($result->FromDate);
                                                 $returnDate = strtotime($result->ReturnDate);
                                                 $totalDays = ($returnDate - $fromDate) / (60 * 60 * 24);
                                                 $pricePerDay = $result->PricePerDay;
                                                 $totalCost = $totalDays * $pricePerDay;
-                                                $totalAmountEarned += $totalCost; // Add to total amount earned
+                                                $totalAmountEarned += $totalCost; 
+                                                
+                                                $totalCosts[] = $totalCost;
 
-                                                // Store the total cost for each day
-                                            $totalCosts[] = $totalCost;
-
-                                             // Convert Posting Date to a human-readable format
-                                             $postingDate = date('Y-m-d', strtotime($result->PostingDate));
-                                             $dateLabels[] = $postingDate;
+                                                $postingDate = date('Y-m-d', strtotime($result->PostingDate));
+                                                $dateLabels[] = $postingDate;
 
                                                 ?>
                                                 <tr>
                                                     <td><?php echo htmlentities($cnt); ?></td>
                                                     <td><?php echo htmlentities($result->FullName); ?></td>
-                                                    <td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>,
-                                                            <?php echo htmlentities($result->VehiclesTitle); ?></a></td>
+                                                    <td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>
+                                                        <?php echo htmlentities($result->VehiclesTitle); ?></a></td>
                                                     <td><?php echo htmlentities($result->FromDate); ?></td>
                                                     <td><?php echo htmlentities($result->ReturnDate); ?></td>
                                                     <td><?php echo number_format($pricePerDay, 2); ?></td>
@@ -125,8 +122,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     </table>
                                     <br/><div>Total Amount Earned: <span style="color: red;">RM <?php echo number_format($totalAmountEarned, 2); ?></span></div>
                                     <div class="col-md-12">
-                        <canvas id="totalCostChart" width="400" height="200"></canvas>
-                    </div>
+                                    <canvas id="totalCostChart" width="400" height="200"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,21 +136,19 @@ if (strlen($_SESSION['alogin']) == 0) {
     </main>
     <?php include_once('includes/customizer.php'); ?>
     <script>
-    // Get the data for the chart
     var fdate = new Date("<?php echo $fdate; ?>");
     var tdate = new Date("<?php echo $tdate; ?>");
 
-    // Create a line chart
     var ctx = document.getElementById("totalCostChart").getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'line', // Line chart
+        type: 'line', 
         data: {
-            labels: <?php echo json_encode($dateLabels); ?>, // Use the posting dates as x-axis labels
+            labels: <?php echo json_encode($dateLabels); ?>, 
             datasets: [
                 {
                     label: 'Total Cost (RM)',
                     data: <?php echo json_encode($totalCosts); ?>,
-                    borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
                     fill: false
                 }
@@ -164,7 +159,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Posting Date' // Change the x-axis label
+                        text: 'Posting Date' 
                     }
                 },
                 y: {
