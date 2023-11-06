@@ -41,7 +41,6 @@ if (isset($_GET['bookingNumber'])) {
         $returnlocation = $row['ReturnLocation'];
         $message = $row['message'];
 
-        // Set the bookingNumber in the session
         $_SESSION['bookingNumber'] = $bookingNumber;
     } else {
         echo "Booking not found.";
@@ -104,7 +103,7 @@ if (isset($_GET['bookingNumber'])) {
 
 <section class="about_us section-padding">
     <div class="container">
-        <table border="1">
+    <table class="table table-bordered">
             <tr>
                 <td>Booking Number:</td>
                 <td><?php echo $bookingNumber; ?></td>
@@ -142,17 +141,17 @@ if (isset($_GET['bookingNumber'])) {
                 <td><?php echo date("h:i A", strtotime($returntime)); ?></td>
             </tr>
             <tr>
-    <td>License:</td>
-    <td>
-        <?php
-        if (file_exists($license)) {
-            echo '<a href="' . $license . '" target="_blank">View License</a>';
-        } else {
-            echo 'License image not found';
-        }
-        ?>
-    </td>
-</tr>
+                <td>License:</td>
+            <td>
+                <?php
+                if (file_exists($license)) {
+                    echo '<a href="' . $license . '" target="_blank">View License</a>';
+                } else {
+                    echo 'License image not found';
+                }
+                ?>
+            </td>
+            </tr>
             <tr>
                 <td>Pickup Location:</td>
                 <td><?php echo $pickuplocation; ?></td>
