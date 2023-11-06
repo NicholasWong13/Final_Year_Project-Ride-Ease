@@ -5,7 +5,6 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    // Fetch user data for the chart
     $userData = array();
     $sql = "SELECT RegDate, COUNT(*) AS UserCount FROM users GROUP BY RegDate";
     $query = $dbh->prepare($sql);
@@ -17,10 +16,8 @@ if (strlen($_SESSION['alogin']) == 0) {
         $userData['data'][] = (int) $row['UserCount'];
     }
     
-    // Calculate the total number of users
     $totalUsers = array_sum($userData['data']);
 
-     // Fetch booking data by month
      $bookingsData = array();
      $sqlBookings = "SELECT MONTH(FromDate) AS Month, COUNT(*) AS BookingCount FROM booking GROUP BY MONTH(FromDate)";
      $queryBookings = $dbh->prepare($sqlBookings);
@@ -32,7 +29,6 @@ if (strlen($_SESSION['alogin']) == 0) {
          $bookingsData['data'][] = (int) $row['BookingCount'];
      }
 
-    // Calculate the total number of bookings
     $totalBookings = array_sum($bookingsData['data']);
 ?>
 
@@ -110,13 +106,12 @@ if (strlen($_SESSION['alogin']) == 0) {
     </main>
 
     <script>
-// Chart for Users
-var userData = <?php echo json_encode($userData); ?>;
-var ctxUser = document.getElementById("usersChart").getContext('2d');
-var userChart = new Chart(ctxUser, {
+    var userData = <?php echo json_encode($userData); ?>;
+    var ctxUser = document.getElementById("usersChart").getContext('2d');
+    var userChart = new Chart(ctxUser, {
     type: 'bar',
     data: {
-        labels: userData.labels, // These labels should already be month names
+        labels: userData.labels, 
         datasets: [
             {
                 label: 'Number of Users',
@@ -129,9 +124,9 @@ var userChart = new Chart(ctxUser, {
     options: {
         scales: {
             y: {
-                beginAtZero: false, // Exclude 0 from the y-axis
-                stepSize: 1, // Set the stepSize to 1 to display only whole numbers
-                min: 0, // Start from the minimum value (1)
+                beginAtZero: false, 
+                stepSize: 1, 
+                min: 0, 
                 title: {
                     display: true,
                     text: 'Number of Users'
@@ -147,13 +142,12 @@ var userChart = new Chart(ctxUser, {
     }
 });
 
-// Chart for Bookings
-var bookingsData = <?php echo json_encode($bookingsData); ?>;
-var ctxBookings = document.getElementById('bookingsChart').getContext('2d');
-var bookingsChart = new Chart(ctxBookings, {
+    var bookingsData = <?php echo json_encode($bookingsData); ?>;
+    var ctxBookings = document.getElementById('bookingsChart').getContext('2d');
+    var bookingsChart = new Chart(ctxBookings, {
     type: 'bar',
     data: {
-        labels: bookingsData.labels, // These labels should already be month names
+        labels: bookingsData.labels,
         datasets: [
             {
                 label: 'Number of Bookings',
@@ -166,9 +160,9 @@ var bookingsChart = new Chart(ctxBookings, {
     options: {
         scales: {
             y: {
-                beginAtZero: false, // Exclude 0 from the y-axis
-                stepSize: 1, // Set the stepSize to 1 to display only whole numbers
-                min: 0, // Start from the minimum value (1)
+                beginAtZero: false, 
+                stepSize: 1, 
+                min: 0, 
                 title: {
                     display: true,
                     text: 'Number of Bookings'
