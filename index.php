@@ -63,26 +63,6 @@
         <form action="search-carresult.php" method="post">
           <div class="form-group col-md-4 col-sm-8">
             <div class="select">
-              <select class="form-control" name="location">
-                <option>Select Location</option>
-                <?php
-                $sql = "SELECT * from location";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                if ($query->rowCount() > 0) {
-                  foreach ($results as $result) {
-                ?>
-                    <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->LocationName); ?></option>
-                <?php
-                  }
-                }
-                ?>
-              </select>
-            </div>
-          </div>
-          <div class="form-group col-md-4 col-sm-8">
-            <div class="select">
               <select class="form-control" name="brand">
                 <option>Select Brand</option>
                 <?php
@@ -101,7 +81,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group col-md-3 col-sm-6">
+          <div class="form-group col-md-4 col-sm-8">
             <div class="form-group select">
               <select class="form-control" name="fueltype">
                 <option>Select Fuel Type</option>
@@ -112,12 +92,6 @@
               </select>
             </div>
           </div>
-
-          <div class="form-group col-md-6 col-sm-6">
-            <label class="form-label">Price Range (RM)</label>
-            <input id="price_range" type="text" class="span2" name="price_range" value="" data-slider-min="50" data-slider-max="6000" data-slider-step="5" data-slider-value="[1000,5000]" />
-          </div>
-
           <div class="form-group col-md-3 col-sm-6">
             <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car</button>
           </div>
