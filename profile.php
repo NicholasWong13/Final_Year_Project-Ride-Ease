@@ -19,30 +19,31 @@ if (isset($_POST['updateprofile'])) {
     $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
     $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
     $email = $_SESSION['login'];
-
-    $identification_image = ''; 
+  
+    $image = ''; 
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'document/'; 
-        $tempName = $_FILES['image']['tmp_name'];
-        $originalName = $_FILES['image']['name'];
-        $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
-    
-        $uniqueFilename = uniqid() . '.' . $fileExtension;
-        $imagePath = $uploadDir . $uniqueFilename;
-    
-        if (move_uploaded_file($tempName, $imagePath)) {
-        } else {
-            $msg = "Image upload failed.";
-        }
+        $uploadDirectory = 'document/';
+        $imageTempFile = $_FILES['image']['tmp_name'];
+        $imageFileName = $_FILES['image']['name'];
+        $imageFileLocation = $uploadDirectory . $imageFileName;
+
+        // Add this line after move_uploaded_file
+if (move_uploaded_file($imageTempFile, $imageFileLocation)) {
+  $image = $imageFileLocation;  // Update the $image variable
+} else {
+  echo "<script>alert('File upload failed. Please try again.');</script>";
+  echo "Error: " . $_FILES['image']['error']; // Add this line to display the error code
+}
+
     }
-    
-    $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :imagePath, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
+
+    $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :image, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
     $query = $dbh->prepare($sql);
     $query->bindParam(':name', $name, PDO::PARAM_STR);
     $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
     $query->bindParam(':icpno', $icpno, PDO::PARAM_STR);
-    $query->bindParam(':imagePath', $imagePath, PDO::PARAM_STR);
+    $query->bindParam(':image', $image, PDO::PARAM_STR);
     $query->bindParam(':dob', $dob, PDO::PARAM_STR);
     $query->bindParam(':address', $address, PDO::PARAM_STR);
     $query->bindParam(':city', $city, PDO::PARAM_STR);
@@ -199,7 +200,7 @@ foreach($results as $result)
             </div>
             <div class="form-group">
                 <label class="control-label">Identification / Passport Image</label>
-                <input type="file" class="form-control-file" name="identification_image" accept=".pdf, .jpg, .jpeg, .png" />
+                <input type="file" class="form-control-file" name="image" accept=".pdf, .jpg, .jpeg, .png" />
                 <small class="form-text text-muted">Upload an image of your identification or passport.</small>
             </div>
             <div class="form-group">

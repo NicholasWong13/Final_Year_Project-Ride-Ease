@@ -100,26 +100,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Vehicle Analytics</div>
-                            <div class="panel-body">
-                                <canvas id="usersChart" width="400" height="200"></canvas>
-                                <p style="color: blue">Total Users: <span style="color: red;"><?php echo $totalUsers; ?></span></p> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Bookings Analytics</div>
-                            <div class="panel-body">
-                                <canvas id="bookingsChart" width="400" height="200"></canvas>
-                                <p style="color: blue">Total Bookings: <span style="color: red;"><?php echo $totalBookings; ?></span></p> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
         </div>
 

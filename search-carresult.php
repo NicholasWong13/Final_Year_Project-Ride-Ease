@@ -54,11 +54,11 @@ error_reporting(0);
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1>Search Car Result</h1>
+        <h1>Search Vehicle Result</h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="index.php">Home</a></li>
-        <li>Search Car Result</li>
+        <li>Search Vehicle Result</li>
       </ul>
     </div>
   </div>

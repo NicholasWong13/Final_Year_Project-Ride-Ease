@@ -98,10 +98,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <th>Price/Day (RM)</th>
                                                         <th>From Date</th>
                                                         <th>Return Date</th>
-                                                        <th>Driver License</th>
-                                                        <th>Status</th>
                                                         <th>Total Days</th>
                                                         <th>Total Cost (RM)</th>
+                                                        <th>Driver License</th>
+                                                        <th>Status</th>
                                                         <th>Posting date</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -117,10 +117,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <th>Price/Day (RM)</th>
                                                         <th>From Date</th>
                                                         <th>Return Date</th>
-                                                        <th>Driver License</th>
-                                                        <th>Status</th>
                                                         <th>Total Days</th>
                                                         <th>Total Cost (RM)</th>
+                                                        <th>Driver License</th>
+                                                        <th>Status</th>
                                                         <th>Posting date</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -154,6 +154,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 <td><?php echo htmlentities($result->PricePerDay); ?></td>
                                                                 <td><?php echo htmlentities($result->FromDate); ?></td>
                                                                 <td><?php echo htmlentities($result->ReturnDate); ?></td>
+                                                                <td><?php echo htmlentities($totalDays); ?></td>
+                                                                <td><?php echo htmlentities($totalCost); ?></td>
                                                                 <?php echo '<td><a href="view-upload.php?path=' . htmlentities($result->License) . '" target="_blank">View License</a></td>';?>
                                                                 <td><?php
                                                                     if ($result->Status == 0) {
@@ -164,8 +166,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                         echo htmlentities('Cancelled');
                                                                     }
                                                                     ?></td>
-                                                                <td><?php echo htmlentities($totalDays); ?></td>
-                                                                <td><?php echo htmlentities($totalCost); ?></td>
                                                                 <td><?php echo htmlentities($result->PostingDate); ?></td>
                                                                 <td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id); ?>"
                                                                        onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
