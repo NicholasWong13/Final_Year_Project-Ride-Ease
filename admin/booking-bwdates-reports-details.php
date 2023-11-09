@@ -144,14 +144,19 @@ if (strlen($_SESSION['alogin']) == 0) {
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: <?php echo json_encode($dateLabels); ?>,
+            labels: <?php echo json_encode(array_map(function($result) {
+                return $result->BrandName . ' ' . $result->VehiclesTitle . ' - ' . date('Y-m-d', strtotime($result->PostingDate));
+            }, $results)); ?>,
             datasets: [
                 {
                     label: 'Total Revenue (RM)',
                     data: <?php echo json_encode($totalCosts); ?>,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
-                    fill: false
+                    fill: false,
+                    backgroundColor: <?php echo json_encode(array_map(function() {
+                        return 'rgba(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ', 0.2)';
+                    }, $results)); ?>
                 }
             ]
         },
@@ -160,7 +165,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Posting Date'
+                        text: 'Vehicle and Posting Date'
                     }
                 },
                 y: {
@@ -184,6 +189,10 @@ if (strlen($_SESSION['alogin']) == 0) {
         }
     });
 </script>
+
+
+
+
 
     <!-- build:js assets/js/core.min.js -->
     <script src="libs/bower/jquery/dist/jquery.js"></script>
