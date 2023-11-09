@@ -105,7 +105,6 @@
           <ul class="submenu">
             <li><a href="post-avehicle.php"><span class="menu-text">Post a Vehicle</span></a></li>
             <li><a href="manage-vehicles.php"><span class="menu-text">Manage Vehicles</span></a></li>
-            <li><a href="vehicles-inspection.php"><span class="menu-text">Vehicles Inspection</span></a></li>
           </ul>
         </li>
 

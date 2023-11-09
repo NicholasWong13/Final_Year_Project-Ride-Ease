@@ -122,7 +122,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <td><?php echo htmlentities($result->Country); ?></td>
 												<td>
                                                 <?php if (!empty($result->Image)) { ?>
-                                                    <img src="<?php echo $result->Image; ?>" alt="User Image" width="100">
+                                                    <img src="<?php echo $result->Image; ?>" alt="Image" width="100">
                                                 <?php } else { ?>
                                                     No Image
                                                 <?php } ?>

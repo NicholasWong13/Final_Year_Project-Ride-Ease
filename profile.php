@@ -10,7 +10,6 @@ if (empty($_SESSION['login'])) {
 $msg = "";
 
 if (isset($_POST['updateprofile'])) {
-    // Sanitize and validate user inputs
     $name = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_STRING);
     $mobile = filter_input(INPUT_POST, 'mobilenumber', FILTER_SANITIZE_STRING);
     $icpno = filter_input(INPUT_POST, 'icpno', FILTER_SANITIZE_STRING);
@@ -21,27 +20,23 @@ if (isset($_POST['updateprofile'])) {
     $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
     $email = $_SESSION['login'];
 
-    $imagePath = ''; // Initialize the image path
+    $identification_image = ''; 
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'document/'; // Specify the directory where you want to store uploaded images
+        $uploadDir = 'document/'; 
         $tempName = $_FILES['image']['tmp_name'];
         $originalName = $_FILES['image']['name'];
         $fileExtension = pathinfo($originalName, PATHINFO_EXTENSION);
     
-        // Generate a unique filename to avoid overwriting existing images
         $uniqueFilename = uniqid() . '.' . $fileExtension;
         $imagePath = $uploadDir . $uniqueFilename;
     
-        // Move the uploaded image to the specified directory
         if (move_uploaded_file($tempName, $imagePath)) {
-            // Image uploaded successfully
         } else {
             $msg = "Image upload failed.";
         }
     }
     
-    // Update the user's profile
     $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :imagePath, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
     $query = $dbh->prepare($sql);
     $query->bindParam(':name', $name, PDO::PARAM_STR);
@@ -203,10 +198,10 @@ foreach($results as $result)
               <input class="form-control white_bg" name="icpno" value="<?php echo htmlentities($result->icpno);?>" id="icpno" type="text" required>
             </div>
             <div class="form-group">
-        <label class="control-label">Identification / Passport Image</label>
-        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
-        <small class="form-text text-muted">Upload an image of your identification or passport.</small>
-    </div>
+                <label class="control-label">Identification / Passport Image</label>
+                <input type="file" class="form-control-file" name="identification_image" accept=".pdf, .jpg, .jpeg, .png" />
+                <small class="form-text text-muted">Upload an image of your identification or passport.</small>
+            </div>
             <div class="form-group">
               <label class="control-label">Date of Birth&nbsp;(dd/mm/yyyy)</label>
               <input class="form-control white_bg" value="<?php echo htmlentities($result->dob);?>" name="dob" placeholder="dd/mm/yyyy" id="birth-date" type="date">

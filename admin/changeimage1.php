@@ -12,7 +12,7 @@ if(isset($_POST['update']))
 {
 $vimage1=$_FILES["img1"]["name"];
 $id=intval($_GET['imgid']);
-move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
+move_uploaded_file($_FILES["img1"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img1"]["name"]);
 $sql="update vehicles set Vimage1=:vimage1 where id=:id";
 $query = $dbh->prepare($sql);
 $query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
@@ -93,7 +93,7 @@ foreach($results as $result)
 {	?>
 
 <div class="col-sm-8">
-<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" width="300" height="200" style="border:solid 1px #000">
+<img src="../assets/images/vehicle-images/<?php echo htmlentities($result->Vimage1);?>" width="300" height="200" style="border:solid 1px #000">
 </div>
 <?php }}?>
 </div>

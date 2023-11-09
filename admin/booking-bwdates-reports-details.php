@@ -120,9 +120,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         } ?>
                                         </tbody>
                                     </table>
-                                    <br/><div>Total Amount Earned: <span style="color: red;">RM <?php echo number_format($totalAmountEarned, 2); ?></span></div>
+                                    <br/><div>Total Revenue Earned: <span style="color: red;">RM <?php echo number_format($totalAmountEarned, 2); ?></span></div>
                                     <div class="col-md-12">
-                                    <canvas id="totalCostChart" width="400" height="200"></canvas>
+                                    <canvas id="totalRevenueChart" width="400" height="200"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -135,18 +135,19 @@ if (strlen($_SESSION['alogin']) == 0) {
         <?php include_once('includes/footer.php'); ?>
     </main>
     <?php include_once('includes/customizer.php'); ?>
+    
     <script>
     var fdate = new Date("<?php echo $fdate; ?>");
     var tdate = new Date("<?php echo $tdate; ?>");
 
-    var ctx = document.getElementById("totalCostChart").getContext('2d');
+    var ctx = document.getElementById("totalRevenueChart").getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'line', 
+        type: 'line',
         data: {
-            labels: <?php echo json_encode($dateLabels); ?>, 
+            labels: <?php echo json_encode($dateLabels); ?>,
             datasets: [
                 {
-                    label: 'Total Cost (RM)',
+                    label: 'Total Revenue (RM)',
                     data: <?php echo json_encode($totalCosts); ?>,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
@@ -159,14 +160,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Posting Date' 
+                        text: 'Posting Date'
                     }
                 },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Total Cost (RM)'
+                        text: 'Total Revenue (RM)'
                     }
                 },
             },
@@ -176,13 +177,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                 },
                 title: {
                     display: true,
-                    text: 'Total Cost from ' + fdate.toDateString() + ' to ' + tdate.toDateString(),
+                    text: 'Total Revenue from ' + fdate.toDateString() + ' to ' + tdate.toDateString(),
                     position: 'top'
                 }
             }
         }
     });
 </script>
+
     <!-- build:js assets/js/core.min.js -->
     <script src="libs/bower/jquery/dist/jquery.js"></script>
     <script src="libs/bower/jquery-ui/jquery-ui.min.js"></script>
