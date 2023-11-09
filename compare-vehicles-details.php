@@ -88,10 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['compare_vehicles'])) 
             if (isset($comparisonData)) {
                 echo '<h4>Comparison Results:</h4>';
                 echo '<div class="compare_product_img">';
-                echo '<ul>';
+                echo '<ul style="list-style-type: none; padding: 0; margin: 0; text-align: center;">';
 
                 foreach ($comparisonData as $vehicle) {
-                    echo '<li><a href="#"><img src="assets/images/vehicle-images/' . htmlentities($vehicle['Vimage1']) . '" alt="' . htmlentities($vehicle['VehiclesTitle']) . '"></a></li>';
+                    echo '<li style="display: inline-block; margin-right: 20px;">';
+                    echo '<img style="width: 300px; border: 2px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" src="assets/images/vehicle-images/' . htmlentities($vehicle['Vimage1']) . '" alt="' . htmlentities($vehicle['VehiclesTitle']) . '"><br/></br>';
+                    echo '</li>';
                 }
 
                 echo '</ul>';
@@ -100,10 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['compare_vehicles'])) 
                 echo '<form method="post">';
                 echo '<table>';
                 echo '<tr>';
+                echo '<br/>';
                 echo '<th>Brand</th>';
                 echo '<th>Vehicle Name</th>';
-                echo '<th>Price</th>';
+                echo '<th>Price/Day</th>';
                 echo '<th>Seating Capacity</th>';
+                echo '<th>Fuel Type</th>';
+                echo '<th>Reg.Year</th>';
                 echo '</tr>';
 
                 foreach ($comparisonData as $vehicle) {
@@ -112,18 +117,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['compare_vehicles'])) 
                     echo '<td>' . htmlentities($vehicle['VehiclesTitle']) . '</td>';
                     echo '<td>RM ' . htmlentities($vehicle['PricePerDay']) . '</td>';
                     echo '<td>' . htmlentities($vehicle['SeatingCapacity']) . '</td>';
+                    echo '<td>' . htmlentities($vehicle['FuelType']) . '</td>';
+                    echo '<td>' . htmlentities($vehicle['ModelYear']) . '</td>';
                     echo '</tr>';
                 }
 
                 echo '</table>';
-                echo '<button type="submit" name="compare_vehicles" class="btn">Compare Again</button>';
+                echo '<center><button type="submit" name="compare_vehicles" class="btn">Compare Again</button></center>';
                 echo '</form>';
             }
             ?>
         </div>
     </div>
 </section>
-
 
 
 <?php include('includes/footer.php'); ?>

@@ -261,42 +261,21 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 <div class="form-group">
-   <label class="control-label">Pick Up Location</label>
-   <select name="pickuplocation" class="form-control" id="pickuplocation">
-      <option value="">Pick Up Location</option>
-      <?php
-      // Loop through the locations based on LocationID
-      foreach ($locations as $location) {
-         $locationID = $location['LocationID'];
-         $locationName = htmlentities($location['LocationName']);
-         $selected = ($_POST['pickuplocation'] == $locationID) ? 'selected' : '';
-
-         echo "<option value='$locationID' $selected>$locationName</option>";
-      }
-      ?>
-   </select>
+    <label for="pickuplocation">Pick Up Location</label>
+    <input type="text" class="form-control" id="pickuplocation" name="pickuplocation" value="<?php echo htmlentities($result->Location); ?>" />
 </div>
 
-    <div class="form-group">
-    <label class="control-label">Return Location</label>
-    <select name="returnlocation" class="form-control" id="returnlocation">
-    <option value="">Return Location</option>
-    <?php
-    $sql="SELECT * FROM location";
-    $stmt=$dbh->query($sql);
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    while($row =$stmt->fetch()) { 
-      ?>
-    <option value="<?php echo $row['ID'];?>"><?php echo $row['LocationName'];?></option>
-    <?php }?>
-    </select>
-    </div>
+<div class="form-group">
+    <label for="returnlocation">Return Location</label>
+    <input type="text" class="form-control" id="returnlocation" name="returnlocation" value="<?php echo htmlentities($result->Location); ?>" />
+</div>
+
           <div class="form-group">
           <label class="control-label">Driver License</label>
           <input type="file" id="license" name="license" accept="image/*"/>
           </div>
           <div class="form-group">
-            <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>
+            <textarea rows="4" class="form-control" name="message" placeholder="Message"></textarea>
           </div>
           <div class="form-group">
           <input type="submit" class="btn" name="submit" value="Book Now">

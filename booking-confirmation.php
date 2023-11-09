@@ -40,7 +40,7 @@ if (isset($_GET['bookingNumber'])) {
         $pickuplocation = $row['PickupLocation'];
         $returnlocation = $row['ReturnLocation'];
         $message = $row['message'];
-
+        
         $_SESSION['bookingNumber'] = $bookingNumber;
     } else {
         echo "Booking not found.";
