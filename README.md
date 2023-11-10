@@ -4,6 +4,12 @@
 <h1 align="center">Ride Ease</h1>
 
 ## About The Project
+<p>The project is focused on developing a car rental web-based system named as Ride Ease. </p>
+<p>This project specializes in renting cars to customers. It is an online system 
+through which customers can view available cars, register, view profiles and book 
+cars. </p>
+<p>The website itself would be designed with a user-friendly interface, making it 
+easy for customers to search for and book their desired rental vehicles.</p>
 
 
 ## Programming Languages 

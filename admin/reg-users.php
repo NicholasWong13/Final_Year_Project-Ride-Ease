@@ -101,7 +101,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     </tfoot>
                                     <tbody>
                                     <?php
-                                    $sql = "SELECT *, Image FROM users";
+                                    $sql = "SELECT * FROM users";
                                     $query = $dbh->prepare($sql);
                                     $query->execute();
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
