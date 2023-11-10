@@ -262,12 +262,12 @@ if (isset($_POST['submit'])) {
 </div>
 <div class="form-group">
     <label for="pickuplocation">Pick Up Location</label>
-    <input type="text" class="form-control" id="pickuplocation" name="pickuplocation" value="<?php echo htmlentities($result->Location); ?>" />
+    <input type="text" class="form-control" id="pickuplocation" name="pickuplocation" placeholder="Pickup Location" value="<?php echo htmlentities($result->Location); ?>" />
 </div>
 
 <div class="form-group">
     <label for="returnlocation">Return Location</label>
-    <input type="text" class="form-control" id="returnlocation" name="returnlocation" value="<?php echo htmlentities($result->Location); ?>" />
+    <input type="text" class="form-control" id="returnlocation" name="returnlocation" placeholder="Return Location" value="<?php echo htmlentities($result->Location); ?>" />
 </div>
 
           <div class="form-group">

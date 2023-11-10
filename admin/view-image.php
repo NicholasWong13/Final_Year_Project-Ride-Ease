@@ -1,16 +1,15 @@
 <?php
-// Whitelist allowed image extensions to prevent arbitrary file execution
 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
 if (isset($_GET['path'])) {
     $image = $_GET['path'];
 
-    $imageDirectory = '../'; // You might want to adjust this to your actual directory
+    $imageDirectory = 'document/'; 
+    $image = basename($image);
 
-    // Ensure the image path is within the image directory
-    $fullPath = realpath($imageDirectory . $image);
+    $fullPath = $imageDirectory . $image;
 
-    if (strpos($fullPath, $imageDirectory) === 0 && file_exists($fullPath)) {
+    if (file_exists($fullPath) && is_readable($fullPath)) {
         $fileExtension = pathinfo($fullPath, PATHINFO_EXTENSION);
 
         if (in_array($fileExtension, $allowedExtensions)) {
@@ -19,7 +18,7 @@ if (isset($_GET['path'])) {
             if (strpos($contentType, 'image/') === 0) {
                 header('Content-Type: ' . $contentType);
                 readfile($fullPath);
-                exit; // Stop further execution after serving the file
+                exit;
             } else {
                 echo 'File type not supported.';
             }
@@ -33,5 +32,3 @@ if (isset($_GET['path'])) {
     echo 'Invalid request.';
 }
 ?>
-
-

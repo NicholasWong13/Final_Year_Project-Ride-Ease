@@ -34,7 +34,6 @@ if (empty($_SESSION['login'])) {
         }
     }
 
-    
 ?>
 
     <!DOCTYPE HTML>
@@ -45,7 +44,7 @@ if (empty($_SESSION['login'])) {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>Ride Ease | My Profile</title>
+    <title>Ride Ease | Identification / Passport Image</title>
     <!--Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <!--Custome Style -->
@@ -104,11 +103,11 @@ if (empty($_SESSION['login'])) {
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1>Your Profile</h1>
+        <h1>Identification / Passport Image</h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="index.php">Home</a></li>
-        <li>Profile</li>
+        <li>Identification / Passport Image</li>
       </ul>
     </div>
   </div>
@@ -153,12 +152,12 @@ foreach($results as $result)
           <h5 class="uppercase underline">Identification / Passport Image </h5>
           
            <form action="process-upload.php" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-              <label class="control-label">Identification / Passport Image</label>
-              <br/><input type="file" class="form-control-file" name="image" accept=".jpg, .jpeg, .png" style="display: none;" id="uploadInput" />
-              <a href="#" onclick="document.getElementById('uploadInput').click(); return false;">Click here to upload</a>
-              <br/><small class="form-text text-muted">Upload an image of your identification or passport.</small>
-          </div>
+           <div class="form-group">
+            <label class="control-label">Identification / Passport Image</label>
+            <label for="imageUpload" class="custom-upload-button">Click here to upload</label>
+            <input type="file" id="imageUpload" name="image" accept=".jpg, .jpeg, .png" style="display: none;">
+            <small class="form-text text-muted">Upload an image of your identification or passport.</small>
+            </div>
             <div class="form-group">
               <button type="submit" name="updateprofile" class="btn">Save Changes <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
             </div>
