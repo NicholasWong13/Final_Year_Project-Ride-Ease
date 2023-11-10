@@ -11,6 +11,7 @@ cars. </p>
 <p>The website itself would be designed with a user-friendly interface, making it 
 easy for customers to search for and book their desired rental vehicles.</p>
 
+<br/>
 
 ## Programming Languages 
 <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"/>
