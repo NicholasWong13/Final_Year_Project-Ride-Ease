@@ -71,24 +71,22 @@ $msg="Brand updted successfully";
 							<div class="col-md-10">
 									<div class="panel-body">
 										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+										<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
+										<?php } else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
-<?php	
-$id=$_GET['id'];
-$ret="select * from brands where id=:id";
-$query= $dbh -> prepare($ret);
-$query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query -> rowCount() > 0)
-{
-foreach($results as $result)
-{
-?>
+									<?php	
+									$id=$_GET['id'];
+									$ret="select * from brands where id=:id";
+									$query= $dbh -> prepare($ret);
+									$query->bindParam(':id',$id, PDO::PARAM_STR);
+									$query-> execute();
+									$results = $query -> fetchAll(PDO::FETCH_OBJ);
+									$cnt=1;
+									if($query -> rowCount() > 0)
+									{
+									foreach($results as $result)
+									{
+									?>
 
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Brand Name</label>
@@ -98,31 +96,23 @@ foreach($results as $result)
 											</div>
 											<div class="hr-dashed"></div>
 											
-										<?php }} ?>
-								
-											
+									<?php }} ?>
+				
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 								
 													<button class="btn btn-primary" name="submit" type="submit">Submit</button>
 												</div>
 											</div>
-
 										</form>
-
-									</div>
-								</div>
+                                </div>
 							</div>
-							
-						</div>
-						
-					</div>
-				</div>
-				
-			
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 	<?php include_once('includes/footer.php');?>
 </main>

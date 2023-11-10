@@ -3,46 +3,42 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-if(isset($_POST['submit']))
-  {
-$email=$_POST['email'];
-$mobile=$_POST['mobile'];
-$newpassword=md5($_POST['newpassword']);
-  $sql ="SELECT Email FROM tbldoctor WHERE Email=:email and MobileNumber=:mobile";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':mobile', $mobile, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
-{
-$con="update tbldoctor set Password=:newpassword where Email=:email and MobileNumber=:mobile";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':mobile', $mobile, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
-echo "<script>alert('Your Password succesfully changed');</script>";
+if(isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $newpassword = password_hash($_POST['newpassword'], PASSWORD_BCRYPT); // Use password_hash for secure hashing
+    
+    $sql = "SELECT Email FROM admin WHERE Email=:email AND MobileNumber=:mobile";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+    $query->execute();
+    
+    if($query->rowCount() > 0) {
+        $con = "UPDATE admin SET Password=:newpassword WHERE Email=:email AND MobileNumber=:mobile";
+        $chngpwd1 = $dbh->prepare($con);
+        $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
+        $chngpwd1->execute();
+        echo "<script>alert('Your Password successfully changed');</script>";
+    } else {
+        echo "<script>alert('Email id or Mobile no is invalid');</script>"; 
+    }
 }
-else {
-echo "<script>alert('Email id or Mobile no is invalid');</script>"; 
-}
-}
-
 ?>
   
 <script type="text/javascript">
-  function valid()
-  {
-  if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
-  {
-  alert("New Password and Confirm Password Field do not match  !!");
-  document.chngpwd.confirmpassword.focus();
-  return false;
-  }
-  return true;
+  function valid() {
+    if(document.chngpwd.newpassword.value != document.chngpwd.confirmpassword.value) {
+      alert("New Password and Confirm Password Field do not match  !!");
+      document.chngpwd.confirmpassword.focus();
+      return false;
+    }
+    return true;
   }
 </script>
+
 
 <div class="modal fade" id="forgotpassword">
   <div class="modal-dialog" role="document">

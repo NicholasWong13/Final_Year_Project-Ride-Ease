@@ -25,10 +25,9 @@ $msg="Image updated successfully";
 }
 ?>
 
-<!doctype html>
-<html lang="en" class="no-js">
-
-<head>
+<!DOCTYPE HTML>
+  <html lang="en">
+	<head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -62,81 +61,65 @@ $msg="Image updated successfully";
 <?php include_once('includes/sidebar.php');?>
 
 <main id="app-main" class="app-main">
-  <div class="wrap">
-	<section class="app-content">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="widget">
-					<header class="widget-header">
-						<h4 class="widget-title">Vehicle Image 5</h4>
-					</header>
-								<div class="panel panel-default">
-									<div class="panel-heading">Vehicle Image 5 Details</div>
-									<div class="panel-body">
-										<form method="post" class="form-horizontal" enctype="multipart/form-data">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+        <div class="wrap">
+            <section class="app-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="widget">
+                            <header class="widget-header">
+                                <h4 class="widget-title">Vehicle Image 5</h4>
+                            </header>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Vehicle Image 5 Details</div>
+                                <div class="panel-body">
+                                    <form method="post" class="form-horizontal" enctype="multipart/form-data">
+									<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
+									<?php } else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Current Image 5</label>
+												<?php 
+												$id=intval($_GET['imgid']);
+												$sql ="SELECT Vimage5 from vehicles where vehicles.id=:id";
+												$query = $dbh -> prepare($sql);
+												$query-> bindParam(':id', $id, PDO::PARAM_STR);
+												$query->execute();
+												$results=$query->fetchAll(PDO::FETCH_OBJ);
+												$cnt=1;
+												if($query->rowCount() > 0)
+												{
+												foreach($results as $result)
+												{	?>
 
-
-<div class="form-group">
-												<label class="col-sm-4 control-label">Current Image5</label>
-<?php 
-$id=intval($_GET['imgid']);
-$sql ="SELECT Vimage5 from vehicles where vehicles.id=:id";
-$query = $dbh -> prepare($sql);
-$query-> bindParam(':id', $id, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{	?>
-
-<div class="col-sm-8">
-<img src="../assets/images/vehicle-images/<?php echo htmlentities($result->Vimage5);?>" width="300" height="200" style="border:solid 1px #000">
-</div>
-<?php }}?>
-</div>
-
-											<div class="form-group">
-												<label class="col-sm-4 control-label">Upload New Image 5<span style="color:red">*</span></label>
-												<div class="col-sm-8">
-											<input type="file" name="img5" required>
-												</div>
-											</div>
-											<div class="hr-dashed"></div>
-											
-										
-								
+                                        	<div class="col-sm-8">
+											<img src="../assets/images/vehicle-images/<?php echo htmlentities($result->Vimage5);?>" width="300" height="200" style="border:solid 1px #000">
+										</div>
+											<?php }}?>
+										</div>
 											
 											<div class="form-group">
-												<div class="col-sm-8 col-sm-offset-4">
-								
-													<button class="btn btn-primary" name="update" type="submit">Update</button>
-												</div>
+                                            <label class="col-sm-4 control-label">Upload New Image 5<span style="color:red">*</span></label>
+											<div class="col-sm-8">
+												<input type="file" name="img3" required>
 											</div>
+                                        </div>
+                                        <div class="hr-dashed"></div>
 
-										</form>
-
-									</div>
-								</div>
+                                        <div class="form-group">
+                                            <div class="col-sm-8 col-sm-offset-4">
+                                                <button class="btn btn-primary" name="update" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
 							</div>
-							
-						</div>
-						
-					
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-					</div>
-				</div>
-				
-			
-			</div>
-		</div>
-	</div>
 
 	<?php include_once('includes/footer.php');?>
 </main>

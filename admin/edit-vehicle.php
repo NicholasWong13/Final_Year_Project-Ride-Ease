@@ -129,7 +129,6 @@ foreach($results as $result)
 <option value="<?php echo htmlentities($result->bid);?>"><?php echo htmlentities($bdname=$result->BrandName); ?> </option>
 <?php $ret="select id,BrandName from brands";
 $query= $dbh -> prepare($ret);
-//$query->bindParam(':id',$id, PDO::PARAM_STR);
 $query-> execute();
 $resultss = $query -> fetchAll(PDO::FETCH_OBJ);
 if($query -> rowCount() > 0)

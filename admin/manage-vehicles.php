@@ -83,12 +83,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 					</header>
 					<hr class="widget-separator">
 					<form method="GET" action="manage-vehicles.php">
-                                <div class="input-group col-md-12">
-                                    <input type="text" class="form-control" placeholder="Search here..." name="search"
-                                        required="required" value="<?php echo htmlentities($search); ?>" />
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control" placeholder="Search here..." name="search" required="required" value="<?php echo htmlentities($search); ?>" />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit"><span
-                                                class="glyphicon glyphicon-search"></span></button>
+                                        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                                     </span>
                                 </div>
                     </form>
@@ -97,7 +95,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="widget-body">
 						<div class="table-responsive">
 							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+							else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 								<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
 								<thead>
 										<tr>
@@ -125,16 +123,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</tr>
 									</tfoot>
 									<tbody>
-
-<?php $sql = "SELECT brands.BrandName,vehicles.VehiclesTitle,vehicles.RegNo,vehicles.PricePerDay,vehicles.FuelType,vehicles.ModelYear,vehicles.id from vehicles join brands on brands.id=vehicles.VehiclesBrand";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php 
+									$sql = "SELECT brands.BrandName,vehicles.VehiclesTitle,vehicles.RegNo,vehicles.PricePerDay,vehicles.FuelType,vehicles.ModelYear,vehicles.id from vehicles join brands on brands.id=vehicles.VehiclesBrand";
+									$query = $dbh -> prepare($sql);
+									$query->execute();
+									$results=$query->fetchAll(PDO::FETCH_OBJ);
+									$cnt=1;
+									if($query->rowCount() > 0)
+									{
+									foreach($results as $result)
+									{				
+									?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->BrandName);?></td>
@@ -143,27 +142,25 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->PricePerDay);?></td>
 											<td><?php echo htmlentities($result->FuelType);?></td>
 											<td><?php echo htmlentities($result->ModelYear);?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+											<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+												<a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										
 									</tbody>
 								</table>
 
-						
-
 							</div>
 						</div>
 
-					
-
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
+	<?php include_once('includes/footer.php'); ?>
+    </main>
+    <?php include_once('includes/customizer.php'); ?>
 
 	<!-- build:js assets/js/core.min.js -->
 	<script src="libs/bower/jquery/dist/jquery.js"></script>

@@ -6,7 +6,7 @@ if (isset($_GET['bid'])) {
     $bid = intval($_GET['bid']);
 
     // Fetch booking details based on $bid
-    $sql = "SELECT booking.*, users.FullName, brands.BrandName, vehicles.VehiclesTitle
+    $sql = "SELECT booking.*, users.FullName, vehicles.PricePerDay, brands.BrandName, vehicles.VehiclesTitle
             FROM booking
             JOIN vehicles ON vehicles.id = booking.VehicleId
             JOIN users ON users.EmailId = booking.userEmail
@@ -17,6 +17,15 @@ if (isset($_GET['bid'])) {
     $query->bindParam(':bid', $bid, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        $fromDate = new DateTime($result['FromDate']);
+        $returnDate = new DateTime($result['ReturnDate']);
+        $interval = $fromDate->diff($returnDate);
+        $totalDays = $interval->days;
+        $totalCost = $totalDays * $result['PricePerDay'];
+    }
+    
 }
 ?>
 
@@ -85,6 +94,18 @@ if (isset($_GET['bid'])) {
             <tr>
                 <th>Return Date:</th>
                 <td><?php echo htmlentities($result['ReturnDate']); ?></td>
+            </tr>
+            <tr>
+                <th>Price/Day:</th>
+                <td><?php echo htmlentities($result['PricePerDay']); ?></td>
+            </tr>
+            <tr>
+                <th>Total Days:</th>
+                <td><?php echo htmlentities($totalDays); ?></td>
+            </tr>
+            <tr>
+                <th>Total Cost:</th>
+                <td><?php echo htmlentities($totalCost); ?></td>
             </tr>
             <tr>
                 <th>Status:</th>

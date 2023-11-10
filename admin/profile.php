@@ -2,11 +2,6 @@
 session_start();
 include('includes/config.php');
 
-if (strlen($_SESSION['alogin']) == 0 || !isset($_SESSION['id'])) {
-    header('location: profile.php');
-    exit;
-}
-
 if (isset($_POST['submit'])) {
     $id = $_SESSION['id'];
     $name = $_POST['uname'];
@@ -73,18 +68,19 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
           </header>
           <hr class="widget-separator">
           <div class="widget-body">
-<?php
-$id=$_SESSION['id'];
-$sql="SELECT admin.* where admin.ID=:id";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':id',$id,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
+          <?php
+          $id=$_SESSION['id'];
+          $sql="SELECT admin * where admin.ID=:id";
+          $query = $dbh -> prepare($sql);
+          $query->bindParam(':id',$id,PDO::PARAM_STR);
+          $query->execute();
+          $results=$query->fetchAll(PDO::FETCH_OBJ);
+          $cnt=1;
+          if($query->rowCount() > 0)
+          {
+          foreach($results as $row)
+          {               
+          ?>
             <form class="form-horizontal" method="post">
               <div class="form-group">
                 <label for="exampleTextInput1" class="col-sm-3 control-label">Employee ID:</label>

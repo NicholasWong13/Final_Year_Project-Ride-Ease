@@ -34,11 +34,11 @@
 	$centrallocking=$_POST['centrallocking'];
 	$crashcensor=$_POST['crashcensor'];
 	$leatherseats=$_POST['leatherseats'];
-	move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicle-images/".$_FILES["img1"]["name"]);
-	move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicle-images/".$_FILES["img2"]["name"]);
-	move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicle-images/".$_FILES["img3"]["name"]);
-	move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicle-images/".$_FILES["img4"]["name"]);
-	move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicle-images/".$_FILES["img5"]["name"]);
+	move_uploaded_file($_FILES["img1"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img1"]["name"]);
+	move_uploaded_file($_FILES["img2"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img2"]["name"]);
+	move_uploaded_file($_FILES["img3"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img3"]["name"]);
+	move_uploaded_file($_FILES["img4"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img4"]["name"]);
+	move_uploaded_file($_FILES["img5"]["tmp_name"],"../assets/images/vehicle-images/".$_FILES["img5"]["name"]);
 
 	$sql="INSERT INTO vehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
 	$query = $dbh->prepare($sql);
@@ -136,7 +136,6 @@
                                                     <option value=""> Select </option>
                                                     <?php $ret="select id,BrandName from brands";
                                                     $query= $dbh -> prepare($ret);
-                                                    //$query->bindParam(':id',$id, PDO::PARAM_STR);
                                                     $query-> execute();
                                                     $results = $query -> fetchAll(PDO::FETCH_OBJ);
                                                     if($query -> rowCount() > 0)

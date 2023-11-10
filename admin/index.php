@@ -67,11 +67,6 @@ echo "<script type='text/javascript'> document.location = 'dashboard.php'; </scr
 	</form>
 	<hr />
 </div>
-
-<div class="simple-page-footer">
-	<p><a href="forgot-password.php">FORGOT YOUR PASSWORD ?</a></p>
-	
-</div>
 	</div>
 </body>
 </html>

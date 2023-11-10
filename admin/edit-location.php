@@ -74,60 +74,63 @@ $query->execute();
 					</header>
 						<div class="row">
 							<div class="col-md-10">
-									<div class="panel-body">
-										<form method="post" name="location" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+								<div class="panel-body">
+									<form method="post" name="location" class="form-horizontal" onSubmit="return valid();">
+  	        	  					<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
+									<?php } else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
-<?php 
-$id=$_GET['id'];
-$sql = "SELECT * from location where id='$id'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+								<?php 
+								$id=$_GET['id'];
+								$sql = "SELECT * from location where id='$id'";
+								$query = $dbh -> prepare($sql);
+								$query->execute();
+								$results=$query->fetchAll(PDO::FETCH_OBJ);
 
-foreach($results as $result)
-{				?>	
-						<div class="form-group">
+								foreach($results as $result)
+								{				
+								?>	
+								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Location Name</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" name="locationname" id="locationname" value="<?php echo htmlentities($result->LocationName);?>" required>
 									</div>
 								</div>
-<div class="form-group">
+									
+								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Address</label>
 									<div class="col-sm-8">
 										<textarea class="form-control" name="address" id="address" placeholder="Address" required rows="4"><?php echo htmlentities($result->Address);?></textarea>
 									</div>
 								</div>
 
-<div class="form-group">
+								<div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Contact Number</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" name="contactno" id="contactno" value="<?php echo htmlentities($result->ContactNumber);?>" required>
 									</div>
-								</div>				
-	
+								</div>	
 
 								<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-				<button type="submit" name="submit" class="btn-primary btn">Update</button>
-
-			</div>
-		</div>
-					</div>
-					
-					</form>
-<?php } ?>
-     
-      
-
-<?php include_once('includes/footer.php');?>
+									<div class="col-sm-8 col-sm-offset-2">
+										<button type="submit" name="submit" class="btn-primary btn">Update</button>
+									</div>
+								</div>
+							</div>
+							</form>
+								<?php } ?>
+                                </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+	<?php include_once('includes/footer.php');?>
 </main>
 
-<?php include_once('includes/customizer.php');?>
+	<?php include_once('includes/customizer.php');?>
 
 	
 	<!-- build:js assets/js/core.min.js -->

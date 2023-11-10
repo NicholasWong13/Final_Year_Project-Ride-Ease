@@ -92,15 +92,14 @@ $error="Something went wrong. Please try again";
 												</div>
 											</div>
 										</form>
-									</div>
-								</div>
+                                </div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 	<?php include_once('includes/footer.php');?>
 </main>

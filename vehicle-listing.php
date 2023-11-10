@@ -137,7 +137,7 @@ $results = $query->fetchAll(PDO::FETCH_OBJ);
                         <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your Car</h5>
                     </div>
                     <div class="sidebar_filter">
-                        <form action="search-carresult.php" method="post">
+                        <form action="search-vehicleresult.php" method="post">
                             <div class="form-group select">
                                 <select class="form-control" name="brand">
                                     <option>Select Brand</option>

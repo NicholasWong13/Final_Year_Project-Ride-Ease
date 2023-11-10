@@ -20,40 +20,56 @@ if (isset($_POST['updateprofile'])) {
     $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
     $email = $_SESSION['login'];
   
-    $image = ''; 
+    $image = '';
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $uploadDirectory = 'document/';
         $imageTempFile = $_FILES['image']['tmp_name'];
-        $imageFileName = $_FILES['image']['name'];
+        $imageFileName = basename($_FILES['image']['name']); // Ensure a unique file name
         $imageFileLocation = $uploadDirectory . $imageFileName;
 
-        // Add this line after move_uploaded_file
-if (move_uploaded_file($imageTempFile, $imageFileLocation)) {
-  $image = $imageFileLocation;  // Update the $image variable
-} else {
-  echo "<script>alert('File upload failed. Please try again.');</script>";
-  echo "Error: " . $_FILES['image']['error']; // Add this line to display the error code
-}
+        // Check file type and size
+        $allowedTypes = ['image/jpeg', 'image/png'];
+        $maxFileSize = 5242880; // 5 MB in bytes
 
+        if (in_array($_FILES['image']['type'], $allowedTypes) && $_FILES['image']['size'] <= $maxFileSize) {
+            if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true)) {
+                $msg = "Failed to create upload directory.";
+            } else {
+                if (move_uploaded_file($imageTempFile, $imageFileLocation)) {
+                    $image = $imageFileLocation;
+                } else {
+                    $msg = "File upload failed. Please try again.";
+                }
+            }
+        } else {
+            $msg = "Invalid file type or size. Please upload an image (JPEG/PNG) within 5MB.";
+        }
     }
 
-    $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :image, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':name', $name, PDO::PARAM_STR);
-    $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
-    $query->bindParam(':icpno', $icpno, PDO::PARAM_STR);
-    $query->bindParam(':image', $image, PDO::PARAM_STR);
-    $query->bindParam(':dob', $dob, PDO::PARAM_STR);
-    $query->bindParam(':address', $address, PDO::PARAM_STR);
-    $query->bindParam(':city', $city, PDO::PARAM_STR);
-    $query->bindParam(':state', $state, PDO::PARAM_STR);
-    $query->bindParam(':country', $country, PDO::PARAM_STR);
-    $query->bindParam(':email', $email, PDO::PARAM_STR);
-    $query->execute();
-    $msg = "Profile Updated Successfully";
+    if (empty($msg)) {
+        $sql = "UPDATE users SET FullName = :name, Mobile = :mobile, icpno = :icpno, Image = :image, dob = :dob, address = :address, city = :city, state = :state, country = :country WHERE EmailId = :email";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':name', $name, PDO::PARAM_STR);
+        $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+        $query->bindParam(':icpno', $icpno, PDO::PARAM_STR);
+        $query->bindParam(':image', $image, PDO::PARAM_STR);
+        $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+        $query->bindParam(':address', $address, PDO::PARAM_STR);
+        $query->bindParam(':city', $city, PDO::PARAM_STR);
+        $query->bindParam(':state', $state, PDO::PARAM_STR);
+        $query->bindParam(':country', $country, PDO::PARAM_STR);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
+
+        if ($query->execute()) {
+            $msg = "Profile Updated Successfully";
+        } else {
+            $msg = "Error updating profile. Please try again.";
+        }
+    }
 }
 ?>
+
 
     <!DOCTYPE HTML>
     <html lang="en">
@@ -167,7 +183,7 @@ foreach($results as $result)
           <h5 class="uppercase underline">General Settings</h5>
           <?php  
          if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-          <form  method="post">
+          <form method="post">
            <div class="form-group">
               <label class="control-label">Reg Date -</label>
              <?php echo htmlentities($result->RegDate);?>
@@ -199,11 +215,6 @@ foreach($results as $result)
               <input class="form-control white_bg" name="icpno" value="<?php echo htmlentities($result->icpno);?>" id="icpno" type="text" required>
             </div>
             <div class="form-group">
-                <label class="control-label">Identification / Passport Image</label>
-                <input type="file" class="form-control-file" name="image" accept=".pdf, .jpg, .jpeg, .png" />
-                <small class="form-text text-muted">Upload an image of your identification or passport.</small>
-            </div>
-            <div class="form-group">
               <label class="control-label">Date of Birth&nbsp;(dd/mm/yyyy)</label>
               <input class="form-control white_bg" value="<?php echo htmlentities($result->dob);?>" name="dob" placeholder="dd/mm/yyyy" id="birth-date" type="date">
             </div>
@@ -230,6 +241,16 @@ foreach($results as $result)
               <button type="submit" name="updateprofile" class="btn">Save Changes <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
             </div>
           </form>
+          
+          <form action="process-upload.php" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+              <label class="control-label">Identification / Passport Image</label>
+              <input type="file" class="form-control-file" name="image" accept=".jpg, .jpeg, .png" style="display: none;" id="uploadInput" />
+              <a href="#" onclick="document.getElementById('uploadInput').click(); return false;">Click here to upload</a>
+              <small class="form-text text-muted">Upload an image of your identification or passport.</small>
+          </div>
+          <button type="submit">Submit</button>
+      </form>
         </div>
       </div>
     </div>

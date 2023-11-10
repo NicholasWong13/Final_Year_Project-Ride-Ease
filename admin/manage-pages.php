@@ -82,7 +82,6 @@ $msg="Page data updated successfully";
 		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 	</script>
 	
-
 	</head>
 
 <body class="menubar-left menubar-unfold menubar-light theme-primary">

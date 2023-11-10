@@ -190,10 +190,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     });
 </script>
 
-
-
-
-
     <!-- build:js assets/js/core.min.js -->
     <script src="libs/bower/jquery/dist/jquery.js"></script>
     <script src="libs/bower/jquery-ui/jquery-ui.min.js"></script>

@@ -48,7 +48,7 @@
           <div class="banner_content">
             <h1>Find the right car for you.</h1>
             <p>We have more than a thousand cars for you to choose. </p>
-            <a href="car-listing.php" class="btn">Available Cars <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> </div>
+            <a href="vehicle-listing.php" class="btn">Available Cars <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> </div>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
     <div class="main_bg white-text">
       <h3>Find Your Dream Car</h3>
       <div class="row">
-        <form action="search-carresult.php" method="post">
+        <form action="search-vehicleresult.php" method="post">
           <div class="form-group col-md-4 col-sm-8">
             <div class="select">
               <select class="form-control" name="brand">

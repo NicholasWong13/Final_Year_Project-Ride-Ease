@@ -55,67 +55,75 @@ $query->execute();
 
 <?php include_once('includes/sidebar.php');?>
 
-<main id="app-main" class="app-main">
-  <div class="wrap">
-	<section class="app-content">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="widget">
-					<header class="widget-header">
-						<h4 class="widget-title">Manage Locations</h4>
-					</header>
-					<hr class="widget-separator">
-					<div class="widget-body">
-					<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-					else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
-								<thead>
+			<main id="app-main" class="app-main">
+			<div class="wrap">
+				<section class="app-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="widget">
+								<header class="widget-header">
+									<h4 class="widget-title">Manage Locations</h4>
+								</header>
+								<hr class="widget-separator">
+								<div class="widget-body">
+								<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+								else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover js-basic-example dataTable table-custom">
+											<thead>
 
-						<div class="panel panel-default">
-							<div class="panel-heading">Location Info</div>
-							<div class="panel-body">
-							<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-						  <thead>
-						  <tr>
-						  <th>#</th>
-							<th>Location Name</th>
-							<th>Address</th>
-							<th>Contact Number</th>
-							<th>Email</th>
-							<th>Updation Date</th>
-							<th>Action</th>
-						  </tr>
-						</thead>
-						<tbody>
-<?php $sql = "SELECT * from location";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>		
-						  <tr>
-							<td><?php echo htmlentities($cnt);?></td>
-							<td><?php echo htmlentities($result->LocationName);?></td>
-							<td><?php echo htmlentities($result->Address);?></td>
-							<td><?php echo htmlentities($result->ContactNumber);?></td>
-							<td><?php echo htmlentities($result->Email);?></td>
-							<td><?php echo htmlentities($result->UpdationDate);?></td>
-							<td><a href="edit-location.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-locations.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
-						  </tr>
-						 <?php $cnt=$cnt+1;} }?>
-						</tbody>
-					  </table>
-					</div>
-				  </table>
+									<div class="panel panel-default">
+										<div class="panel-heading">Location Info</div>
+										<div class="panel-body">
+										<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
+									<tr>
+									<th>#</th>
+										<th>Location Name</th>
+										<th>Address</th>
+										<th>Contact Number</th>
+										<th>Email</th>
+										<th>Updation Date</th>
+										<th>Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									<?php 
+									$sql = "SELECT * from location";
+									$query = $dbh -> prepare($sql);
+									$query->execute();
+									$results=$query->fetchAll(PDO::FETCH_OBJ);
+									$cnt=1;
+									if($query->rowCount() > 0)
+									{
+									foreach($results as $result)
+									{				
+									?>		
+									<tr>
+										<td><?php echo htmlentities($cnt);?></td>
+										<td><?php echo htmlentities($result->LocationName);?></td>
+										<td><?php echo htmlentities($result->Address);?></td>
+										<td><?php echo htmlentities($result->ContactNumber);?></td>
+										<td><?php echo htmlentities($result->Email);?></td>
+										<td><?php echo htmlentities($result->UpdationDate);?></td>
+										<td><a href="edit-location.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+											<a href="manage-locations.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+									</tr>
+									<?php $cnt=$cnt+1;} }?>
+									</tbody>
+										</table> 
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
-				
-			</div>
-			<?php include_once('includes/footer.php');?>
+	<?php include_once('includes/footer.php');?>
 </main>
 
 <?php include_once('includes/customizer.php');?>
