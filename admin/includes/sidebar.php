@@ -108,16 +108,11 @@
           </ul>
         </li>
 
-        <li class="has-submenu">
-          <a href="javascript:void(0)" class="submenu-toggle">
+        <li>
+          <a href="manage-bookings.php">
             <i class="menu-icon zmdi zmdi-pages zmdi-hc-lg"></i>
             <span class="menu-text">Booking</span>
-            <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
-          <ul class="submenu">
-            <li><a href="new-booking.php"><span class="menu-text">New Booking</span></a></li>
-            <li><a href="manage-bookings.php"><span class="menu-text">All Booking</span></a></li>
-          </ul>
         </li>
 
         <li>
@@ -169,12 +164,6 @@
           </a>
         </li>
 
-        <!--<li>
-          <a href="search.php">
-            <i class="menu-icon zmdi zmdi-search zmdi-hc-lg"></i>
-            <span class="menu-text">Search</span>
-          </a>
-        </li>-->
         <li>
           <a href="booking-bwdates.php">
             <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
